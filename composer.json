@@ -1,0 +1,11 @@
+{
+  "name": "karyakode/kodhe",
+  "description": "My Project using KaryaKode Framework",
+  "type": "project",
+  "license": "MIT",
+  "require": {
+      "karyakode/framework": "dev-master"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
