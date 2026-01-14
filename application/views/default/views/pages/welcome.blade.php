@@ -11,7 +11,7 @@
                     <p>{{ sprintf(lang('welcome_message'), $framework_name) }}</p>
                     <div class="file-path">{{ $file_path }}</div>
                     <p>{{ lang('welcome_edit_hint') }}</p>
-                    <a href="/user_guide" class="docs-link">
+                    <a href="{{ base_url('user_guide') }}" class="docs-link">
                         {{ lang('welcome_view_docs') }} →
                     </a>
                 </div>
@@ -46,9 +46,9 @@
             <div class="section">
                 <h2 class="section-title">{{ lang('welcome_quick_actions') }}</h2>
                 <div class="card" style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <a href="/user_guide" class="btn">{{ lang('welcome_documentation') }}</a>
-                    <a href="https://codeigniter.com" target="_blank" class="btn btn-outline">CodeIgniter.com</a>
-                    <a href="https://github.com/bcit-ci/CodeIgniter" target="_blank" class="btn btn-outline">GitHub</a>
+                    <a href="{{ base_url('user_guide') }}" class="btn">{{ lang('welcome_documentation') }}</a>
+                    <a href="https://kodhe.com" target="_blank" class="btn btn-outline">CodeIgniter.com</a>
+                    <a href="https://github.com/kodhe/kodhe" target="_blank" class="btn btn-outline">GitHub</a>
                 </div>
             </div>
         </div>

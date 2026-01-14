@@ -26,17 +26,18 @@ return [
     'cache_query_string' => FALSE,
     'encryption_key' => '',
     
-    'sess_driver' => 'database',
+    'sess_driver' => 'files',
     'sess_cookie_name' => 'ci_session',
     'sess_expiration' => 7200,
-    'sess_save_path' => 'ci_sessions',//STORAGEPATH.'sessions/',
+    'sess_save_path' => NULL,
     'sess_match_ip' => FALSE,
     'sess_time_to_update' => 300,
     'sess_regenerate_destroy' => FALSE,
     
+ 
     'cookie_prefix' => '',
     'cookie_domain' => '',
-    'cookie_path' => STORAGEPATH.'cookie/',
+    'cookie_path' => '/', 
     'cookie_secure' => FALSE,
     'cookie_httponly' => FALSE,
     

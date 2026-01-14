@@ -456,9 +456,9 @@
                     <div class="section">
                         <h2 class="section-title">{{ lang('welcome_quick_actions') }}</h2>
                         <div class="card" style="display: flex; gap: 10px; flex-wrap: wrap;">
-                            <a href="/user_guide" class="btn">{{ lang('welcome_documentation') }}</a>
-                            <a href="https://codeigniter.com" target="_blank" class="btn btn-outline">CodeIgniter.com</a>
-                            <a href="https://github.com/bcit-ci/CodeIgniter" target="_blank" class="btn btn-outline">GitHub</a>
+                            <a href="./user_guide" class="btn">{{ lang('welcome_documentation') }}</a>
+                            <a href="https://kodhe.com" target="_blank" class="btn btn-outline">CodeIgniter.com</a>
+                            <a href="https://github.com/kodhe/kodhe" target="_blank" class="btn btn-outline">GitHub</a>
                         </div>
                     </div>
                 </div>

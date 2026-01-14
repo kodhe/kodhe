@@ -426,8 +426,8 @@
         <div class="footer">
                 <p>© {{ $current_year }} {{ $framework_name }}. {{ lang('welcome_rights_reserved') }}</p>
                 <div class="footer-links">
-                    <a href="/user_guide">{{ lang('welcome_documentation') }}</a>
-                    <a href="https://github.com/bcit-ci/CodeIgniter">GitHub</a>
+                    <a href="{{ base_url('user_guide') }}">{{ lang('welcome_documentation') }}</a>
+                    <a href="https://github.com/kodhe/kodhe">GitHub</a>
                     <a href="/license">{{ lang('welcome_license') }}</a>
                     <a href="https://codeigniter.com/userguide3/changelog.html">{{ lang('welcome_changelog') }}</a>
                 </div>
