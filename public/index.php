@@ -6,7 +6,7 @@
 
  define('SELF', basename(__FILE__));
  define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
- define('SYSPATH', dirname(__DIR__) . DIRECTORY_SEPARATOR . 'vendor/karyakode/framework' . DIRECTORY_SEPARATOR);
+ define('SYSPATH', dirname(__DIR__) . DIRECTORY_SEPARATOR . 'vendor/kodhe/framework' . DIRECTORY_SEPARATOR);
 
 
 // Define the application path

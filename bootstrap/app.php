@@ -1,7 +1,7 @@
 <?php
 
     define('CI_VERSION', '3.2.0-dev');
-    define('BASEPATH', __DIR__ . DIRECTORY_SEPARATOR. '..'.DIRECTORY_SEPARATOR.'vendor/karyakode/framework'.DIRECTORY_SEPARATOR);
+    define('BASEPATH', SYSPATH);
 
 /*
  * ------------------------------------------------------

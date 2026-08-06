@@ -1,10 +1,26 @@
 {
-  "name": "karyakode/kodhe",
+  "name": "kodhe/kodhe",
   "description": "My Project using KaryaKode Framework",
   "type": "project",
   "license": "MIT",
-  "require": {
-      "karyakode/framework": "dev-master"
+  "repositories": [
+    {
+      "type": "path",
+      "url": "/var/www/html/karyakode/dev_framework/kodhe/test_pakage/packages/*",
+      "options": { "symlink": true }
+    }
+  ],
+    "require": {
+     "php": ">=7.2",
+    "eftec/bladeone": "^4.19",
+    "kodhe/framework": "^1.1",
+    "kodhe/http": "*",
+    "kodhe/routing": "*",
+    "kodhe/session": "*",
+    "kodhe/user-agent": "*",
+    "kodhe/view": "^1.1",
+    "kodhe/database": "^1.1",
+    "kodhe/legacy-loader": "^1.0"
   },
   "minimum-stability": "dev",
   "prefer-stable": true
