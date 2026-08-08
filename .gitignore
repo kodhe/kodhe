@@ -1,64 +1,20 @@
-# ========================
-# CACHE & COMPILED FILES
-# ========================
-**/cache/
-**/*.cache
-**/*.bladec
-**/*.blade.php.cache
-storage/cache/
-!storage/cache/.gitkeep
-storage/framework/cache/
-storage/framework/views/
-storage/framework/sessions/
+```
+# Dependencies
+vendor/
 
-# ========================
-# VENDOR & DEPENDENCIES
-# ========================
-/vendor/
-vendor/autoload.php
-/vendor/composer/
-/node_modules/
-/bower_components/
-composer.lock
-package-lock.json
-yarn.lock
-
-# ========================
-# ENVIRONMENT
-# ========================
-.env
-.env.*
-!.env.example
-.env.local
-
-# ========================
-# LOGS
-# ========================
+# Logs and temp files
 *.log
-logs/
-storage/logs/
+*.tmp
 
-# ========================
-# SYSTEM
-# ========================
-.DS_Store
-Thumbs.db
-.idea/
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
 .vscode/
-*.swp
-*.swo
-*~
+.idea/
 
-# ========================
-# TESTING
-# ========================
-/coverage/
+# Test specific
 .phpunit.result.cache
-
-# ========================
-# THEME CACHE (Khusus untuk framework Anda)
-# ========================
-storage/cache/themes/**/*.bladec
-storage/cache/themes/**/*.cache
-!storage/cache/themes/.gitkeep
-!storage/cache/themes/default/.gitkeep
+```

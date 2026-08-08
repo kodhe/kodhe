@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/8.5/phpunit.xsd"
+         colors="true"
+         verbose="true"
+         stopOnFailure="false">
+    <testsuites>
+        <testsuite name="Controller Tests">
+            <directory>./Controllers</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">../application/controllers</directory>
+            <directory suffix=".php">../application/models</directory>
+            <directory suffix=".php">../application/libraries</directory>
+            <directory suffix=".php">../application/helpers</directory>
+        </whitelist>
+    </filter>
+</phpunit>
