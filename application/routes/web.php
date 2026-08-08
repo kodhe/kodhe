@@ -1,6 +1,6 @@
 <?php
 
-use Kodhe\Framework\Routing\Route;
+use Kodhe\Framework\Http\Routing\Route;
 
 Route::get('/', 'App\Controllers\Welcome@index')->name('welcome');
 Route::group(['prefix' => 'welcome'], function() {
