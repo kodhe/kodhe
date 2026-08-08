@@ -1,5 +1,5 @@
 <?php
-
+use Kodhe\Framework\Http\Routing\Route;
 // Subdomain routing
 Route::domain('admin.example.com', function() {
     Route::get('/', 'Admin\DashboardController@index')
