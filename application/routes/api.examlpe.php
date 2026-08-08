@@ -1,6 +1,6 @@
 <?php
 
-use Kodhe\Framework\Routing\Route;
+use Kodhe\Framework\Http\Routing\Route;
 
 // ============================================
 // API VERSION 2 ROUTES ONLY
