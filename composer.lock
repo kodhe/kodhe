@@ -1,0 +1,316 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "7874fd4b1b6bf08a65b9ac0792740745",
+    "packages": [
+        {
+            "name": "eftec/bladeone",
+            "version": "4.19.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/EFTEC/BladeOne.git",
+                "reference": "a22f6471c01c26fea5f6a0d0aca9b5674fc999be"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/EFTEC/BladeOne/zipball/a22f6471c01c26fea5f6a0d0aca9b5674fc999be",
+                "reference": "a22f6471c01c26fea5f6a0d0aca9b5674fc999be",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5.23"
+            },
+            "suggest": {
+                "eftec/bladeonehtml": "Extension to create forms",
+                "ext-mbstring": "This extension is used if it's active"
+            },
+            "bin": [
+                "lib/bladeonecli"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "eftec\\bladeone\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jorge Patricio Castro Castillo",
+                    "email": "jcastro@eftec.cl"
+                }
+            ],
+            "description": "The standalone version Blade Template Engine from Laravel in a single php file",
+            "homepage": "https://github.com/EFTEC/BladeOne",
+            "keywords": [
+                "blade",
+                "php",
+                "template",
+                "templating",
+                "view"
+            ],
+            "support": {
+                "issues": "https://github.com/EFTEC/BladeOne/issues",
+                "source": "https://github.com/EFTEC/BladeOne/tree/4.19.1"
+            },
+            "time": "2025-09-03T20:50:39+00:00"
+        },
+        {
+            "name": "kodhe/auth",
+            "version": "dev-qwen-code-5027c8aa-f538-48bb-901c-67efb43e2c4a",
+            "dist": {
+                "type": "path",
+                "url": "../auth",
+                "reference": "a0735a723ebdf5454742d2ec0856871221184681"
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "suggest": {
+                "kodhe/socialite": "Enables SocialiteAuth: unified login via Google, GitHub, Facebook, GitLab, LinkedIn and Twitter"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Kodhe\\Framework\\Auth\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php",
+                    "src/SocialiteAuth.php"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Session-based authentication component for the Kodhe framework, with a native Socialite (OAuth) bridge for unified password + social login",
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
+            "name": "kodhe/database",
+            "version": "1.1.0",
+            "dist": {
+                "type": "path",
+                "url": "../database",
+                "reference": "05495511096534c3c9ee7181cc6bc995dbea5eb2"
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Kodhe\\Framework\\Database\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Kodhe Database - Query Builder, ORM & Drivers",
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
+            "name": "kodhe/framework",
+            "version": "dev-qwen-code-5027c8aa-f538-48bb-901c-67efb43e2c4a",
+            "dist": {
+                "type": "path",
+                "url": "..",
+                "reference": "bd0ebd4eb6540ab253dcb5d7fd7a82fc7d44e115"
+            },
+            "require": {
+                "eftec/bladeone": "^4.19",
+                "paragonie/random_compat": "^9.99",
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "1.6.*",
+                "phpunit/phpunit": "^9.0|^10.0"
+            },
+            "suggest": {
+                "ext-apc": "APC cache driver",
+                "ext-hash": "Required for encryption libraries",
+                "ext-memcached": "Memcached cache/session driver",
+                "ext-openssl": "Required for encryption libraries",
+                "ext-redis": "Redis cache/session driver",
+                "kodhe/socialite": "Native OAuth social login (Google, GitHub, Facebook, ...) unified with kodhe/auth via SocialiteAuth",
+                "paragonie/random_compat": "Provides better randomness in PHP 5.x"
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Kodhe\\Framework\\": "framework/src/",
+                    "Kodhe\\Framework\\Routing\\": "routing/src/",
+                    "Kodhe\\Framework\\Database\\": "database/src/",
+                    "Kodhe\\Framework\\Http\\": "http/src/",
+                    "Kodhe\\Framework\\Session\\": "session/src/",
+                    "Kodhe\\Framework\\Cache\\": "cache/src/",
+                    "Kodhe\\Framework\\Email\\": "email/src/",
+                    "Kodhe\\Framework\\Encryption\\": "encryption/src/",
+                    "Kodhe\\Framework\\Encrypt\\": "encrypt/src/",
+                    "Kodhe\\Framework\\Validation\\": "validation/src/",
+                    "Kodhe\\Framework\\Upload\\": "upload/src/",
+                    "Kodhe\\Framework\\Image\\": "image/src/",
+                    "Kodhe\\Framework\\Pagination\\": "pagination/src/",
+                    "Kodhe\\Framework\\Parser\\": "parser/",
+                    "Kodhe\\Framework\\Profiler\\": "profiler/src/",
+                    "Kodhe\\Framework\\Migration\\": "migration/src/",
+                    "Kodhe\\Framework\\Cart\\": "cart/src/",
+                    "Kodhe\\Framework\\Calendar\\": "calendar/src/",
+                    "Kodhe\\Framework\\Agent\\": "agent/src/",
+                    "Kodhe\\Framework\\Ftp\\": "ftp/src/",
+                    "Kodhe\\Framework\\Javascript\\": "javascript/src/",
+                    "Kodhe\\Framework\\Table\\": "table/src/",
+                    "Kodhe\\Framework\\Test\\": "test/src/",
+                    "Kodhe\\Framework\\Trackback\\": "trackback/src/",
+                    "Kodhe\\Framework\\Typography\\": "typography/src/",
+                    "Kodhe\\Framework\\Xmlrpc\\": "xmlrpc/src/",
+                    "Kodhe\\Framework\\Xmlrpcs\\": "xmlrpcs/src/",
+                    "Kodhe\\Framework\\Zip\\": "zip/src/",
+                    "Kodhe\\Framework\\Driver\\": "driver/src/",
+                    "Kodhe\\Framework\\View\\": "view/src/",
+                    "Kodhe\\Framework\\Auth\\": "auth/src/",
+                    "Kodhe\\Framework\\Socialite\\": "socialite/src/"
+                },
+                "classmap": [
+                    "auth/src"
+                ],
+                "files": [
+                    "framework/src/Support/app_path.php",
+                    "framework/src/Support/Legacy/common.php",
+                    "framework/src/Support/Helpers.php",
+                    "http/src/helpers/url.php",
+                    "http/src/helpers/routing.php",
+                    "session/src/helpers.php",
+                    "view/src/helpers/template.php",
+                    "view/src/helpers/template_asset.php",
+                    "validation/src/helpers/form.php",
+                    "auth/src/helpers.php",
+                    "socialite/src/helpers.php"
+                ]
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Kodhe\\Framework\\Tests\\": "framework/tests/",
+                    "Kodhe\\Framework\\Http\\Tests\\": "http/tests/",
+                    "Kodhe\\Framework\\Email\\Tests\\": "email/tests/",
+                    "Kodhe\\Framework\\Encryption\\Tests\\": "encryption/tests/",
+                    "Kodhe\\Framework\\Validation\\Tests\\": "validation/tests/",
+                    "Kodhe\\Framework\\Cache\\Tests\\": "cache/tests/",
+                    "Kodhe\\Framework\\Parser\\Tests\\": "parser/tests/",
+                    "Kodhe\\Framework\\Cart\\Tests\\": "cart/tests/",
+                    "Kodhe\\Framework\\Agent\\Tests\\": "agent/tests/"
+                }
+            },
+            "scripts": {
+                "test:coverage": [
+                    "@putenv XDEBUG_MODE=coverage",
+                    "phpunit --color=always --coverage-text --configuration tests/travis/sqlite.phpunit.xml"
+                ],
+                "test": [
+                    "phpunit --colors=always"
+                ],
+                "lint": [
+                    "find . -name '*.php' -not -path './vendor/*' -exec php -l {} \\;"
+                ],
+                "post-install-cmd": [
+                    "sed -i s/name{0}/name[0]/ vendor/mikey179/vfsstream/src/main/php/org/bovigo/vfs/vfsStream.php"
+                ],
+                "post-update-cmd": [
+                    "sed -i s/name{0}/name[0]/ vendor/mikey179/vfsstream/src/main/php/org/bovigo/vfs/vfsStream.php"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "The Kodhe framework",
+            "homepage": "https://github.com/kodhe/kodhe",
+            "support": {
+                "forum": "https://github.com/kodhe/kodhe/issues",
+                "wiki": "https://github.com/kodhe/kodhe/wiki",
+                "slack": "https://kodhechat.slack.com",
+                "source": "https://github.com/kodhe/kodhe"
+            },
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
+            "name": "paragonie/random_compat",
+            "version": "v9.99.100",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paragonie/random_compat.git",
+                "reference": "996434e5492cb4c3edcb9168db6fbb1359ef965a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/996434e5492cb4c3edcb9168db6fbb1359ef965a",
+                "reference": "996434e5492cb4c3edcb9168db6fbb1359ef965a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*|5.*",
+                "vimeo/psalm": "^1"
+            },
+            "suggest": {
+                "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paragon Initiative Enterprises",
+                    "email": "security@paragonie.com",
+                    "homepage": "https://paragonie.com"
+                }
+            ],
+            "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
+            "keywords": [
+                "csprng",
+                "polyfill",
+                "pseudorandom",
+                "random"
+            ],
+            "support": {
+                "email": "info@paragonie.com",
+                "issues": "https://github.com/paragonie/random_compat/issues",
+                "source": "https://github.com/paragonie/random_compat"
+            },
+            "time": "2020-10-15T08:29:30+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": {},
+    "prefer-stable": true,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=8.1",
+        "ext-mbstring": "*"
+    },
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
+}

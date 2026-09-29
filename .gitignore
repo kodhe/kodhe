@@ -1,0 +1,8 @@
+# Project secrets — never commit the real env file.
+.env
+.env.php
+*.env.local
+
+# Runtime artifacts
+storage/logs/*.log
+vendor/

@@ -1,0 +1,57 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * Kodhe Console — entry point CLI untuk project (setara "spark" di CodeIgniter 4)
+ *
+ * Usage:
+ *   php bin/console <command> [options] [arguments]
+ *
+ * Contoh:
+ *   php bin/console list
+ *   php bin/console migrate --status
+ *   php bin/console make:migration create_posts_table
+ */
+
+declare(strict_types=1);
+
+// Root project = folder tempat file ini berada (bin/..)
+$projectRoot = dirname(__DIR__) . DIRECTORY_SEPARATOR;
+
+// Beritahu command (mis. `migrate`) di mana root project berada, supaya
+// tidak perlu menebak dari CWD saat perintah dijalankan.
+putenv('KODHE_PROJECT_ROOT=' . $projectRoot);
+$_ENV['KODHE_PROJECT_ROOT']     = $projectRoot;
+$_SERVER['KODHE_PROJECT_ROOT']  = $projectRoot;
+
+if (!is_dir($projectRoot . 'vendor')) {
+    fwrite(STDERR, "Error: vendor/ tidak ditemukan. Jalankan 'composer install' dulu di {$projectRoot}\n");
+    exit(1);
+}
+
+require_once $projectRoot . 'vendor/autoload.php';
+
+// Konstanta path yang dibutuhkan framework & command (migrate, dsb.)
+defined('APPPATH')     || define('APPPATH', $projectRoot . 'application' . DIRECTORY_SEPARATOR);
+defined('VIEWPATH')    || define('VIEWPATH', APPPATH . 'views' . DIRECTORY_SEPARATOR);
+defined('STORAGEPATH') || define('STORAGEPATH', $projectRoot . 'storage' . DIRECTORY_SEPARATOR);
+defined('ENVIRONMENT') || define('ENVIRONMENT', getenv('CI_ENV') ?: 'production');
+
+use Kodhe\Framework\Console\Console;
+
+try {
+    $console = Console::getInstance();
+    $console->setName('Kodhe Console');
+    $console->setVersion('1.0.0');
+
+    exit($console->run());
+} catch (Throwable $e) {
+    fwrite(STDERR, "Fatal error: {$e->getMessage()}\n");
+    fwrite(STDERR, "in {$e->getFile()}:{$e->getLine()}\n");
+
+    if (getenv('APP_DEBUG') === 'true' || in_array('-v', $_SERVER['argv'] ?? [])) {
+        fwrite(STDERR, "\nStack trace:\n{$e->getTraceAsString()}\n");
+    }
+
+    exit(255);
+}
