@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kodhe Standard Application Components (Controllers, Models, Libraries, Views/Templates) &mdash; Kodhe Framework User Guide</title>
+<style>
+:root {
+  --primary: #e36c18;
+  --dark: #232525;
+  --sidebar-bg: #f7f7f7;
+  --border: #e1e4e5;
+  --text: #404040;
+  --link: #236fb0;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 0; color: var(--text);
+  font: 15px/1.6 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #fff;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+header#top {
+  background: var(--dark); color: #fff; padding: 12px 24px;
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+header#top .brand { font-size: 20px; font-weight: bold; color: #fff; }
+header#top .brand span { color: var(--primary); }
+header#top form { margin-left: auto; }
+header#top input[type=search] {
+  padding: 6px 10px; border-radius: 4px; border: 1px solid #555;
+  background: #333; color: #eee; width: 220px;
+}
+.layout { display: flex; min-height: calc(100vh - 120px); }
+nav.sidebar {
+  width: 300px; flex: 0 0 300px; background: var(--sidebar-bg);
+  border-right: 1px solid var(--border); padding: 18px 0 40px; overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: 13px; text-transform: uppercase; letter-spacing: .05em;
+  color: #888; margin: 18px 20px 6px;
+}
+nav.sidebar ul { list-style: none; margin: 0; padding: 0; }
+nav.sidebar li a {
+  display: block; padding: 4px 20px; color: #555; font-size: 14px;
+  border-left: 3px solid transparent;
+}
+nav.sidebar li a:hover { background: #ececec; text-decoration: none; }
+nav.sidebar li.active > a {
+  color: var(--primary); border-left-color: var(--primary);
+  background: #efefef; font-weight: 600;
+}
+main.content { flex: 1; padding: 28px 44px 60px; max-width: 950px; }
+main.content h1 { font-size: 32px; margin-top: 0; color: var(--dark); border-bottom: 2px solid var(--primary); padding-bottom: 8px; }
+main.content h2 { font-size: 24px; margin-top: 34px; color: var(--dark); }
+main.content h3 { font-size: 19px; margin-top: 26px; }
+main.content pre {
+  background: #f5f5f5; border: 1px solid var(--border); border-radius: 4px;
+  padding: 12px 14px; overflow-x: auto; font-size: 13px; line-height: 1.45;
+}
+main.content code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  background: #f5f5f5; padding: 1px 5px; border-radius: 3px; font-size: 90%;
+}
+main.content pre code { background: none; padding: 0; font-size: inherit; }
+main.content blockquote {
+  margin: 16px 0; padding: 10px 18px; background: #fdf3ea;
+  border-left: 4px solid var(--primary); color: #665; border-radius: 0 4px 4px 0;
+}
+main.content blockquote p { margin: 4px 0; }
+main.content table.table {
+  border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px;
+}
+main.content table th, main.content table td {
+  border: 1px solid var(--border); padding: 7px 11px; vertical-align: top;
+}
+main.content table thead th { background: #f2f2f2; }
+main.content table tr:nth-child(even) td { background: #fafafa; }
+main.content hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.toc-on-page { background: #fbfbfb; border: 1px solid var(--border); border-radius: 4px; padding: 10px 18px; margin: 0 0 22px; font-size: 14px; }
+.toc-on-page strong { color: var(--dark); }
+footer.page-footer {
+  border-top: 1px solid var(--border); margin-top: 40px; padding-top: 14px;
+  font-size: 13px; color: #888; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+.breadcrumbs { font-size: 13px; color: #777; margin-bottom: 14px; }
+.breadcrumbs a { color: #999; }
+@media (max-width: 900px) {
+  .layout { flex-direction: column; }
+  nav.sidebar { width: 100%; flex: none; border-right: none; border-bottom: 1px solid var(--border); }
+  main.content { padding: 20px; }
+}
+</style>
+</head>
+<body>
+<header id="top">
+  <a class="brand" href="../../en/index.html">Kodhe<span>&nbsp;User Guide</span></a>
+  <span style="font-size:12px;color:#aaa;">v1.0</span>
+  <span style="margin-left:14px;font-size:13px;"><span style="font-size:12px;color:#888;">Language:</span> <a style="color:#ccc;" href="../../id/concepts/app-components.html">ID</a> &middot; <a style="color:#e36c18;font-weight:bold;" href="../../en/concepts/app-components.html">EN</a></span>
+  <form action="../../search.html" method="get">
+    <input type="search" name="q" placeholder="Search the documentation..." aria-label="cari" />
+  </form>
+</header>
+<div class="layout">
+<nav class="sidebar">
+<h3>Getting Started</h3>
+<ul>
+<li><a href="../../en/index.html" style="padding-left:32px">Home / Table of Contents</a></li>
+<li><a href="../../en/concepts/installation.html" style="padding-left:44px">Installation</a></li>
+<li><a href="../../en/general/new-project.html" style="padding-left:44px">New Project</a></li>
+<li><a href="../../en/general/running.html" style="padding-left:44px">Running Your Application</a></li>
+<li><a href="../../en/general/crud-generator.html" style="padding-left:44px">CRUD Generator</a></li>
+</ul>
+<h3>Core Concepts</h3>
+<ul>
+<li><a href="../../en/concepts/architecture.html" style="padding-left:44px">Architecture</a></li>
+<li class="active"><a href="../../en/concepts/app-components.html" style="padding-left:44px">Application Components</a></li>
+<li><a href="../../en/concepts/folder-structure-and-routing.html" style="padding-left:44px">Folder Structure &amp; Routing</a></li>
+<li><a href="../../en/concepts/services-modules-routing.html" style="padding-left:44px">Services, Modules &amp; Routing</a></li>
+<li><a href="../../en/concepts/cli-console.html" style="padding-left:44px">CLI Console</a></li>
+<li><a href="../../en/concepts/security.html" style="padding-left:44px">Security</a></li>
+<li><a href="../../en/concepts/namespaces-migration.html" style="padding-left:44px">Namespace Migration</a></li>
+<li><a href="../../en/concepts/migrating-from-ci3.html" style="padding-left:44px">Migrating from CodeIgniter 3</a></li>
+</ul>
+<h3>Library Reference</h3>
+<ul>
+<li><a href="../../en/libraries/index.html" style="padding-left:44px">Library Index</a></li>
+<li><a href="../../en/libraries/loader-kernel.html" style="padding-left:44px">Loader (Kernel)</a></li>
+<li><a href="../../en/libraries/http.html" style="padding-left:44px">HTTP</a></li>
+<li><a href="../../en/libraries/view.html" style="padding-left:44px">View</a></li>
+<li><a href="../../en/libraries/database.html" style="padding-left:44px">Database</a></li>
+<li><a href="../../en/libraries/migration.html" style="padding-left:44px">Migration</a></li>
+<li><a href="../../en/libraries/session.html" style="padding-left:44px">Session</a></li>
+<li><a href="../../en/libraries/auth.html" style="padding-left:44px">Auth</a></li>
+<li><a href="../../en/libraries/socialite.html" style="padding-left:44px">Socialite</a></li>
+<li><a href="../../en/libraries/validation.html" style="padding-left:44px">Form Validation</a></li>
+<li><a href="../../en/libraries/pagination.html" style="padding-left:44px">Pagination</a></li>
+<li><a href="../../en/libraries/email.html" style="padding-left:44px">Email</a></li>
+<li><a href="../../en/libraries/encrypt.html" style="padding-left:44px">Encrypt / Encryption</a></li>
+<li><a href="../../en/libraries/cache.html" style="padding-left:44px">Cache</a></li>
+<li><a href="../../en/libraries/driver.html" style="padding-left:44px">Driver System</a></li>
+<li><a href="../../en/libraries/rpc-trackback.html" style="padding-left:44px">XML-RPC &amp; Trackback</a></li>
+<li><a href="../../en/libraries/testing.html" style="padding-left:44px">Testing</a></li>
+</ul>
+<h3>Utilities</h3>
+<ul>
+<li><a href="../../en/libraries/utilities.html" style="padding-left:44px">Utilities Overview</a></li>
+<li><a href="../../en/libraries/agent.html" style="padding-left:44px">Agent</a></li>
+<li><a href="../../en/libraries/calendar.html" style="padding-left:44px">Calendar</a></li>
+<li><a href="../../en/libraries/cart.html" style="padding-left:44px">Cart</a></li>
+<li><a href="../../en/libraries/image.html" style="padding-left:44px">Image Manipulation</a></li>
+<li><a href="../../en/libraries/javascript.html" style="padding-left:44px">Javascript</a></li>
+<li><a href="../../en/libraries/parser.html" style="padding-left:44px">Parser</a></li>
+<li><a href="../../en/libraries/profiler.html" style="padding-left:44px">Profiler</a></li>
+<li><a href="../../en/libraries/table.html" style="padding-left:44px">Table</a></li>
+<li><a href="../../en/libraries/typography.html" style="padding-left:44px">Typography</a></li>
+<li><a href="../../en/libraries/upload.html" style="padding-left:44px">File Upload</a></li>
+<li><a href="../../en/libraries/ftp.html" style="padding-left:44px">FTP</a></li>
+<li><a href="../../en/libraries/zip.html" style="padding-left:44px">Zip</a></li>
+</ul>
+<h3>Miscellaneous</h3>
+<ul>
+<li><a href="../../en/general/troubleshooting.html" style="padding-left:44px">Troubleshooting</a></li>
+<li><a href="../../en/search.html" style="padding-left:32px">Search</a></li>
+</ul>
+</nav>
+<main class="content">
+<div class="breadcrumbs"><a href="../../en/index.html">Home</a> &raquo; <a href="../../en/index.html">en</a> &raquo; <a href="../../en/concepts/index.html">concepts</a> &raquo; Kodhe Standard Application Components (Controllers, Models, Libraries, Views/Templates)</div>
+<div class="toc-on-page"><strong>Contents of this page</strong><ul><li><a href="#quick-summary">Quick summary</a></li><li><a href="#1-controller">1. Controller</a></li><li><a href="#2-model">2. Model</a></li><li><a href="#3-library">3. Library</a></li><li><a href="#4-views-templates">4. Views &amp; Templates</a></li><li><a href="#5-middleware-others-brief">5. Middleware &amp; Others (brief)</a></li><li><a href="#6-automatic-scaffolding">6. Automatic scaffolding</a></li><li><a href="#see-also">See also</a></li></ul></div><h1 id="kodhe-standard-application-components-controllers-models-libraries-viewstemplates">Kodhe Standard Application Components (Controllers, Models, Libraries, Views/Templates)</h1>
+<p>This page is the <strong>standard for writing application components</strong> in Kodhe Framework —<br />
+the correct folders, namespaces, and base classes — together with **how to migrate each<br />
+component from CodeIgniter 3**. For the overall migration strategy see<br />
+<a href="../../en/concepts/migrating-from-ci3.html">migrating-from-ci3</a>; for folder structure &amp; router differences see<br />
+<a href="../../en/concepts/folder-structure-and-routing.html">folder-structure-and-routing</a>.</p>
+<h2 id="quick-summary">Quick summary</h2>
+<table class="table"><thead><tr><th style="">Component</th><th style="">Kodhe standard</th><th style="">Legacy CI3 support</th><th style="">CLI scaffold</th></tr></thead><tbody><tr><td style="">Controller</td><td style=""><code>app/Controllers/*.php</code>, namespace <code>App\Controllers</code>, extends <code>Kodhe\Framework\Http\Controllers\BaseController</code></td><td style=""><code>$this-&gt;load</code> still available via <code>Controller</code> + <code>LegacyLoader</code></td><td style=""><code>make:controller</code></td></tr><tr><td style="">Model</td><td style=""><code>app/Models/*.php</code>, namespace <code>App\Models</code>, extends <code>Kodhe\Framework\Database\Model</code></td><td style="">Old <code>extends CI_Model</code> keeps working as-is</td><td style=""><code>make:model</code></td></tr><tr><td style="">Library</td><td style="">Direct instantiation <code>new Kodhe\Framework\&lt;Package&gt;\&lt;Class&gt;()</code> or container</td><td style=""><code>$this-&gt;load-&gt;library('x')</code> is mapped automatically by <code>LegacyLoader</code></td><td style="">—</td></tr><tr><td style="">View/Template</td><td style="">Global helper <code>view()</code> → <code>Kodhe\Framework\View\ViewFactory</code> (PHP/Blade/Twig, layout, theme)</td><td style=""><code>$this-&gt;load-&gt;view()</code> still works; old view folders can be reused</td><td style="">—</td></tr></tbody></table>
+<p>All Kodhe folder names use <strong>a leading capital letter and no underscores</strong><br />
+(<code>Controllers</code>, <code>Models</code>, <code>Middleware</code>) — the kernel autoloader tolerates case<br />
+differences, but pure PSR-4 package mode demands full compliance.</p>
+<hr />
+<h2 id="1-controller">1. Controller</h2>
+<h3 id="kodhe-standard">Kodhe standard</h3>
+<pre><code class="language-php">&lt;?php
+// app/Controllers/Home.php
+declare(strict_types=1);
+
+namespace App\Controllers;
+
+use Kodhe\Framework\Http\Controllers\BaseController;
+
+class Home extends BaseController
+{
+    public function index()
+    {
+        return view('home/index', ['title' =&gt; 'Home']);
+    }
+
+    public function detail($id = null)
+    {
+        $item = \App\Models\ItemModel::find($id);
+        return view('home/detail', ['item' =&gt; $item]);
+    }
+}</code></pre>
+<p>Facts from the code (<code>http/src/Controllers/</code>):</p>
+<ul>
+<li><code>Controller</code> (the base class) prepares the application <code>Facade</code>, stores a reference to the legacy controller (<code>__legacy_controller</code>), and calls <code>load-&gt;initialize()</code> so that <code>$this-&gt;load</code> (CI3-style model/view/library/helper) **keeps working inside modern controllers**.</li>
+<li><code>BaseController</code> adds optional auto-loading (the <code>string</code> helper, the <code>user_agent</code> library, <code>theme</code> registration when the <code>kodhe/view</code> package is installed). Every failure is <em>fail-soft</em> (packages may be absent).</li>
+<li><code>RESTController</code> is also available as a base class for APIs.</li>
+</ul>
+<h3 id="migration-from-ci3">Migration from CI3</h3>
+<p>CI3:</p>
+<pre><code class="language-php">class Welcome extends CI_Controller {
+    public function index() {
+        $this-&gt;load-&gt;model('item_model');
+        $data['items'] = $this-&gt;item_model-&gt;get_all();
+        $this-&gt;load-&gt;view('welcome_message', $data);
+    }
+}</code></pre>
+<p>Conversion steps:</p>
+<ol>
+<li>Move the file into <code>app/Controllers/</code> with a **PascalCase file name matching the class** (<code>Welcome.php</code> containing <code>class Welcome</code>).</li>
+<li>Add <code>namespace App\Controllers;</code> and `use Kodhe\Framework\Http\Controllers\BaseController;<code>, replace</code>extends CI_Controller<code>→</code>extends BaseController`.</li>
+<li>Public method names stay the same — both the legacy and the modern router will find them. By default the modern router looks for <code>Home/Index/Main/Welcome</code> as the front page controller.</li>
+<li><code>$this-&gt;load-&gt;model()/view()/library()/helper()</code> <strong>do not have to change</strong> in the first phase (they are mediated by <code>LegacyLoader</code>). Consolidate gradually:<ul>
+<li>models → direct <code>App\Models\...</code> instantiation / DI,</li>
+<li>views → the <code>view()</code> helper,</li>
+<li>libraries → <code>new Kodhe\Framework\...</code> (see §3).</li>
+</ul></li>
+<li>Register old routes to the new controllers if you use the modern router:</li>
+</ol>
+<pre><code class="language-php">Route::get('welcome', [App\Controllers\Welcome::class, 'index']);</code></pre>
+<blockquote><p>⚠️ Do not mix two controller namespaces in one file, and avoid underscores in class<br />
+names (<code>item_model</code> → <code>ItemModel</code>) to stay PSR-4 compliant.</p></blockquote>
+<hr />
+<h2 id="2-model">2. Model</h2>
+<h3 id="kodhe-standard-2">Kodhe standard</h3>
+<p>The modern model lives in the <code>kodhe/database</code> package: <code>Kodhe\Framework\Database\Model</code><br />
+(inheriting <code>ORM\LegacyModel</code>) with declarative properties and a chainable query API.</p>
+<pre><code class="language-php">&lt;?php
+// app/Models/ItemModel.php
+declare(strict_types=1);
+
+namespace App\Models;
+
+use Kodhe\Framework\Database\Model;
+
+class ItemModel extends Model
+{
+    protected $table          = 'items';
+    protected $primaryKey     = 'id';
+    protected $returnType     = 'object';      // or 'array'
+    protected $allowedFields  = ['name', 'price', 'category_id'];
+    protected $useTimestamps  = true;           // created_at / updated_at
+    protected $useSoftDeletes = false;          // deleted_at
+    protected $validationRules = [];            // kodhe/validation integration
+}</code></pre>
+<p>Main API (verified from <code>database/src/Model.php</code>):</p>
+<ul>
+<li>Query builder: `select() where() orWhere() whereIn() like() orderBy() limit() groupBy() having() join() leftJoin() rightJoin() inRandomOrder()`</li>
+<li>Eager relations: <code>with(['category'])</code></li>
+<li>Execution: `all() findAll($limit,$offset) first() find($id) findOrFail($id) count() sum() avg() max() min() chunk($size, fn)`</li>
+<li>Writes: `insert($data, $returnId) insertBatch() update($data, $where) updateBatch() delete($id) restore() forceDelete() truncate()`</li>
+<li>Upserts: <code>firstOrCreate() firstOrNew() updateOrCreate()</code></li>
+<li>The table can be swapped at runtime: <code>$model-&gt;table('items_archive')</code></li>
+</ul>
+<p>Example usage in a controller:</p>
+<pre><code class="language-php">$cheap = App\Models\ItemModel::where('price', '&lt;', 100)-&gt;orderBy('name')-&gt;findAll(20);</code></pre>
+<h3 id="migration-from-ci3-2">Migration from CI3</h3>
+<p>CI3:</p>
+<pre><code class="language-php">class Item_model extends CI_Model {
+    public function get_all() {
+        return $this-&gt;db-&gt;get('items')-&gt;result();
+    }
+}</code></pre>
+<p>Conversion map:</p>
+<table class="table"><thead><tr><th style="">CI3</th><th style="">Kodhe</th></tr></thead><tbody><tr><td style=""><code>class Item_model extends CI_Model</code> (file <code>item_model.php</code>)</td><td style=""><code>class ItemModel extends Model</code> (file <code>app/Models/ItemModel.php</code>)</td></tr><tr><td style=""><code>$this-&gt;db-&gt;get('items')-&gt;result()</code></td><td style=""><code>$this-&gt;findAll()</code> / <code>ItemModel::all()</code></td></tr><tr><td style=""><code>$this-&gt;db-&gt;where(...)-&gt;get(...)-&gt;row()</code></td><td style=""><code>$this-&gt;where(...)-&gt;first()</code></td></tr><tr><td style=""><code>$this-&gt;db-&gt;get_where('items', ['id'=&gt;$id])-&gt;row()</code></td><td style=""><code>$this-&gt;find($id)</code></td></tr><tr><td style=""><code>$this-&gt;db-&gt;insert('items', $data)</code></td><td style=""><code>$this-&gt;insert($data)</code> (requires <code>allowedFields</code>)</td></tr><tr><td style=""><code>$this-&gt;db-&gt;update('items', $data, ['id'=&gt;$id])</code></td><td style=""><code>$this-&gt;update($data, ['id' =&gt; $id])</code></td></tr><tr><td style=""><code>$this-&gt;db-&gt;delete(...)</code></td><td style=""><code>$this-&gt;delete($id)</code> / soft delete via <code>useSoftDeletes</code></td></tr></tbody></table>
+<p>Notes:</p>
+<ul>
+<li>Old models <code>extends CI_Model</code> <strong>keep running</strong> in the compat kernel — they do not all have to be converted at once. Convert model by model as you touch them.</li>
+<li>Modern mass assignment is restricted by <code>$allowedFields</code>; empty means rejected. When converting, list your writable columns.</li>
+<li>Timestamps &amp; soft deletes replace the manual <code>date('Y-m-d H:i:s')</code> habit of CI3 — just enable the properties and make sure the columns exist in the table.</li>
+</ul>
+<hr />
+<h2 id="3-library">3. Library</h2>
+<h3 id="kodhe-standard-3">Kodhe standard</h3>
+<p>Every CI3 library has become a Composer package under the namespace<br />
+<code>Kodhe\Framework\&lt;Package&gt;\*</code>. The canonical way to use them is <strong>direct instantiation</strong><br />
+or through the service container — no more <code>$this-&gt;load-&gt;library()</code>.</p>
+<pre><code class="language-php">use Kodhe\Framework\Email\Email;
+
+$email = new Email();
+$email-&gt;from('a@b.c')-&gt;replyTo('a@b.c')-&gt;to('x@y.z')-&gt;subject('Hi')-&gt;message('...');
+$email-&gt;send();</code></pre>
+<h3 id="compatible-path-this-load-library">Compatible path: <code>$this-&gt;load-&gt;library()</code></h3>
+<p><code>framework/src/Config/Loaders/LegacyLoader.php</code> contains a map of CI3 library names →<br />
+modern classes, so old code keeps running untouched:</p>
+<table class="table"><thead><tr><th style="">CI3 call</th><th style="">Class loaded</th></tr></thead><tbody><tr><td style=""><code>$this-&gt;load-&gt;library('email')</code></td><td style=""><code>Kodhe\Framework\Email\Email</code></td></tr><tr><td style=""><code>'session'</code></td><td style=""><code>Kodhe\Framework\Session\Session</code></td></tr><tr><td style=""><code>'form_validation'</code></td><td style=""><code>Kodhe\Framework\Validation\Validation</code></td></tr><tr><td style=""><code>'pagination'</code></td><td style=""><code>Kodhe\Framework\Pagination\Pagination</code></td></tr><tr><td style=""><code>'user_agent'</code> / <code>'agent'</code></td><td style=""><code>Kodhe\Framework\Agent\UserAgent</code></td></tr><tr><td style=""><code>'cache'</code> <code>'calendar'</code> <code>'cart'</code> <code>'encrypt'</code> <code>'encryption'</code> <code>'ftp'</code> <code>'image_lib'</code> <code>'table'</code> <code>'typography'</code> <code>'upload'</code> <code>'zip'</code> <code>'parser'</code> etc.</td><td style="">the respective <code>Kodhe\Framework\...</code> equivalent in each package</td></tr></tbody></table>
+<p>Requirement: <strong>the relevant package must be installed via Composer</strong> (`composer require<br />
+kodhe/email`, etc.) — the loader only maps names, it does not provide the code.<br />
+Application-specific custom libraries (<code>application/libraries/Mylib.php</code>) are loaded as<br />
+usual by the kernel loader (case-insensitive).</p>
+<h3 id="phased-recommendation">Phased recommendation</h3>
+<ol>
+<li>Migration phase: let <code>$this-&gt;load-&gt;library(...)</code> keep running via LegacyLoader.</li>
+<li>Consolidation phase: switch to <code>new Class()</code> / inject via the container; drop the dependency on the superobject. Details in <a href="../../en/concepts/migrating-from-ci3.html">migrating-from-ci3 §9</a>.</li>
+</ol>
+<hr />
+<h2 id="4-views-templates">4. Views &amp; Templates</h2>
+<h3 id="kodhe-standard-4">Kodhe standard</h3>
+<p>The <code>kodhe/view</code> package provides a multi-engine <code>ViewFactory</code> with the global<br />
+<code>view()</code> helper (from <code>view/src/helpers/template.php</code>):</p>
+<pre><code class="language-php">// render directly
+view('home/index', ['title' =&gt; 'Hello']);
+
+// with a layout — the 4th argument of view(), or a preceding set_layout() helper
+view('home/index', $data, false, 'layouts/main');
+set_layout('layouts/main');   // applies to subsequent view() calls
+
+// return as a string
+$html = view('emails/greeting', $data, true);</code></pre>
+<p><code>ViewFactory</code> features (verified from <code>view/src/</code>):</p>
+<ul>
+<li><strong>Engines</strong>: <code>PhpEngine</code>, <code>BladeEngine</code>, <code>TwigEngine</code> — chosen automatically per file (<code>.php/.blade.php/.twig</code>) or explicitly: `render($view, $data, $return, $engine)`.</li>
+<li><strong>Layouts</strong>: <code>layout($name)</code> + <code>set($key, $value)</code> for global template data.</li>
+<li><strong>Themes</strong>: enabled via the <code>theme_enabled</code> config; theme paths are searched in <code>APPPATH/themes</code> then <code>FCPATH/themes</code>; theme views take priority over regular paths (<code>ThemeManager</code>, plus <code>AssetManager</code> for theme assets).</li>
+<li><strong>Device variants</strong>: <code>VariantManager</code> (mobile/tablet/desktop).</li>
+<li><strong>HMVC modules</strong>: the <code>module_view()</code> helper renders a module's views.</li>
+</ul>
+<p>Minimum configuration:</p>
+<pre><code class="language-php">// config/view.php (read by ViewFactory)
+'theme_enabled' =&gt; false,
+'views_path'    =&gt; APPPATH . 'Views',   // the old view folder still works</code></pre>
+<p>View folders: Kodhe uses <code>APPPATH/Views</code> (PascalCase, no <code>_</code>), but the kernel loader<br />
+still finds the old <code>application/views</code> — so **CI3 view files do not need to be<br />
+restructured in the early phase**; renaming to <code>Views/</code> happens during consolidation.</p>
+<h3 id="migration-from-ci3-3">Migration from CI3</h3>
+<table class="table"><thead><tr><th style="">CI3</th><th style="">Kodhe</th></tr></thead><tbody><tr><td style=""><code>$this-&gt;load-&gt;view('page', $data)</code></td><td style="">still works (loader), or <code>view('page', $data)</code></td></tr><tr><td style=""><code>$this-&gt;load-&gt;view('page', $data, TRUE)</code></td><td style=""><code>view('page', $data, true)</code> returns a string</td></tr><tr><td style=""><code>$this-&gt;load-&gt;vars($data)</code> / pass-by-reference</td><td style=""><code>ViewFactory::set($key, $value)</code> or the data array</td></tr><tr><td style=""><code>$config['pi']['twig']</code> etc.</td><td style=""><code>ViewFactory</code> <code>twig</code>/<code>blade</code> engine via parameter/config</td></tr><tr><td style="">parser template <code>{data}</code></td><td style="">the <code>kodhe/parser</code> package (<code>Parser</code>) remains available</td></tr><tr><td style="">duplicate view rendering</td><td style="">use <code>$return=true</code> and store the result in a variable</td></tr></tbody></table>
+<p>No syntax changes are needed inside view files (CI3 HTML + <code>&lt;?php ?&gt;</code> is valid in<br />
+PhpEngine). What to check: <code>$this-&gt;</code> calls inside CI3 views (such as<br />
+<code>$this-&gt;security-&gt;xss_clean()</code>) — replace them with modern package instantiation because<br />
+Kodhe views are not bound to the controller.</p>
+<hr />
+<h2 id="5-middleware-others-brief">5. Middleware &amp; Others (brief)</h2>
+<ul>
+<li><strong>Middleware</strong>: <code>app/Middleware/</code> (namespace <code>App\Middleware</code>), implement <code>Kodhe\Framework\Http\Routing\Contracts\MiddlewareInterface</code> — full guide in <a href="../../en/concepts/services-modules-routing.html">services-modules-routing</a>.</li>
+<li><strong>Custom helpers</strong>: put them in <code>app/Helpers/</code> (kernel) or load them via <code>HelperManager</code>; the CI3 pattern <code>$this-&gt;load-&gt;helper('x')</code> is still served by the loader.</li>
+<li><strong>Migrations &amp; seeders</strong>: see <a href="../../en/libraries/migration.html">libraries/migration</a>.</li>
+</ul>
+<h2 id="6-automatic-scaffolding">6. Automatic scaffolding</h2>
+<p>The CLI commands (verified from <code>framework/src/Console/Commands/MakeCommand.php</code>) create<br />
+files directly in the standard Kodhe locations:</p>
+<pre><code class="language-bash">php kodhe make:controller Home        # -&gt; app/Controllers/Home.php  (App\Controllers)
+php kodhe make:model ItemModel        # -&gt; app/Models/ItemModel.php  (App\Models)
+php kodhe make:migration create_items # -&gt; migrations folder
+php kodhe make:middleware Auth        # -&gt; app/Middleware/Auth.php   (App\Middleware)
+php kodhe make:command sync_data      # -&gt; app/Console/Commands      (App\Console\Commands)
+php kodhe make:crud Article title:string body:text published:bool  # -&gt; a complete CRUD set (see notes below)</code></pre>
+<p>Options: <code>--force</code> (overwrite existing files), <code>--path=...</code> (custom location).</p>
+<blockquote><p><code>make:crud</code> generates <strong>8 files at once</strong>: the Model (<code>app/Models/</code>),<br />
+a full resource Controller (<code>app/Controllers/&lt;Name&gt;Controller.php</code>), the<br />
+<code>create_&lt;table&gt;_table</code> migration (modern <code>Loader::dbforge()</code> stack), and 5 CI3-style<br />
+views in <code>app/Views/&lt;resource&gt;/</code>. Full guide (field types, routes, workflow):<br />
+<a href="../../en/general/crud-generator.html">generator-crud</a>.</p></blockquote>
+<blockquote><p>How to bootstrap <code>bin/console</code>, create custom commands, and migrate CI3 <code>is_cli()</code> cron<br />
+jobs — see <a href="../../en/concepts/cli-console.html">cli-console</a>.</p></blockquote>
+<p>For <code>App\*</code> to be autoloadable, register it in the project's <code>composer.json</code>:</p>
+<pre><code class="language-json">"autoload": { "psr-4": { "App\\": "app/" } }</code></pre>
+<p>then run <code>composer dump-autoload</code>.</p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../../en/concepts/migrating-from-ci3.html">Migration guide from CI3</a></li>
+<li><a href="../../en/concepts/folder-structure-and-routing.html">Folder structure &amp; routing</a></li>
+<li><a href="../../en/concepts/services-modules-routing.html">Services, modules &amp; modern routing</a></li>
+<li><a href="../../en/concepts/architecture.html">Architecture</a> · <a href="../../en/libraries/index.html">Library index</a></li>
+</ul>
+<footer class="page-footer">
+  <span>Kodhe Framework User Guide &mdash; built from <code>user_guide/*.md</code> by <code>scripts/build_user_guide.py</code></span>
+  <span><a href="../../en/concepts/architecture.html">&larr; Architecture</a> &nbsp;|&nbsp; <a href="../../en/concepts/folder-structure-and-routing.html">Folder Structure &amp; Router (Differences from CI3) &rarr;</a></span>
+</footer>
+</main>
+</div>
+<script src="../../searchindex.js"></script>
+</body>
+</html>

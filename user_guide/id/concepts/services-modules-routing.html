@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Service, Modul, Routing Modern &amp; Facade &mdash; Kodhe Framework User Guide</title>
+<style>
+:root {
+  --primary: #e36c18;
+  --dark: #232525;
+  --sidebar-bg: #f7f7f7;
+  --border: #e1e4e5;
+  --text: #404040;
+  --link: #236fb0;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 0; color: var(--text);
+  font: 15px/1.6 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #fff;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+header#top {
+  background: var(--dark); color: #fff; padding: 12px 24px;
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+header#top .brand { font-size: 20px; font-weight: bold; color: #fff; }
+header#top .brand span { color: var(--primary); }
+header#top form { margin-left: auto; }
+header#top input[type=search] {
+  padding: 6px 10px; border-radius: 4px; border: 1px solid #555;
+  background: #333; color: #eee; width: 220px;
+}
+.layout { display: flex; min-height: calc(100vh - 120px); }
+nav.sidebar {
+  width: 300px; flex: 0 0 300px; background: var(--sidebar-bg);
+  border-right: 1px solid var(--border); padding: 18px 0 40px; overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: 13px; text-transform: uppercase; letter-spacing: .05em;
+  color: #888; margin: 18px 20px 6px;
+}
+nav.sidebar ul { list-style: none; margin: 0; padding: 0; }
+nav.sidebar li a {
+  display: block; padding: 4px 20px; color: #555; font-size: 14px;
+  border-left: 3px solid transparent;
+}
+nav.sidebar li a:hover { background: #ececec; text-decoration: none; }
+nav.sidebar li.active > a {
+  color: var(--primary); border-left-color: var(--primary);
+  background: #efefef; font-weight: 600;
+}
+main.content { flex: 1; padding: 28px 44px 60px; max-width: 950px; }
+main.content h1 { font-size: 32px; margin-top: 0; color: var(--dark); border-bottom: 2px solid var(--primary); padding-bottom: 8px; }
+main.content h2 { font-size: 24px; margin-top: 34px; color: var(--dark); }
+main.content h3 { font-size: 19px; margin-top: 26px; }
+main.content pre {
+  background: #f5f5f5; border: 1px solid var(--border); border-radius: 4px;
+  padding: 12px 14px; overflow-x: auto; font-size: 13px; line-height: 1.45;
+}
+main.content code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  background: #f5f5f5; padding: 1px 5px; border-radius: 3px; font-size: 90%;
+}
+main.content pre code { background: none; padding: 0; font-size: inherit; }
+main.content blockquote {
+  margin: 16px 0; padding: 10px 18px; background: #fdf3ea;
+  border-left: 4px solid var(--primary); color: #665; border-radius: 0 4px 4px 0;
+}
+main.content blockquote p { margin: 4px 0; }
+main.content table.table {
+  border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px;
+}
+main.content table th, main.content table td {
+  border: 1px solid var(--border); padding: 7px 11px; vertical-align: top;
+}
+main.content table thead th { background: #f2f2f2; }
+main.content table tr:nth-child(even) td { background: #fafafa; }
+main.content hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.toc-on-page { background: #fbfbfb; border: 1px solid var(--border); border-radius: 4px; padding: 10px 18px; margin: 0 0 22px; font-size: 14px; }
+.toc-on-page strong { color: var(--dark); }
+footer.page-footer {
+  border-top: 1px solid var(--border); margin-top: 40px; padding-top: 14px;
+  font-size: 13px; color: #888; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+.breadcrumbs { font-size: 13px; color: #777; margin-bottom: 14px; }
+.breadcrumbs a { color: #999; }
+@media (max-width: 900px) {
+  .layout { flex-direction: column; }
+  nav.sidebar { width: 100%; flex: none; border-right: none; border-bottom: 1px solid var(--border); }
+  main.content { padding: 20px; }
+}
+</style>
+</head>
+<body>
+<header id="top">
+  <a class="brand" href="../../id/index.html">Kodhe<span>&nbsp;User Guide</span></a>
+  <span style="font-size:12px;color:#aaa;">v1.0</span>
+  <span style="margin-left:14px;font-size:13px;"><span style="font-size:12px;color:#888;">Bahasa:</span> <a style="color:#e36c18;font-weight:bold;" href="../../id/concepts/services-modules-routing.html">ID</a> &middot; <a style="color:#ccc;" href="../../en/concepts/services-modules-routing.html">EN</a></span>
+  <form action="../../search.html" method="get">
+    <input type="search" name="q" placeholder="Cari dokumentasi..." aria-label="cari" />
+  </form>
+</header>
+<div class="layout">
+<nav class="sidebar">
+<h3>Memulai</h3>
+<ul>
+<li><a href="../../id/index.html" style="padding-left:32px">Beranda / Daftar Isi</a></li>
+<li><a href="../../id/concepts/installation.html" style="padding-left:44px">Instalasi</a></li>
+<li><a href="../../id/general/new-project.html" style="padding-left:44px">Proyek Baru</a></li>
+<li><a href="../../id/general/running.html" style="padding-left:44px">Menjalankan Aplikasi</a></li>
+<li><a href="../../id/general/crud-generator.html" style="padding-left:44px">Generator CRUD</a></li>
+</ul>
+<h3>Konsep Inti</h3>
+<ul>
+<li><a href="../../id/concepts/architecture.html" style="padding-left:44px">Arsitektur</a></li>
+<li><a href="../../id/concepts/app-components.html" style="padding-left:44px">Komponen Aplikasi</a></li>
+<li><a href="../../id/concepts/folder-structure-and-routing.html" style="padding-left:44px">Struktur Folder &amp; Routing</a></li>
+<li class="active"><a href="../../id/concepts/services-modules-routing.html" style="padding-left:44px">Service, Modul &amp; Routing</a></li>
+<li><a href="../../id/concepts/cli-console.html" style="padding-left:44px">Console CLI</a></li>
+<li><a href="../../id/concepts/security.html" style="padding-left:44px">Keamanan</a></li>
+<li><a href="../../id/concepts/namespaces-migration.html" style="padding-left:44px">Migrasi Namespace</a></li>
+<li><a href="../../id/concepts/migrating-from-ci3.html" style="padding-left:44px">Migrasi dari CodeIgniter 3</a></li>
+</ul>
+<h3>Referensi Library</h3>
+<ul>
+<li><a href="../../id/libraries/index.html" style="padding-left:44px">Indeks Library</a></li>
+<li><a href="../../id/libraries/loader-kernel.html" style="padding-left:44px">Loader (Kernel)</a></li>
+<li><a href="../../id/libraries/http.html" style="padding-left:44px">HTTP</a></li>
+<li><a href="../../id/libraries/view.html" style="padding-left:44px">View</a></li>
+<li><a href="../../id/libraries/database.html" style="padding-left:44px">Database</a></li>
+<li><a href="../../id/libraries/migration.html" style="padding-left:44px">Migration</a></li>
+<li><a href="../../id/libraries/session.html" style="padding-left:44px">Session</a></li>
+<li><a href="../../id/libraries/auth.html" style="padding-left:44px">Auth</a></li>
+<li><a href="../../id/libraries/socialite.html" style="padding-left:44px">Socialite</a></li>
+<li><a href="../../id/libraries/validation.html" style="padding-left:44px">Form Validation</a></li>
+<li><a href="../../id/libraries/pagination.html" style="padding-left:44px">Pagination</a></li>
+<li><a href="../../id/libraries/email.html" style="padding-left:44px">Email</a></li>
+<li><a href="../../id/libraries/encrypt.html" style="padding-left:44px">Encrypt / Encryption</a></li>
+<li><a href="../../id/libraries/cache.html" style="padding-left:44px">Cache</a></li>
+<li><a href="../../id/libraries/driver.html" style="padding-left:44px">Driver System</a></li>
+<li><a href="../../id/libraries/rpc-trackback.html" style="padding-left:44px">XML-RPC &amp; Trackback</a></li>
+<li><a href="../../id/libraries/testing.html" style="padding-left:44px">Testing</a></li>
+</ul>
+<h3>Utilities</h3>
+<ul>
+<li><a href="../../id/libraries/utilities.html" style="padding-left:44px">Ringkasan Utilities</a></li>
+<li><a href="../../id/libraries/agent.html" style="padding-left:44px">Agent</a></li>
+<li><a href="../../id/libraries/calendar.html" style="padding-left:44px">Calendar</a></li>
+<li><a href="../../id/libraries/cart.html" style="padding-left:44px">Cart</a></li>
+<li><a href="../../id/libraries/image.html" style="padding-left:44px">Image Manipulation</a></li>
+<li><a href="../../id/libraries/javascript.html" style="padding-left:44px">Javascript</a></li>
+<li><a href="../../id/libraries/parser.html" style="padding-left:44px">Parser</a></li>
+<li><a href="../../id/libraries/profiler.html" style="padding-left:44px">Profiler</a></li>
+<li><a href="../../id/libraries/table.html" style="padding-left:44px">Table</a></li>
+<li><a href="../../id/libraries/typography.html" style="padding-left:44px">Typography</a></li>
+<li><a href="../../id/libraries/upload.html" style="padding-left:44px">File Upload</a></li>
+<li><a href="../../id/libraries/ftp.html" style="padding-left:44px">FTP</a></li>
+<li><a href="../../id/libraries/zip.html" style="padding-left:44px">Zip</a></li>
+</ul>
+<h3>Lain-lain</h3>
+<ul>
+<li><a href="../../id/general/troubleshooting.html" style="padding-left:44px">Troubleshooting</a></li>
+<li><a href="../../id/search.html" style="padding-left:32px">Pencarian</a></li>
+</ul>
+</nav>
+<main class="content">
+<div class="breadcrumbs"><a href="../../id/index.html">Beranda</a> &raquo; <a href="../../id/index.html">id</a> &raquo; <a href="../../id/concepts/index.html">concepts</a> &raquo; Service, Modul, Routing Modern &amp; Facade</div>
+<div class="toc-on-page"><strong>Daftar isi halaman ini</strong><ul><li><a href="#1-service-container-kodheframeworkcontainercontainer">1. Service Container (`Kodhe\Framework\Container\Container`)</a></li><li><a href="#2-serviceprovider-servicelocator-servicemanager-sistem-addon">2. ServiceProvider / ServiceLocator / ServiceManager (sistem Addon)</a></li><li><a href="#3-sistem-modul-kodheframeworksupportmodules">3. Sistem Modul (`Kodhe\Framework\Support\Modules`)</a></li><li><a href="#4-routing-modern-route-dari-kodhehttp">4. Routing Modern (`Route::` dari kodhe/http)</a></li><li><a href="#5-middleware">5. Middleware</a></li><li><a href="#6-facade-global-helper-aplikasi">6. Facade Global &amp; Helper Aplikasi</a></li><li><a href="#7-kapan-memakai-yang-mana">7. Kapan Memakai Yang Mana?</a></li><li><a href="#catatan-known-issues">Catatan Known Issues</a></li><li><a href="#tautan-terkait">Tautan Terkait</a></li></ul></div><h1 id="service-modul-routing-modern-facade">Service, Modul, Routing Modern &amp; Facade</h1>
+<p>Halaman ini melengkapi dokumentasi fitur-fitur <strong> bawaan Kodhe Framework</strong><br />
+(kernel <code>framework/</code> + paket <code>kodhe/http</code>) yang belum tercakup di halaman lain:<br />
+service container &amp; service provider (addon), sistem modul, routing modern<br />
+(<code>Route::</code>), middleware, dan facade global. Semua API di bawah diverifikasi dari<br />
+kode sumber: <code>framework/src/Container</code>, <code>framework/src/Foundation/Service</code>,<br />
+<code>framework/src/Support/Modules.php</code>, <code>http/src/Routing</code>, <code>http/src/Middleware</code>,<br />
+<code>framework/src/Support/Facades</code>.</p>
+<blockquote><p>Terkait pemindahan aplikasi lama, lihat <a href="../../id/concepts/migrating-from-ci3.html">Migrasi dari CI3</a><br />
+dan <a href="../../id/concepts/folder-structure-and-routing.html">Struktur Folder &amp; Router</a>.</p></blockquote>
+<h2 id="1-service-container-kodheframeworkcontainercontainer">1. Service Container (<code>Kodhe\Framework\Container\Container</code>)</h2>
+<p>Container adalah registry dependency-injection dengan <strong>penamaan berprefix</strong>.<br />
+Setiap service disimpan sebagai string <code>"prefix:Nama"</code>; bila prefix tidak<br />
+ditulis, container otomatis memakai prefix native <code>kodhe:</code><br />
+(<code>Container::NATIVE_PREFIX</code>).</p>
+<pre><code class="language-php">use Kodhe\Framework\Container\Container;
+
+$c = new Container();
+
+// factory baru tiap panggilan
+$c-&gt;register('mail:Mailer', function ($container, ...$args) {
+    return new App\Services\Mailer(...$args);
+});
+
+// instance tunggal (singleton)
+$c-&gt;registerSingleton('app:Settings', function ($container) {
+    return new App\Services\Settings(config_item('settings'));
+});
+
+$mailer = $c-&gt;make('mail:Mailer');          // RuntimeException jika tak terdaftar
+$c-&gt;has('mail:Mailer');                     // bool
+$c-&gt;getBindings();                          // daftar binding non-singleton
+$c-&gt;getSingletonBindings();                 // daftar singleton
+$c-&gt;replace('mail:Mailer', $obj);           // override binding yang sudah ada
+$c-&gt;setThrowOnDuplicate(false);             // izinkan register ulang tanpa error</code></pre>
+<p>Catatan implementasi (sesuai kode):</p>
+<ul>
+<li><code>make()</code> dipanggil variadic: argumen ekstra diteruskan ke closure/factory.</li>
+<li><code>make()</code> juga menerima bentuk <code>make($bindingObjek, $nama, ...$args)</code> untuk resolve lewat sub-binding tertentu.</li>
+<li>Interface kontrak: <code>BindingInterface</code> (<code>register</code>, <code>bind</code>, <code>registerSingleton</code>, <code>make</code>); dekorator <code>ConcreteBinding</code> meneruskan ke delegate bila nama tidak ditemukan lokal.</li>
+<li>Error tidak ditemukan dilambungkan via <code>Exceptions\ContainerException::notFound($id, $availableServices)</code> (memuat daftar service yang tersedia dalam pesannya).</li>
+</ul>
+<h2 id="2-serviceprovider-servicelocator-servicemanager-sistem-addon">2. ServiceProvider / ServiceLocator / ServiceManager (sistem Addon)</h2>
+<p>Satu set kelas di <code>Kodhe\Framework\Foundation\Service</code> untuk memaketkan fitur<br />
+sebagai <strong>addon/modul mandiri</strong> (pola warisan ExpressionEngine-style):</p>
+<table class="table"><thead><tr><th style="">Kelas</th><th style="">Peran</th></tr></thead><tbody><tr><td style=""><code>ServiceLocator</code></td><td style="">Registry provider: <code>register($prefix, $provider)</code>, <code>has</code>, <code>get</code>, <code>all</code> — duplikat prefix → <code>Exception("Addon of name {$prefix} already registered.")</code></td></tr><tr><td style=""><code>ServiceProvider</code></td><td style="">Base class per addon; membaca array dari file setup, mendaftarkan namespace autoload, services, singletons, models, aliases</td></tr><tr><td style=""><code>ServiceManager</code></td><td style="">Orkestrasi: scan folder addon, <code>addProvider()</code>, kumpulkan data lintas provider (<code>forward()</code>)</td></tr><tr><td style=""><code>ServiceHelper</code></td><td style="">Akses statis service dengan auto-detection prefix</td></tr></tbody></table>
+<h3 id="21-file-setup-addon">2.1 File setup addon</h3>
+<p>Sebuah addon adalah folder berisi <code>addon.setup.php</code> yang <strong>mengembalikan array</strong>:</p>
+<pre><code class="language-php">// addons/blog/addon.setup.php
+return [
+    'name'      =&gt; 'Blog',
+    'version'   =&gt; '1.0.0',
+    'author'    =&gt; 'Tim Kami',
+    'namespace' =&gt; 'Addons\\Blog',            // didaftarkan ke Autoloader via addPrefix()
+    'services'  =&gt; [                           // [nama =&gt; Closure|string]
+        'PostService' =&gt; function ($provider) {
+            return new \Addons Blog\PostService;
+        },
+        'TagService'  =&gt; 'Services\TagService', // string = FQCN relatif namespace addon
+    ],
+    'services.singletons' =&gt; [
+        'StatsService' =&gt; fn ($provider) =&gt; new StatsService(),
+    ],
+    'models' =&gt; [
+        'Post',                                 // jadi Addons\Blog\Post
+        '\Shared\Model',                        // leading backslash = jangan dinamespace
+    ],
+    'models.dependencies' =&gt; ['Post' =&gt; ['kodhe:db']],
+    'aliases' =&gt; [
+        'CI_Post' =&gt; 'Addons\\Blog\\Post',      // key = alias, value = kelas asli
+    ],
+];</code></pre>
+<p>Aturan yang ditegakkan kode (<code>ServiceProvider::registerServices</code>):</p>
+<ul>
+<li>Nama service <strong>tidak boleh mengandung <code>:</code></strong> (dipakai sebagai separator prefix).</li>
+<li>Service ter-register dengan kunci <code>"{addon}:{Nama}"</code> di container; method <code>register/registerSingleton/make</code> pada provider selalu memaksa prefix lewat <code>ensurePrefix()</code> (khusus nama <code>App</code> dipetakan ke <code>kodhe:App</code>).</li>
+<li><code>string</code> pada <code>services</code> dibungkus refleksi:实例iasi kelas <code>namespace\Kelas</code> dengan argumen sisa.</li>
+<li><code>aliases</code> numeric-key memicu pemetaan <code>Kodhe\Modules...</code> → alias <code>Modules...</code>; untuk alias <code>CI_*</code> versi lowercase (<code>CI_model</code>) ikut didaftarkan agar aman di Linux case-sensitive.</li>
+</ul>
+<h3 id="22-registrasi-runtime">2.2 Registrasi runtime</h3>
+<pre><code class="language-php">use Kodhe\Framework\Support\Autoloader;
+use Kodhe\Framework\Container\Container;
+use Kodhe\Framework\Foundation\Service\{ServiceLocator, ServiceManager};
+
+$container = new Container();
+$locator   = new ServiceLocator($container);
+$manager   = new ServiceManager($container, $locator);
+$manager-&gt;setAutoloader(new Autoloader()); // diperlukan utk registerNamespace
+
+$manager-&gt;setupAddons(FCPATH . 'addons');  // scan folder yg punya addon.setup.php
+// atau manual:
+$provider = $manager-&gt;addProvider(FCPATH . 'addons/blog'); // prefix default = basename folder
+
+$manager-&gt;getPrefixes();     // ['blog', ...]
+$manager-&gt;getNamespaces();   // ['blog:blog' =&gt; 'Addons\Blog', ...] (hasil forward())
+$manager-&gt;getModels();       // model terkumpul dgn kunci '{prefix}:{name}'
+$manager-&gt;setClassAliases(); // aktifkan semua 'aliases'</code></pre>
+<p>Konflik prefix: provider yang sudah ada <strong>tidak ditimpa</strong>, kecuali path lama<br />
+berisi <code>Addons/pro/levelups</code> atau <code>ExpressionEngine/Addons</code> (prioritas<br />
+pro/first-party — logika internal <code>addProvider()</code>).</p>
+<h3 id="23-mengakses-service-servicehelper-helper-service">2.3 Mengakses service: <code>ServiceHelper</code> &amp; helper <code>service()</code></h3>
+<pre><code class="language-php">use Kodhe\Framework\Foundation\Service\ServiceHelper;
+
+ServiceHelper::get('email');                 // 'email' → EmailService (auto-suffix)
+ServiceHelper::get('EmailService', 'blog');  // prefix eksplisit
+ServiceHelper::email();                      // __callStatic: email() → EmailService
+ServiceHelper::user_manager();               // snake_case → UserManagerService
+ServiceHelper::getAvailableServices();       // daftar lintas semua provider
+ServiceHelper::clearCache();                 // reset cache instances &amp; providers
+
+// fungsi global (framework/src/Support/Helpers.php):
+$svc = service('email');            // delegasi ke ServiceHelper::get()
+$svc = service('email', 'blog');</code></pre>
+<p>Konversi nama (<code>methodToServiceName</code>): underscore di-strip lalu <code>ucwords</code>,<br />
+suffix <code>Service</code> ditambahkan bila belum ada. Resolusi memakai<br />
+<code>kodhe('App')</code> (instance Application/provider root) — artinya **helper ini<br />
+aktif hanya bila kernel/bootstrap Kodhe sudah berjalan**; pada mode per-paket<br />
+murni, pakai <code>Container::make()</code> langsung.</p>
+<h2 id="3-sistem-modul-kodheframeworksupportmodules">3. Sistem Modul (<code>Kodhe\Framework\Support\Modules</code>)</h2>
+<p>Modul = folder aplikasi mandiri di bawah <code>APPPATH.'modules/'</code> (bisa lokasi lain<br />
+via config <code>modules_locations</code>) dengan struktur gaya CI3 HMVC:<br />
+<code>controllers/ models/ views/ config/ (routes.php)</code>.</p>
+<h3 id="31-siklus-hidup">3.1 Siklus hidup</h3>
+<ul>
+<li><code>Modules::init()</code> — panggil sekali saat bootstrap: menentukan locations, mencoba cache, lalu <code>scanAndCacheAllModules()</code>. Router modern (<code>Router</code>, <code>UnifiedRouter</code>) memanggilnya otomatis di konstruktor.</li>
+<li>Cache hasil scan disimpan di file cache (<code>cache()</code>, <code>loadFromCache()</code>, <code>isCacheFresh($maxAge=3600)</code>, <code>refreshCache()</code>, <code>clearCache()</code>) — penting di produksi karena scanning direktori mahal.</li>
+<li>Rute per modul dibaca dari <code>config/routes.php</code> milik modul (<code>parse_routes()</code>), plus grup rute modul via <code>Route::module()</code>.</li>
+</ul>
+<p>API utama:</p>
+<pre><code class="language-php">Modules::moduleExists('blog');           // bool
+Modules::getAllCachedModules();          // [nama =&gt; [path...]]
+Modules::getFirstModulePath('blog');     // ?string
+Modules::list_modules($excludeCore=false);
+Modules::folders();                     // daftar lokasi modul
+Modules::find($file, $module, 'config/'); // [path, file] search konvensi HMVC
+Modules::run('blog/post/index', ...$args); // load controller + panggil method (ob capture)
+Modules::load('blog/post');              // instansiasi controller modul (registry)
+Modules::controller_exists('post','blog');
+Modules::path($module, $folder);         // path folder modul
+Modules::register_asset($asset); Modules::assets();</code></pre>
+<p><code>Modules::run()</code> memvalidasi jumlah argumen terhadap parameter wajib method<br />
+(ReflectionMethod) dan mengembalikan output string/NULL; kegagalan dicatat<br />
+lewat <code>log_message('error', ...)</code>.</p>
+<h3 id="32-helper-modul-global-frameworksrcsupporthelpersmodulehelperphp">3.2 Helper modul global (<code>framework/src/Support/Helpers/module_helper.php</code>)</h3>
+<table class="table"><thead><tr><th style="">Fungsi</th><th style="">Kegunaan</th></tr></thead><tbody><tr><td style=""><code>current_module()</code></td><td style="">nama modul request berjalan (deteksi berjenjang: CI instance → Modules → Facade → URI)</td></tr><tr><td style=""><code>is_module('blog')</code></td><td style="">pembanding modul aktif</td></tr><tr><td style=""><code>module_path('blog','views')</code></td><td style="">path absolut folder/subpath modul</td></tr><tr><td style=""><code>module_controller_exists('post','blog')</code></td><td style="">cek controller</td></tr><tr><td style=""><code>module_view($view,$data,$return)</code></td><td style="">render view <code>modules/{m}/views/{v}</code></td></tr><tr><td style=""><code>module_config($key,$default,'blog')</code></td><td style="">baca config modul</td></tr><tr><td style=""><code>module_info('blog')</code> / <code>module_exists()</code></td><td style="">metadata</td></tr><tr><td style=""><code>module_url('post','blog')</code> / <code>module_asset()</code></td><td style="">URL &amp; aset modul</td></tr><tr><td style=""><code>active_module($m=null)</code></td><td style="">getter/setter modul di router (<code>kodhe()-&gt;router-&gt;set_module()</code>)</td></tr></tbody></table>
+<p>Loader juga menyediakan jembatan legacy: <code>$CI-&gt;load-&gt;run_module()</code>,<br />
+<code>load_module()</code>, <code>add_module()</code>, <code>remove_module()</code>,<br />
+<code>module_file_path()</code>, <code>module_config()</code>, <code>list_modules()</code> (FileLoader).</p>
+<h2 id="4-routing-modern-route-dari-kodhehttp">4. Routing Modern (<code>Route::</code> dari kodhe/http)</h2>
+<p>Di luar <code>$route['uri'] = 'class/method'</code> gaya CI3, paket <code>kodhe/http</code><br />
+menyediakan fluent router (Laravel-style) di<br />
+<code>Kodhe\Framework\Http\Routing\Route</code> + <code>RouteCollection</code>:</p>
+<pre><code class="language-php">use Kodhe\Framework\Http\Routing\Route;
+
+Route::get('posts', [PostController::class, 'index']);
+Route::post('posts', [PostController::class, 'store'])-&gt;middleware('auth');
+Route::match(['get','post'], 'login', LoginController::class);
+Route::any('ping', fn () =&gt; response('pong'));
+
+Route::group(['prefix' =&gt; 'admin', 'namespace' =&gt; 'App\\Controllers\\Admin',
+              'middleware' =&gt; ['auth','role:admin']], function () {
+    Route::resource('users', UserController::class);      // index/create/store/show/edit/update/destroy
+    Route::apiResource('tags', TagController::class);     // varian JSON
+    Route::module('blog', function () { /* rute dalam modul */ });
+});
+
+Route::apiVersion('v1', fn () =&gt; Route::get('feed', FeedController::class));
+Route::domain('acme.example.test', fn () =&gt; Route::get('dash', DashController::class));
+Route::view('about', 'pages/about', ['title' =&gt; 'About']);
+Route::redirect('/old', '/new', 301);
+Route::fallback(fn () =&gt; throw new NotFoundError());
+
+Route::pattern('id', '[0-9]+');                  // constraint global
+$name = Route::url('users.show', ['id' =&gt; 5]);   // reverse URL by name
+Route::getRoutes(); Route::clear();</code></pre>
+<p>Fitur pendukung lain yang tersedia: <code>dynamic($prefix, $controller)</code><br />
+(route otomatis ke controller), <code>permanentRedirect</code>, <code>api()</code> (alias prefix<br />
+<code>api/</code>), <code>wildcardDomain*</code>, <code>getCurrentApiVersion()/setApiVersion()</code>.<br />
+Koleksi rute mendukung <strong>cache</strong>: <code>RouteCollection::cache()</code>,<br />
+<code>loadFromCache()</code>, <code>isCacheFresh()</code> — aktifkan lewat config router<br />
+<code>cache_routes</code> (lihat <a href="../../id/concepts/folder-structure-and-routing.html">folder-structure-and-routing</a>).</p>
+<p>Resource fluency: <code>Route::resource(...)-&gt;only([...])-&gt;except([...])</code> via<br />
+<code>ResourceRegistrar</code> (<code>only/except/names/parameters/middleware</code>).</p>
+<h2 id="5-middleware">5. Middleware</h2>
+<p>Folder <code>http/src/Middleware</code>:</p>
+<ul>
+<li><code>MiddlewareInterface</code> — kontrak <code>process(Request $request, callable $next)</code> (implement sesuai file tersebut).</li>
+<li><code>MiddlewareRegistry</code> — daftar named-middleware yang bisa dirujuk string pada <code>-&gt;middleware('auth')</code> / group attributes.</li>
+<li><code>MiddlewareGroup</code> — sekumpulan middleware (mis. <code>web</code>, <code>api</code>).</li>
+<li><code>CallableMiddleware</code> — membungkus closure sebagai middleware.</li>
+<li><code>RateLimiter</code> — pembatas laju (dipakai atribut throttle pada route/API).</li>
+</ul>
+<p>Registrasi biasanya lewat Kernel/routing config aplikasi Anda; middleware jalan<br />
+dalam pipeline sebelum <code>ControllerExecutor</code> memanggil action. Detail request/<br />
+response lifecycle: <a href="../../id/libraries/http.html">http.md →</a>.</p>
+<h2 id="6-facade-global-helper-aplikasi">6. Facade Global &amp; Helper Aplikasi</h2>
+<p><code>Kodhe\Framework\Support\Facades\Facade</code> adalah <strong>singleton service locator</strong><br />
+yang sekaligus menjadi isi <code>$GLOBALS['kodhe']</code>:</p>
+<pre><code class="language-php">$f = Facade::getInstance();
+$f-&gt;set('load', $loader);          // registrasi komponen (dev boleh override; prod diam)
+$f-&gt;get('router');                 // InvalidArgumentException bila tak ada
+$f-&gt;has('di');                     // bool
+$f-&gt;register('myMacro', fn() =&gt; …);// custom method → $f-&gt;myMacro()
+$f-&gt;remove('tmp'); $f-&gt;all();
+Facade::reset();                   // bersihkan singleton (testing)</code></pre>
+<ul>
+<li><code>__call</code> meneruskan ke method loader bila ada, lalu ke callback terdaftar.</li>
+<li>Ada peta deprecated otomatis (<code>blacklist</code> → <code>blockedlist</code>) dengan <code>E_USER_DEPRECATED</code> di environment development.</li>
+<li><code>Controller</code> dasar (<code>http/src/Controllers/Controller.php</code>) mengambil facade dari <code>$GLOBALS['CI_APP']-&gt;getKernel()</code> / <code>$GLOBALS['CI_KERNEL']</code> bila ada, fallback ke <code>Facade::getInstance()</code>; <code>BaseController</code> menambahkan helper <code>string</code>, library <code>user_agent</code>, dan <code>theme</code> (bila paket <code>kodhe/view</code> pasang).</li>
+</ul>
+<p>Helper global lain di <code>framework/src/Support/Helpers.php</code>:<br />
+<code>session($key=null)</code>, <code>resolve_path()</code>, <code>csrf_token()/csrf_field()/csrf_meta()</code>,<br />
+<code>active_module()</code>, <code>service()</code>. Fungsi <code>kodhe()</code> / <code>app()</code> disediakan oleh<br />
+kernel/bootstrap aplikasi (lihat README <code>Foundation/Service</code>); pastikan versi<br />
+aplikasi Anda mendefinisikannya —<br />
+pada mode per-paket murni keduanya tidak otomatis ada.</p>
+<h2 id="7-kapan-memakai-yang-mana">7. Kapan Memakai Yang Mana?</h2>
+<table class="table"><thead><tr><th style="">Kebutuhan</th><th style="">Pakai</th></tr></thead><tbody><tr><td style="">DI internal aplikasi satu repo</td><td style=""><code>Container::register/make</code> dengan prefix sendiri</td></tr><tr><td style="">Paket fitur lepas-passang (addon marketplace)</td><td style=""><code>addon.setup.php</code> + <code>ServiceManager::setupAddons()</code></td></tr><tr><td style="">Ambil service addon dari controller</td><td style=""><code>service('nama')</code> / <code>ServiceHelper::nama()</code></td></tr><tr><td style="">Subset aplikasi besar jadi paket mandiri</td><td style=""><code>Modules</code> (HMVC) + <code>Route::module()</code></td></tr><tr><td style="">API/endpoint modern</td><td style=""><code>Route::get/group/resource/apiVersion</code> + middleware</td></tr><tr><td style="">Kode CI3 lama tetap jalan</td><td style=""><code>$CI-&gt;load-&gt;library()</code> dual-mode (lihat loader-kernel.md)</td></tr></tbody></table>
+<h2 id="catatan-known-issues">Catatan Known Issues</h2>
+<ul>
+<li><code>ServiceHelper</code> bergantung pada <code>kodhe('App')</code>; bila facade/container <code>App</code> belum di-boot, resolusi melempar error — bukan graceful null.</li>
+<li><code>ServiceManager::addProvider()</code> <strong>diam (return void)</strong> bila file setup tidak ada (throw dikomentari di kode) — sulit debug; cek log <code>debug</code>.</li>
+<li><code>setupAddons()</code> hanya memproses folder yang memiliki <code>addon.setup.php</code>; addon tanpa file itu dilewati tanpa warning.</li>
+<li>Prioritas konflik prefix hardcoded ke string path <code>Addons/pro/levelups</code> / <code>ExpressionEngine/Addons</code> — artefak asal-usul EE; untuk proyek baru sebaiknya hindari duplikasi prefix.</li>
+<li><code>getAvailableServices()</code> pada provider mengandalkan method <code>getAvailableServices()</code> milik provider itu sendiri; base <code>ServiceProvider</code> tidak mendefinisikannya, sehingga default mengembalikan <code>[]</code> kecuali addon mengimplementasikannya.</li>
+</ul>
+<h2 id="tautan-terkait">Tautan Terkait</h2>
+<ul>
+<li><a href="../../id/concepts/architecture.html">Arsitektur</a> · <a href="../../id/concepts/folder-structure-and-routing.html">Struktur Folder &amp; Router</a></li>
+<li><a href="../../id/general/running.html">Menjalankan Aplikasi</a> · <a href="../../id/libraries/loader-kernel.html">Referensi Loader Kernel</a></li>
+<li><a href="../../id/libraries/http.html">HTTP package</a> · <a href="../../id/concepts/migrating-from-ci3.html">Migrasi dari CI3</a></li>
+</ul>
+<footer class="page-footer">
+  <span>Kodhe Framework User Guide &mdash; dibuat dari <code>user_guide/*.md</code> oleh <code>scripts/build_user_guide.py</code></span>
+  <span><a href="../../id/concepts/folder-structure-and-routing.html">&larr; Struktur Folder &amp; Router (Perbedaan dari CI3)</a> &nbsp;|&nbsp; <a href="../../id/concepts/cli-console.html">CLI Console (Barisan Perintah) &rarr;</a></span>
+</footer>
+</main>
+</div>
+<script src="../../searchindex.js"></script>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Services, Modules, Modern Routing &amp; Facades &mdash; Kodhe Framework User Guide</title>
+<style>
+:root {
+  --primary: #e36c18;
+  --dark: #232525;
+  --sidebar-bg: #f7f7f7;
+  --border: #e1e4e5;
+  --text: #404040;
+  --link: #236fb0;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 0; color: var(--text);
+  font: 15px/1.6 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #fff;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+header#top {
+  background: var(--dark); color: #fff; padding: 12px 24px;
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+header#top .brand { font-size: 20px; font-weight: bold; color: #fff; }
+header#top .brand span { color: var(--primary); }
+header#top form { margin-left: auto; }
+header#top input[type=search] {
+  padding: 6px 10px; border-radius: 4px; border: 1px solid #555;
+  background: #333; color: #eee; width: 220px;
+}
+.layout { display: flex; min-height: calc(100vh - 120px); }
+nav.sidebar {
+  width: 300px; flex: 0 0 300px; background: var(--sidebar-bg);
+  border-right: 1px solid var(--border); padding: 18px 0 40px; overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: 13px; text-transform: uppercase; letter-spacing: .05em;
+  color: #888; margin: 18px 20px 6px;
+}
+nav.sidebar ul { list-style: none; margin: 0; padding: 0; }
+nav.sidebar li a {
+  display: block; padding: 4px 20px; color: #555; font-size: 14px;
+  border-left: 3px solid transparent;
+}
+nav.sidebar li a:hover { background: #ececec; text-decoration: none; }
+nav.sidebar li.active > a {
+  color: var(--primary); border-left-color: var(--primary);
+  background: #efefef; font-weight: 600;
+}
+main.content { flex: 1; padding: 28px 44px 60px; max-width: 950px; }
+main.content h1 { font-size: 32px; margin-top: 0; color: var(--dark); border-bottom: 2px solid var(--primary); padding-bottom: 8px; }
+main.content h2 { font-size: 24px; margin-top: 34px; color: var(--dark); }
+main.content h3 { font-size: 19px; margin-top: 26px; }
+main.content pre {
+  background: #f5f5f5; border: 1px solid var(--border); border-radius: 4px;
+  padding: 12px 14px; overflow-x: auto; font-size: 13px; line-height: 1.45;
+}
+main.content code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  background: #f5f5f5; padding: 1px 5px; border-radius: 3px; font-size: 90%;
+}
+main.content pre code { background: none; padding: 0; font-size: inherit; }
+main.content blockquote {
+  margin: 16px 0; padding: 10px 18px; background: #fdf3ea;
+  border-left: 4px solid var(--primary); color: #665; border-radius: 0 4px 4px 0;
+}
+main.content blockquote p { margin: 4px 0; }
+main.content table.table {
+  border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px;
+}
+main.content table th, main.content table td {
+  border: 1px solid var(--border); padding: 7px 11px; vertical-align: top;
+}
+main.content table thead th { background: #f2f2f2; }
+main.content table tr:nth-child(even) td { background: #fafafa; }
+main.content hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.toc-on-page { background: #fbfbfb; border: 1px solid var(--border); border-radius: 4px; padding: 10px 18px; margin: 0 0 22px; font-size: 14px; }
+.toc-on-page strong { color: var(--dark); }
+footer.page-footer {
+  border-top: 1px solid var(--border); margin-top: 40px; padding-top: 14px;
+  font-size: 13px; color: #888; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+.breadcrumbs { font-size: 13px; color: #777; margin-bottom: 14px; }
+.breadcrumbs a { color: #999; }
+@media (max-width: 900px) {
+  .layout { flex-direction: column; }
+  nav.sidebar { width: 100%; flex: none; border-right: none; border-bottom: 1px solid var(--border); }
+  main.content { padding: 20px; }
+}
+</style>
+</head>
+<body>
+<header id="top">
+  <a class="brand" href="../../en/index.html">Kodhe<span>&nbsp;User Guide</span></a>
+  <span style="font-size:12px;color:#aaa;">v1.0</span>
+  <span style="margin-left:14px;font-size:13px;"><span style="font-size:12px;color:#888;">Language:</span> <a style="color:#ccc;" href="../../id/concepts/services-modules-routing.html">ID</a> &middot; <a style="color:#e36c18;font-weight:bold;" href="../../en/concepts/services-modules-routing.html">EN</a></span>
+  <form action="../../search.html" method="get">
+    <input type="search" name="q" placeholder="Search the documentation..." aria-label="cari" />
+  </form>
+</header>
+<div class="layout">
+<nav class="sidebar">
+<h3>Getting Started</h3>
+<ul>
+<li><a href="../../en/index.html" style="padding-left:32px">Home / Table of Contents</a></li>
+<li><a href="../../en/concepts/installation.html" style="padding-left:44px">Installation</a></li>
+<li><a href="../../en/general/new-project.html" style="padding-left:44px">New Project</a></li>
+<li><a href="../../en/general/running.html" style="padding-left:44px">Running Your Application</a></li>
+<li><a href="../../en/general/crud-generator.html" style="padding-left:44px">CRUD Generator</a></li>
+</ul>
+<h3>Core Concepts</h3>
+<ul>
+<li><a href="../../en/concepts/architecture.html" style="padding-left:44px">Architecture</a></li>
+<li><a href="../../en/concepts/app-components.html" style="padding-left:44px">Application Components</a></li>
+<li><a href="../../en/concepts/folder-structure-and-routing.html" style="padding-left:44px">Folder Structure &amp; Routing</a></li>
+<li class="active"><a href="../../en/concepts/services-modules-routing.html" style="padding-left:44px">Services, Modules &amp; Routing</a></li>
+<li><a href="../../en/concepts/cli-console.html" style="padding-left:44px">CLI Console</a></li>
+<li><a href="../../en/concepts/security.html" style="padding-left:44px">Security</a></li>
+<li><a href="../../en/concepts/namespaces-migration.html" style="padding-left:44px">Namespace Migration</a></li>
+<li><a href="../../en/concepts/migrating-from-ci3.html" style="padding-left:44px">Migrating from CodeIgniter 3</a></li>
+</ul>
+<h3>Library Reference</h3>
+<ul>
+<li><a href="../../en/libraries/index.html" style="padding-left:44px">Library Index</a></li>
+<li><a href="../../en/libraries/loader-kernel.html" style="padding-left:44px">Loader (Kernel)</a></li>
+<li><a href="../../en/libraries/http.html" style="padding-left:44px">HTTP</a></li>
+<li><a href="../../en/libraries/view.html" style="padding-left:44px">View</a></li>
+<li><a href="../../en/libraries/database.html" style="padding-left:44px">Database</a></li>
+<li><a href="../../en/libraries/migration.html" style="padding-left:44px">Migration</a></li>
+<li><a href="../../en/libraries/session.html" style="padding-left:44px">Session</a></li>
+<li><a href="../../en/libraries/auth.html" style="padding-left:44px">Auth</a></li>
+<li><a href="../../en/libraries/socialite.html" style="padding-left:44px">Socialite</a></li>
+<li><a href="../../en/libraries/validation.html" style="padding-left:44px">Form Validation</a></li>
+<li><a href="../../en/libraries/pagination.html" style="padding-left:44px">Pagination</a></li>
+<li><a href="../../en/libraries/email.html" style="padding-left:44px">Email</a></li>
+<li><a href="../../en/libraries/encrypt.html" style="padding-left:44px">Encrypt / Encryption</a></li>
+<li><a href="../../en/libraries/cache.html" style="padding-left:44px">Cache</a></li>
+<li><a href="../../en/libraries/driver.html" style="padding-left:44px">Driver System</a></li>
+<li><a href="../../en/libraries/rpc-trackback.html" style="padding-left:44px">XML-RPC &amp; Trackback</a></li>
+<li><a href="../../en/libraries/testing.html" style="padding-left:44px">Testing</a></li>
+</ul>
+<h3>Utilities</h3>
+<ul>
+<li><a href="../../en/libraries/utilities.html" style="padding-left:44px">Utilities Overview</a></li>
+<li><a href="../../en/libraries/agent.html" style="padding-left:44px">Agent</a></li>
+<li><a href="../../en/libraries/calendar.html" style="padding-left:44px">Calendar</a></li>
+<li><a href="../../en/libraries/cart.html" style="padding-left:44px">Cart</a></li>
+<li><a href="../../en/libraries/image.html" style="padding-left:44px">Image Manipulation</a></li>
+<li><a href="../../en/libraries/javascript.html" style="padding-left:44px">Javascript</a></li>
+<li><a href="../../en/libraries/parser.html" style="padding-left:44px">Parser</a></li>
+<li><a href="../../en/libraries/profiler.html" style="padding-left:44px">Profiler</a></li>
+<li><a href="../../en/libraries/table.html" style="padding-left:44px">Table</a></li>
+<li><a href="../../en/libraries/typography.html" style="padding-left:44px">Typography</a></li>
+<li><a href="../../en/libraries/upload.html" style="padding-left:44px">File Upload</a></li>
+<li><a href="../../en/libraries/ftp.html" style="padding-left:44px">FTP</a></li>
+<li><a href="../../en/libraries/zip.html" style="padding-left:44px">Zip</a></li>
+</ul>
+<h3>Miscellaneous</h3>
+<ul>
+<li><a href="../../en/general/troubleshooting.html" style="padding-left:44px">Troubleshooting</a></li>
+<li><a href="../../en/search.html" style="padding-left:32px">Search</a></li>
+</ul>
+</nav>
+<main class="content">
+<div class="breadcrumbs"><a href="../../en/index.html">Home</a> &raquo; <a href="../../en/index.html">en</a> &raquo; <a href="../../en/concepts/index.html">concepts</a> &raquo; Services, Modules, Modern Routing &amp; Facades</div>
+<div class="toc-on-page"><strong>Contents of this page</strong><ul><li><a href="#1-service-container-kodheframeworkcontainercontainer">1. Service Container (`Kodhe\Framework\Container\Container`)</a></li><li><a href="#2-serviceprovider-servicelocator-servicemanager-addon-system">2. ServiceProvider / ServiceLocator / ServiceManager (Addon system)</a></li><li><a href="#3-module-system-kodheframeworksupportmodules">3. Module System (`Kodhe\Framework\Support\Modules`)</a></li><li><a href="#4-modern-routing-route-from-kodhehttp">4. Modern Routing (`Route::` from kodhe/http)</a></li><li><a href="#5-middleware">5. Middleware</a></li><li><a href="#6-global-facades-application-helpers">6. Global Facades &amp; Application Helpers</a></li><li><a href="#7-when-to-use-which">7. When to use which?</a></li><li><a href="#known-issues">Known issues</a></li><li><a href="#related-links">Related links</a></li></ul></div><h1 id="services-modules-modern-routing-facades">Services, Modules, Modern Routing &amp; Facades</h1>
+<p>This page completes the documentation of the <strong>built-in Kodhe Framework features</strong><br />
+(the <code>framework/</code> kernel + the <code>kodhe/http</code> package) that are not covered elsewhere:<br />
+the service container &amp; service providers (addons), the module system, modern routing<br />
+(<code>Route::</code>), middleware, and global facades. All APIs below are verified from the<br />
+source code: <code>framework/src/Container</code>, <code>framework/src/Foundation/Service</code>,<br />
+<code>framework/src/Support/Modules.php</code>, <code>http/src/Routing</code>, <code>http/src/Middleware</code>,<br />
+<code>framework/src/Support/Facades</code>.</p>
+<blockquote><p>For moving an existing application, see <a href="../../en/concepts/migrating-from-ci3.html">Migrating from CI3</a><br />
+and <a href="../../en/concepts/folder-structure-and-routing.html">Folder Structure &amp; Router</a>.</p></blockquote>
+<h2 id="1-service-container-kodheframeworkcontainercontainer">1. Service Container (<code>Kodhe\Framework\Container\Container</code>)</h2>
+<p>The container is a dependency-injection registry with <strong>prefixed naming</strong>.<br />
+Every service is stored as a <code>"prefix:Name"</code> string; if no prefix is written, the<br />
+container automatically uses the native <code>kodhe:</code> prefix<br />
+(<code>Container::NATIVE_PREFIX</code>).</p>
+<pre><code class="language-php">use Kodhe\Framework\Container\Container;
+
+$c = new Container();
+
+// new factory on every call
+$c-&gt;register('mail:Mailer', function ($container, ...$args) {
+    return new App\Services\Mailer(...$args);
+});
+
+// single instance (singleton)
+$c-&gt;registerSingleton('app:Settings', function ($container) {
+    return new App\Services\Settings(config_item('settings'));
+});
+
+$mailer = $c-&gt;make('mail:Mailer');          // RuntimeException if not registered
+$c-&gt;has('mail:Mailer');                     // bool
+$c-&gt;getBindings();                          // list of non-singleton bindings
+$c-&gt;getSingletonBindings();                 // list of singletons
+$c-&gt;replace('mail:Mailer', $obj);           // override an existing binding
+$c-&gt;setThrowOnDuplicate(false);             // allow re-registering without an error</code></pre>
+<p>Implementation notes (as in the code):</p>
+<ul>
+<li><code>make()</code> is called variadically: extra arguments are forwarded to the closure/factory.</li>
+<li><code>make()</code> also accepts the form <code>make($bindingObject, $name, ...$args)</code> to resolve through a specific sub-binding.</li>
+<li>Contract interface: <code>BindingInterface</code> (<code>register</code>, <code>bind</code>, <code>registerSingleton</code>, <code>make</code>); the <code>ConcreteBinding</code> decorator forwards to its delegate when a name is not found locally.</li>
+<li>Not-found errors are thrown via <code>Exceptions\ContainerException::notFound($id, $availableServices)</code> (the message includes the list of available services).</li>
+</ul>
+<h2 id="2-serviceprovider-servicelocator-servicemanager-addon-system">2. ServiceProvider / ServiceLocator / ServiceManager (Addon system)</h2>
+<p>A set of classes in <code>Kodhe\Framework\Foundation\Service</code> for packaging features as<br />
+<strong>self-contained addons/modules</strong> (an ExpressionEngine-style inherited pattern):</p>
+<table class="table"><thead><tr><th style="">Class</th><th style="">Role</th></tr></thead><tbody><tr><td style=""><code>ServiceLocator</code></td><td style="">Provider registry: <code>register($prefix, $provider)</code>, <code>has</code>, <code>get</code>, <code>all</code> — duplicate prefix → <code>Exception("Addon of name {$prefix} already registered.")</code></td></tr><tr><td style=""><code>ServiceProvider</code></td><td style="">Base class per addon; reads the array from the setup file, registers autoload namespaces, services, singletons, models, aliases</td></tr><tr><td style=""><code>ServiceManager</code></td><td style="">Orchestration: scans the addon folder, <code>addProvider()</code>, collects data across providers (<code>forward()</code>)</td></tr><tr><td style=""><code>ServiceHelper</code></td><td style="">Static service access with automatic prefix detection</td></tr></tbody></table>
+<h3 id="21-addon-setup-file">2.1 Addon setup file</h3>
+<p>An addon is a folder containing an <code>addon.setup.php</code> file that <strong>returns an array</strong>:</p>
+<pre><code class="language-php">// addons/blog/addon.setup.php
+return [
+    'name'      =&gt; 'Blog',
+    'version'   =&gt; '1.0.0',
+    'author'    =&gt; 'Our Team',
+    'namespace' =&gt; 'Addons\\Blog',            // registered with the Autoloader via addPrefix()
+    'services'  =&gt; [                           // [name =&gt; Closure|string]
+        'PostService' =&gt; function ($provider) {
+            return new \Addons\Blog\PostService;
+        },
+        'TagService'  =&gt; 'Services\TagService', // string = FQCN relative to the addon namespace
+    ],
+    'services.singletons' =&gt; [
+        'StatsService' =&gt; fn ($provider) =&gt; new StatsService(),
+    ],
+    'models' =&gt; [
+        'Post',                                 // becomes Addons\Blog\Post
+        '\Shared\Model',                        // leading backslash = do not namespace it
+    ],
+    'models.dependencies' =&gt; ['Post' =&gt; ['kodhe:db']],
+    'aliases' =&gt; [
+        'CI_Post' =&gt; 'Addons\\Blog\\Post',      // key = alias, value = real class
+    ],
+];</code></pre>
+<p>Rules enforced by the code (<code>ServiceProvider::registerServices</code>):</p>
+<ul>
+<li>Service names <strong>must not contain <code>:</code></strong> (it is used as the prefix separator).</li>
+<li>Services are registered under the <code>"{addon}:{Name}"</code> key in the container; the provider's <code>register/registerSingleton/make</code> methods always force the prefix through <code>ensurePrefix()</code> (the special name <code>App</code> is mapped to <code>kodhe:App</code>).</li>
+<li>A <code>string</code> value in <code>services</code> is wrapped with reflection: it instantiates the <code>namespace\Class</code> class with the remaining arguments.</li>
+<li>Numeric-keyed <code>aliases</code> trigger a mapping of <code>Kodhe\Modules...</code> → the <code>Modules...</code> alias; for <code>CI_*</code> aliases the lowercase variant (<code>CI_model</code>) is registered too, so it is safe on case-sensitive Linux.</li>
+</ul>
+<h3 id="22-runtime-registration">2.2 Runtime registration</h3>
+<pre><code class="language-php">use Kodhe\Framework\Support\Autoloader;
+use Kodhe\Framework\Container\Container;
+use Kodhe\Framework\Foundation\Service\{ServiceLocator, ServiceManager};
+
+$container = new Container();
+$locator   = new ServiceLocator($container);
+$manager   = new ServiceManager($container, $locator);
+$manager-&gt;setAutoloader(new Autoloader()); // required for registerNamespace
+
+$manager-&gt;setupAddons(FCPATH . 'addons');  // scan folders that have addon.setup.php
+// or manually:
+$provider = $manager-&gt;addProvider(FCPATH . 'addons/blog'); // default prefix = folder basename
+
+$manager-&gt;getPrefixes();     // ['blog', ...]
+$manager-&gt;getNamespaces();   // ['blog:blog' =&gt; 'Addons\Blog', ...] (result of forward())
+$manager-&gt;getModels();       // collected models keyed by '{prefix}:{name}'
+$manager-&gt;setClassAliases(); // enable all 'aliases'</code></pre>
+<p>Prefix conflicts: an existing provider is <strong>never overwritten</strong>, unless the old path<br />
+contains <code>Addons/pro/levelups</code> or <code>ExpressionEngine/Addons</code> (pro/first-party priority —<br />
+internal logic of <code>addProvider()</code>).</p>
+<h3 id="23-accessing-services-servicehelper-the-service-helper">2.3 Accessing services: <code>ServiceHelper</code> &amp; the <code>service()</code> helper</h3>
+<pre><code class="language-php">use Kodhe\Framework\Foundation\Service\ServiceHelper;
+
+ServiceHelper::get('email');                 // 'email' → EmailService (auto-suffix)
+ServiceHelper::get('EmailService', 'blog');  // explicit prefix
+ServiceHelper::email();                      // __callStatic: email() → EmailService
+ServiceHelper::user_manager();               // snake_case → UserManagerService
+ServiceHelper::getAvailableServices();       // list across all providers
+ServiceHelper::clearCache();                 // reset cached instances &amp; providers
+
+// global function (framework/src/Support/Helpers.php):
+$svc = service('email');            // delegates to ServiceHelper::get()
+$svc = service('email', 'blog');</code></pre>
+<p>Name conversion (<code>methodToServiceName</code>): underscores are stripped then <code>ucwords</code> is<br />
+applied, and the <code>Service</code> suffix is appended when missing. Resolution uses<br />
+<code>kodhe('App')</code> (the Application/provider root instance) — which means **these helpers<br />
+only work once the Kodhe kernel/bootstrap is running**; in pure per-package mode, use<br />
+<code>Container::make()</code> directly.</p>
+<h2 id="3-module-system-kodheframeworksupportmodules">3. Module System (<code>Kodhe\Framework\Support\Modules</code>)</h2>
+<p>A module = a self-contained application folder under <code>APPPATH.'modules/'</code> (other<br />
+locations are possible via the <code>modules_locations</code> config) with the CI3 HMVC-style<br />
+structure: <code>controllers/ models/ views/ config/ (routes.php)</code>.</p>
+<h3 id="31-lifecycle">3.1 Lifecycle</h3>
+<ul>
+<li><code>Modules::init()</code> — call once during bootstrap: determines the locations, tries the cache, then runs <code>scanAndCacheAllModules()</code>. The modern routers (<code>Router</code>, <code>UnifiedRouter</code>) call it automatically in their constructor.</li>
+<li>Scan results are cached in a cache file (<code>cache()</code>, <code>loadFromCache()</code>, <code>isCacheFresh($maxAge=3600)</code>, <code>refreshCache()</code>, <code>clearCache()</code>) — important in production because directory scanning is expensive.</li>
+<li>Per-module routes are read from the module's own <code>config/routes.php</code> (<code>parse_routes()</code>), plus module route groups via <code>Route::module()</code>.</li>
+</ul>
+<p>Main API:</p>
+<pre><code class="language-php">Modules::moduleExists('blog');           // bool
+Modules::getAllCachedModules();          // [name =&gt; [path...]]
+Modules::getFirstModulePath('blog');     // ?string
+Modules::list_modules($excludeCore=false);
+Modules::folders();                      // list of module locations
+Modules::find($file, $module, 'config/'); // [path, file] HMVC convention search
+Modules::run('blog/post/index', ...$args); // load controller + call method (ob capture)
+Modules::load('blog/post');              // instantiate the module controller (registry)
+Modules::controller_exists('post','blog');
+Modules::path($module, $folder);         // module folder path
+Modules::register_asset($asset); Modules::assets();</code></pre>
+<p><code>Modules::run()</code> validates the argument count against the method's required parameters<br />
+(ReflectionMethod) and returns string/NULL output; failures are logged through<br />
+<code>log_message('error', ...)</code>.</p>
+<h3 id="32-global-module-helpers-frameworksrcsupporthelpersmodulehelperphp">3.2 Global module helpers (<code>framework/src/Support/Helpers/module_helper.php</code>)</h3>
+<table class="table"><thead><tr><th style="">Function</th><th style="">Purpose</th></tr></thead><tbody><tr><td style=""><code>current_module()</code></td><td style="">module name of the running request (layered detection: CI instance → Modules → Facade → URI)</td></tr><tr><td style=""><code>is_module('blog')</code></td><td style="">compares against the active module</td></tr><tr><td style=""><code>module_path('blog','views')</code></td><td style="">absolute path of a module folder/subpath</td></tr><tr><td style=""><code>module_controller_exists('post','blog')</code></td><td style="">checks a controller</td></tr><tr><td style=""><code>module_view($view,$data,$return)</code></td><td style="">renders the <code>modules/{m}/views/{v}</code> view</td></tr><tr><td style=""><code>module_config($key,$default,'blog')</code></td><td style="">reads module config</td></tr><tr><td style=""><code>module_info('blog')</code> / <code>module_exists()</code></td><td style="">metadata</td></tr><tr><td style=""><code>module_url('post','blog')</code> / <code>module_asset()</code></td><td style="">module URLs &amp; assets</td></tr><tr><td style=""><code>active_module($m=null)</code></td><td style="">module getter/setter on the router (<code>kodhe()-&gt;router-&gt;set_module()</code>)</td></tr></tbody></table>
+<p>The loader also provides legacy bridges: <code>$CI-&gt;load-&gt;run_module()</code>,<br />
+<code>load_module()</code>, <code>add_module()</code>, <code>remove_module()</code>,<br />
+<code>module_file_path()</code>, <code>module_config()</code>, <code>list_modules()</code> (FileLoader).</p>
+<h2 id="4-modern-routing-route-from-kodhehttp">4. Modern Routing (<code>Route::</code> from kodhe/http)</h2>
+<p>Beyond the CI3-style <code>$route['uri'] = 'class/method'</code>, the <code>kodhe/http</code> package<br />
+provides a fluent router (Laravel-style) in<br />
+<code>Kodhe\Framework\Http\Routing\Route</code> + <code>RouteCollection</code>:</p>
+<pre><code class="language-php">use Kodhe\Framework\Http\Routing\Route;
+
+Route::get('posts', [PostController::class, 'index']);
+Route::post('posts', [PostController::class, 'store'])-&gt;middleware('auth');
+Route::match(['get','post'], 'login', LoginController::class);
+Route::any('ping', fn () =&gt; response('pong'));
+
+Route::group(['prefix' =&gt; 'admin', 'namespace' =&gt; 'App\\Controllers\\Admin',
+              'middleware' =&gt; ['auth','role:admin']], function () {
+    Route::resource('users', UserController::class);      // index/create/store/show/edit/update/destroy
+    Route::apiResource('tags', TagController::class);     // JSON variant
+    Route::module('blog', function () { /* routes inside the module */ });
+});
+
+Route::apiVersion('v1', fn () =&gt; Route::get('feed', FeedController::class));
+Route::domain('acme.example.test', fn () =&gt; Route::get('dash', DashController::class));
+Route::view('about', 'pages/about', ['title' =&gt; 'About']);
+Route::redirect('/old', '/new', 301);
+Route::fallback(fn () =&gt; throw new NotFoundError());
+
+Route::pattern('id', '[0-9]+');                  // global constraint
+$name = Route::url('users.show', ['id' =&gt; 5]);   // reverse URL by name
+Route::getRoutes(); Route::clear();</code></pre>
+<p>Other supporting features available: <code>dynamic($prefix, $controller)</code><br />
+(auto-routes to a controller), <code>permanentRedirect</code>, <code>api()</code> (alias for the<br />
+<code>api/</code> prefix), <code>wildcardDomain*</code>, <code>getCurrentApiVersion()/setApiVersion()</code>.<br />
+The route collection supports <strong>caching</strong>: <code>RouteCollection::cache()</code>,<br />
+<code>loadFromCache()</code>, <code>isCacheFresh()</code> — enable it through the router config<br />
+<code>cache_routes</code> (see <a href="../../en/concepts/folder-structure-and-routing.html">folder-structure-and-routing</a>).</p>
+<p>Resource fluency: <code>Route::resource(...)-&gt;only([...])-&gt;except([...])</code> via<br />
+<code>ResourceRegistrar</code> (<code>only/except/names/parameters/middleware</code>).</p>
+<h2 id="5-middleware">5. Middleware</h2>
+<p>The <code>http/src/Middleware</code> folder:</p>
+<ul>
+<li><code>MiddlewareInterface</code> — the <code>process(Request $request, callable $next)</code> contract (implement it according to that file).</li>
+<li><code>MiddlewareRegistry</code> — a registry of named middleware that can be referenced by string in <code>-&gt;middleware('auth')</code> / group attributes.</li>
+<li><code>MiddlewareGroup</code> — a set of middleware (e.g. <code>web</code>, <code>api</code>).</li>
+<li><code>CallableMiddleware</code> — wraps a closure as a middleware.</li>
+<li><code>RateLimiter</code> — rate limiter (used by the throttle attribute on routes/APIs).</li>
+</ul>
+<p>Registration usually happens through your application's Kernel/routing config;<br />
+middleware runs in the pipeline before <code>ControllerExecutor</code> calls the action.<br />
+Request/response lifecycle details: <a href="../../en/libraries/http.html">http.md →</a>.</p>
+<h2 id="6-global-facades-application-helpers">6. Global Facades &amp; Application Helpers</h2>
+<p><code>Kodhe\Framework\Support\Facades\Facade</code> is a <strong>singleton service locator</strong> that also<br />
+becomes the content of <code>$GLOBALS['kodhe']</code>:</p>
+<pre><code class="language-php">$f = Facade::getInstance();
+$f-&gt;set('load', $loader);          // component registration (dev may override; prod stays silent)
+$f-&gt;get('router');                 // InvalidArgumentException when missing
+$f-&gt;has('di');                     // bool
+$f-&gt;register('myMacro', fn() =&gt; …);// custom method → $f-&gt;myMacro()
+$f-&gt;remove('tmp'); $f-&gt;all();
+Facade::reset();                   // clear the singleton (testing)</code></pre>
+<ul>
+<li><code>__call</code> forwards to a loader method when one exists, then to registered callbacks.</li>
+<li>There is an automatic deprecated map (<code>blacklist</code> → <code>blockedlist</code>) that emits <code>E_USER_DEPRECATED</code> in development environments.</li>
+<li>The base <code>Controller</code> (<code>http/src/Controllers/Controller.php</code>) takes the facade from <code>$GLOBALS['CI_APP']-&gt;getKernel()</code> / <code>$GLOBALS['CI_KERNEL']</code> when available, falling back to <code>Facade::getInstance()</code>; <code>BaseController</code> adds the <code>string</code> helper, the <code>user_agent</code> library, and <code>theme</code> (when the <code>kodhe/view</code> package is installed).</li>
+</ul>
+<p>Other global helpers in <code>framework/src/Support/Helpers.php</code>:<br />
+<code>session($key=null)</code>, <code>resolve_path()</code>, <code>csrf_token()/csrf_field()/csrf_meta()</code>,<br />
+<code>active_module()</code>, <code>service()</code>. The <code>kodhe()</code> / <code>app()</code> functions are provided by the<br />
+application kernel/bootstrap (see the <code>Foundation/Service</code> README); make sure your<br />
+application version defines them — in pure per-package mode neither exists automatically.</p>
+<h2 id="7-when-to-use-which">7. When to use which?</h2>
+<table class="table"><thead><tr><th style="">Need</th><th style="">Use</th></tr></thead><tbody><tr><td style="">Internal DI within a single-repo application</td><td style=""><code>Container::register/make</code> with your own prefix</td></tr><tr><td style="">Plug-and-unplug feature packages (addon marketplace)</td><td style=""><code>addon.setup.php</code> + <code>ServiceManager::setupAddons()</code></td></tr><tr><td style="">Fetch an addon service from a controller</td><td style=""><code>service('name')</code> / <code>ServiceHelper::name()</code></td></tr><tr><td style="">Turn part of a large app into a self-contained package</td><td style=""><code>Modules</code> (HMVC) + <code>Route::module()</code></td></tr><tr><td style="">Modern APIs/endpoints</td><td style=""><code>Route::get/group/resource/apiVersion</code> + middleware</td></tr><tr><td style="">Keep old CI3 code running</td><td style=""><code>$CI-&gt;load-&gt;library()</code> dual-mode (see loader-kernel.md)</td></tr></tbody></table>
+<h2 id="known-issues">Known issues</h2>
+<ul>
+<li><code>ServiceHelper</code> depends on <code>kodhe('App')</code>; if the <code>App</code> facade/container has not been booted, resolution throws an error — it does not return a graceful null.</li>
+<li><code>ServiceManager::addProvider()</code> <strong>silently returns (void)</strong> when the setup file is missing (the throw is commented out in the code) — hard to debug; check the <code>debug</code> log.</li>
+<li><code>setupAddons()</code> only processes folders that contain <code>addon.setup.php</code>; addons without that file are skipped without a warning.</li>
+<li>Prefix-conflict priority is hardcoded to the path strings <code>Addons/pro/levelups</code> / <code>ExpressionEngine/Addons</code> — an artefact of the EE origins; for new projects you should avoid duplicate prefixes.</li>
+<li><code>getAvailableServices()</code> on a provider relies on that provider's own <code>getAvailableServices()</code> method; the base <code>ServiceProvider</code> does not define it, so the default returns <code>[]</code> unless the addon implements it.</li>
+</ul>
+<h2 id="related-links">Related links</h2>
+<ul>
+<li><a href="../../en/concepts/architecture.html">Architecture</a> · <a href="../../en/concepts/folder-structure-and-routing.html">Folder Structure &amp; Router</a></li>
+<li><a href="../../en/general/running.html">Running the Application</a> · <a href="../../en/libraries/loader-kernel.html">Kernel Loader Reference</a></li>
+<li><a href="../../en/libraries/http.html">HTTP package</a> · <a href="../../en/concepts/migrating-from-ci3.html">Migrating from CI3</a></li>
+</ul>
+<footer class="page-footer">
+  <span>Kodhe Framework User Guide &mdash; built from <code>user_guide/*.md</code> by <code>scripts/build_user_guide.py</code></span>
+  <span><a href="../../en/concepts/folder-structure-and-routing.html">&larr; Folder Structure &amp; Router (Differences from CI3)</a> &nbsp;|&nbsp; <a href="../../en/concepts/cli-console.html">CLI Console (Command Line) &rarr;</a></span>
+</footer>
+</main>
+</div>
+<script src="../../searchindex.js"></script>
+</body>
+</html>

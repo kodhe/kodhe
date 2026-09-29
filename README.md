@@ -1,70 +1,72 @@
-# Kodhe — Contoh Penerapan Framework
+# default_project — Contoh Proyek Kodhe Framework
 
-Project contoh yang memakai **KaryaKode/Kodhe Framework** (`kodhe/framework`).
-Struktur ini mengikuti pola: `public/` (docroot) → `bootstrap/app.php` → `application/`.
+Template struktur aplikasi sesuai panduan modul Kodhe Framework:
+setiap fitur adalah **satu modul HMVC** di `application/modules/{nama}`.
 
-## Kebutuhan
+## Contoh modul: `blog`
 
-- PHP >= 8.1 (dengan `mbstring`, disarankan `iconv`)
-- Composer
+Modul lengkap dengan lapisan service + controller + view + rute sendiri:
 
-## Instalasi
-
-```bash
-cd kodhe
-composer install          # framework diambil dari repo induk via path repository ../
-cp .env.example .env      # sesuaikan kredensial DB/encryption key bila perlu
-php -S localhost:8000 -t public   # dev server cepat
+```
+application/
+└── modules/
+    ├── blog/                       ← MODUL contoh (lapisan service lengkap)
+    │   ├── setup.php               ← pendaftaran service/singleton/model/alias
+    │   ├── Services/               ← PostService, TagService, StatsService
+    │   ├── Models/                 ← Post (model domain, deps disuntikkan)
+    │   ├── config/routes.php       ← opsional: fallback rute gaya CI3
+    │   ├── controllers/            ← Post.php, Admin.php (memakai service modul)
+    │   ├── models/                 ← (kosong — hanya model CI-style lokal)
+    │   ├── views/post/index.php    ← presentasi
+    │   └── routes/                 ← modul memiliki folder routes sendiri
+    │       ├── web.php             ← halaman HTML (Route::module('blog', …))
+    │       ├── api.php             ← endpoint JSON (Route::apiVersion('v1', …))
+    │       └── console.php         ← perintah CLI pemanggil service modul
+    └── shop/                       ← modul minimal (hanya setup.php kosong-ish)
 ```
 
-Buka `http://localhost:8000/` — route `welcome` merender tema Blade di
-`application/views/default/`.
+Dokumentasi lengkap: [`user_guide/id/libraries/module.md`](../user_guide/id/libraries/module.md)
+(EN: `user_guide/en/libraries/module.md`).
 
-## Struktur Penting
+## Mengaktifkan modul (urutan boot)
 
-| Path | Fungsi |
-|---|---|
-| `public/index.php` | Entry point; set `ENVIRONMENT` (default `production`, override via `CI_ENV`) |
-| `bootstrap/app.php` | Boot framework, helper global `app()`/`kodhe()`/`get_instance()` |
-| `application/config/` | Konfigurasi app (`config.php`, `middleware.php`, `routes`, dll.) |
-| `application/routes/web.php` | Route modern web (`Route::get`, group, fallback) |
-| `application/routes/api.php` | Route khusus API/REST (prefix `api` + middleware group `api`) |
-| `application/middlewares/` | Middleware alias `auth`, `csrf`, `session`, `api.*`, dst. |
-| `application/views/default/` | Tema Blade (layout + pages) |
-| `database/migrations/` | Migrasi (satu file per tabel) |
-| `bin/console` | CLI toolkit (setara `spark` di CodeIgniter 4) |
-| `storage/` | Cache, logs, session (di-gitignore, dibuat saat instalasi) |
+Di bootstrap aplikasi (mis. hook `Kernel::boot`), daftarkan lapisan service
+SETIAP modul SEBELUM `Modules::init()` — urutan wajib:
+`addProvider()` → `setClassAliases()` → `Modules::init()`:
 
-## Console & Migrasi Database (`php bin/console`)
+```php
+use Kodhe\Framework\Container\Container;
+use Kodhe\Framework\Foundation\Service\{ServiceLocator, ServiceManager};
+use Kodhe\Framework\Support\Autoloader;
+use Kodhe\Framework\Support\Modules;
 
-Jalankan **selalu dari root project** (folder ini, tempat `vendor/` berada):
+$container = kodhe('di');
+$locator   = new ServiceLocator($container);
+$manager   = new ServiceManager($container, $locator);
+$manager->setAutoloader(new Autoloader());
 
-```bash
-cd kodhe
-composer install                       # sekali saja
+// JANGAN pakai helper legacy setupAddons('addons') — tidak ada pohon addons/.
+foreach (Modules::list_modules() as $module) {
+    $manager->addProvider(APPPATH . 'modules/' . $module); // baca modules/{m}/setup.php
+}
 
-php bin/console migrate                # jalankan semua migrasi pending
-php bin/console migrate --status       # lihat applied / pending
-php bin/console migrate --rollback     # undo 1 batch terakhir
-php bin/console migrate --fresh        # rollback semua lalu up ulang
-php bin/console make:migration create_posts_table   # buat file migrasi baru
-php bin/console list                   # daftar semua command
+$manager->setClassAliases();
+Modules::init();
 ```
 
-> Alternatif: `php vendor/kodhe/framework/bin/console migrate` juga didukung —
-> command `migrate` mendeteksi root project dari CWD maupun posisi file
-> framework di `vendor/`, dan memuat `vendor/autoload.php` project secara
-> otomatis. Pastikan `kodhe/database` ikut ter-install (sudah menjadi
-> dependency `kodhe/framework` sejak versi ini).
+## Memakai service modul
 
-## Keamanan
+Prefix service mengikuti nama folder modul (`blog` → `blog:PostService`):
 
-- `csrf_protection` aktif secara default (`application/config/config.php`).
-- `ENVIRONMENT` default `production`; gunakan `CI_ENV=development` hanya lokal.
-- Jangan pernah meng-commit `.env` asli; gunakan `.env.example`.
+```php
+service('PostService', 'blog')->all();          // gaya disarankan
+kodhe('di')->make('blog:PostService')->all();   // container langsung
+ServiceHelper::tag_service();                   // shorthand statis
+```
 
-## Catatan
+## Menambah modul baru
 
-- Helper `app()`, `kodhe()`, dan `get_instance()` didefinisikan di `bootstrap/app.php`.
-- Jika ingin memakai file `.env.php`, tambahkan paket dotenv ke `composer.json`
-  (lihat komentar pada blok "Load the environment").
+Salin pola `modules/blog/`: buat folder per fitur, isi `controllers/`,
+`views/`, dan `routes/web.php|api.php|console.php`. Tambahkan `setup.php`
++ `Services/` hanya bila modul butuh lapisan service. Modul tanpa
+`setup.php` tetap boot normal.

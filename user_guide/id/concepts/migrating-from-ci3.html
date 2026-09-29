@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Migrasi dari CodeIgniter 3 ke Kodhe Framework &mdash; Kodhe Framework User Guide</title>
+<style>
+:root {
+  --primary: #e36c18;
+  --dark: #232525;
+  --sidebar-bg: #f7f7f7;
+  --border: #e1e4e5;
+  --text: #404040;
+  --link: #236fb0;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 0; color: var(--text);
+  font: 15px/1.6 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #fff;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+header#top {
+  background: var(--dark); color: #fff; padding: 12px 24px;
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+header#top .brand { font-size: 20px; font-weight: bold; color: #fff; }
+header#top .brand span { color: var(--primary); }
+header#top form { margin-left: auto; }
+header#top input[type=search] {
+  padding: 6px 10px; border-radius: 4px; border: 1px solid #555;
+  background: #333; color: #eee; width: 220px;
+}
+.layout { display: flex; min-height: calc(100vh - 120px); }
+nav.sidebar {
+  width: 300px; flex: 0 0 300px; background: var(--sidebar-bg);
+  border-right: 1px solid var(--border); padding: 18px 0 40px; overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: 13px; text-transform: uppercase; letter-spacing: .05em;
+  color: #888; margin: 18px 20px 6px;
+}
+nav.sidebar ul { list-style: none; margin: 0; padding: 0; }
+nav.sidebar li a {
+  display: block; padding: 4px 20px; color: #555; font-size: 14px;
+  border-left: 3px solid transparent;
+}
+nav.sidebar li a:hover { background: #ececec; text-decoration: none; }
+nav.sidebar li.active > a {
+  color: var(--primary); border-left-color: var(--primary);
+  background: #efefef; font-weight: 600;
+}
+main.content { flex: 1; padding: 28px 44px 60px; max-width: 950px; }
+main.content h1 { font-size: 32px; margin-top: 0; color: var(--dark); border-bottom: 2px solid var(--primary); padding-bottom: 8px; }
+main.content h2 { font-size: 24px; margin-top: 34px; color: var(--dark); }
+main.content h3 { font-size: 19px; margin-top: 26px; }
+main.content pre {
+  background: #f5f5f5; border: 1px solid var(--border); border-radius: 4px;
+  padding: 12px 14px; overflow-x: auto; font-size: 13px; line-height: 1.45;
+}
+main.content code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  background: #f5f5f5; padding: 1px 5px; border-radius: 3px; font-size: 90%;
+}
+main.content pre code { background: none; padding: 0; font-size: inherit; }
+main.content blockquote {
+  margin: 16px 0; padding: 10px 18px; background: #fdf3ea;
+  border-left: 4px solid var(--primary); color: #665; border-radius: 0 4px 4px 0;
+}
+main.content blockquote p { margin: 4px 0; }
+main.content table.table {
+  border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px;
+}
+main.content table th, main.content table td {
+  border: 1px solid var(--border); padding: 7px 11px; vertical-align: top;
+}
+main.content table thead th { background: #f2f2f2; }
+main.content table tr:nth-child(even) td { background: #fafafa; }
+main.content hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.toc-on-page { background: #fbfbfb; border: 1px solid var(--border); border-radius: 4px; padding: 10px 18px; margin: 0 0 22px; font-size: 14px; }
+.toc-on-page strong { color: var(--dark); }
+footer.page-footer {
+  border-top: 1px solid var(--border); margin-top: 40px; padding-top: 14px;
+  font-size: 13px; color: #888; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+.breadcrumbs { font-size: 13px; color: #777; margin-bottom: 14px; }
+.breadcrumbs a { color: #999; }
+@media (max-width: 900px) {
+  .layout { flex-direction: column; }
+  nav.sidebar { width: 100%; flex: none; border-right: none; border-bottom: 1px solid var(--border); }
+  main.content { padding: 20px; }
+}
+</style>
+</head>
+<body>
+<header id="top">
+  <a class="brand" href="../../id/index.html">Kodhe<span>&nbsp;User Guide</span></a>
+  <span style="font-size:12px;color:#aaa;">v1.0</span>
+  <span style="margin-left:14px;font-size:13px;"><span style="font-size:12px;color:#888;">Bahasa:</span> <a style="color:#e36c18;font-weight:bold;" href="../../id/concepts/migrating-from-ci3.html">ID</a> &middot; <a style="color:#ccc;" href="../../en/concepts/migrating-from-ci3.html">EN</a></span>
+  <form action="../../search.html" method="get">
+    <input type="search" name="q" placeholder="Cari dokumentasi..." aria-label="cari" />
+  </form>
+</header>
+<div class="layout">
+<nav class="sidebar">
+<h3>Memulai</h3>
+<ul>
+<li><a href="../../id/index.html" style="padding-left:32px">Beranda / Daftar Isi</a></li>
+<li><a href="../../id/concepts/installation.html" style="padding-left:44px">Instalasi</a></li>
+<li><a href="../../id/general/new-project.html" style="padding-left:44px">Proyek Baru</a></li>
+<li><a href="../../id/general/running.html" style="padding-left:44px">Menjalankan Aplikasi</a></li>
+<li><a href="../../id/general/crud-generator.html" style="padding-left:44px">Generator CRUD</a></li>
+</ul>
+<h3>Konsep Inti</h3>
+<ul>
+<li><a href="../../id/concepts/architecture.html" style="padding-left:44px">Arsitektur</a></li>
+<li><a href="../../id/concepts/app-components.html" style="padding-left:44px">Komponen Aplikasi</a></li>
+<li><a href="../../id/concepts/folder-structure-and-routing.html" style="padding-left:44px">Struktur Folder &amp; Routing</a></li>
+<li><a href="../../id/concepts/services-modules-routing.html" style="padding-left:44px">Service, Modul &amp; Routing</a></li>
+<li><a href="../../id/concepts/cli-console.html" style="padding-left:44px">Console CLI</a></li>
+<li><a href="../../id/concepts/security.html" style="padding-left:44px">Keamanan</a></li>
+<li><a href="../../id/concepts/namespaces-migration.html" style="padding-left:44px">Migrasi Namespace</a></li>
+<li class="active"><a href="../../id/concepts/migrating-from-ci3.html" style="padding-left:44px">Migrasi dari CodeIgniter 3</a></li>
+</ul>
+<h3>Referensi Library</h3>
+<ul>
+<li><a href="../../id/libraries/index.html" style="padding-left:44px">Indeks Library</a></li>
+<li><a href="../../id/libraries/loader-kernel.html" style="padding-left:44px">Loader (Kernel)</a></li>
+<li><a href="../../id/libraries/http.html" style="padding-left:44px">HTTP</a></li>
+<li><a href="../../id/libraries/view.html" style="padding-left:44px">View</a></li>
+<li><a href="../../id/libraries/database.html" style="padding-left:44px">Database</a></li>
+<li><a href="../../id/libraries/migration.html" style="padding-left:44px">Migration</a></li>
+<li><a href="../../id/libraries/session.html" style="padding-left:44px">Session</a></li>
+<li><a href="../../id/libraries/auth.html" style="padding-left:44px">Auth</a></li>
+<li><a href="../../id/libraries/socialite.html" style="padding-left:44px">Socialite</a></li>
+<li><a href="../../id/libraries/validation.html" style="padding-left:44px">Form Validation</a></li>
+<li><a href="../../id/libraries/pagination.html" style="padding-left:44px">Pagination</a></li>
+<li><a href="../../id/libraries/email.html" style="padding-left:44px">Email</a></li>
+<li><a href="../../id/libraries/encrypt.html" style="padding-left:44px">Encrypt / Encryption</a></li>
+<li><a href="../../id/libraries/cache.html" style="padding-left:44px">Cache</a></li>
+<li><a href="../../id/libraries/driver.html" style="padding-left:44px">Driver System</a></li>
+<li><a href="../../id/libraries/rpc-trackback.html" style="padding-left:44px">XML-RPC &amp; Trackback</a></li>
+<li><a href="../../id/libraries/testing.html" style="padding-left:44px">Testing</a></li>
+</ul>
+<h3>Utilities</h3>
+<ul>
+<li><a href="../../id/libraries/utilities.html" style="padding-left:44px">Ringkasan Utilities</a></li>
+<li><a href="../../id/libraries/agent.html" style="padding-left:44px">Agent</a></li>
+<li><a href="../../id/libraries/calendar.html" style="padding-left:44px">Calendar</a></li>
+<li><a href="../../id/libraries/cart.html" style="padding-left:44px">Cart</a></li>
+<li><a href="../../id/libraries/image.html" style="padding-left:44px">Image Manipulation</a></li>
+<li><a href="../../id/libraries/javascript.html" style="padding-left:44px">Javascript</a></li>
+<li><a href="../../id/libraries/parser.html" style="padding-left:44px">Parser</a></li>
+<li><a href="../../id/libraries/profiler.html" style="padding-left:44px">Profiler</a></li>
+<li><a href="../../id/libraries/table.html" style="padding-left:44px">Table</a></li>
+<li><a href="../../id/libraries/typography.html" style="padding-left:44px">Typography</a></li>
+<li><a href="../../id/libraries/upload.html" style="padding-left:44px">File Upload</a></li>
+<li><a href="../../id/libraries/ftp.html" style="padding-left:44px">FTP</a></li>
+<li><a href="../../id/libraries/zip.html" style="padding-left:44px">Zip</a></li>
+</ul>
+<h3>Lain-lain</h3>
+<ul>
+<li><a href="../../id/general/troubleshooting.html" style="padding-left:44px">Troubleshooting</a></li>
+<li><a href="../../id/search.html" style="padding-left:32px">Pencarian</a></li>
+</ul>
+</nav>
+<main class="content">
+<div class="breadcrumbs"><a href="../../id/index.html">Beranda</a> &raquo; <a href="../../id/index.html">id</a> &raquo; <a href="../../id/concepts/index.html">concepts</a> &raquo; Migrasi dari CodeIgniter 3 ke Kodhe Framework</div>
+<div class="toc-on-page"><strong>Daftar isi halaman ini</strong><ul><li><a href="#0-strategi-dua-jalur-boleh-dicampur">0. Strategi: dua jalur, boleh dicampur</a></li><li><a href="#1-prasyarat-audit-kode-lama">1. Prasyarat &amp; audit kode lama</a></li><li><a href="#2-instalasi">2. Instalasi</a></li><li><a href="#3-bootstrap-aplikasi">3. Bootstrap aplikasi</a></li><li><a href="#4-konfigurasi-array-ci3-diterima-apa-adanya">4. Konfigurasi: array CI3 diterima apa adanya</a></li><li><a href="#5-peta-namespace-loader">5. Peta namespace &amp; loader</a></li><li><a href="#6-perubahan-api-yang-perlu-dicari-di-kode">6. Perubahan API yang perlu dicari di kode</a></li><li><a href="#7-database-session-dan-tabel-pendukung">7. Database, session, dan tabel pendukung</a></li><li><a href="#8-checklist-verifikasi-bertahap">8. Checklist verifikasi bertahap</a></li><li><a href="#9-konsolidasi-bertahap-ke-mode-modern">9. Konsolidasi bertahap ke mode modern</a></li><li><a href="#10-rollback">10. Rollback</a></li></ul></div><h1 id="migrasi-dari-codeigniter-3-ke-kodhe-framework">Migrasi dari CodeIgniter 3 ke Kodhe Framework</h1>
+<p>Panduan ini adalah jalur lengkap memindahkan aplikasi <strong>CodeIgniter 3</strong> ke<br />
+<strong>Kodhe Framework</strong>. Prinsip besarnya: Kodhe bukan framework baru yang harus<br />
+dipelajari dari nol — ia adalah library-library CI3 yang dimodernisasi menjadi<br />
+paket Composer ber-namespace <code>Kodhe\Framework\*</code>, dibungkus kernel<br />
+compatibility-layer agar kode CI3 lama tetap berjalan. Anda boleh bermigrasi<br />
+<strong>bertahap</strong>, modul per modul.</p>
+<p>Bacaan terkait:<br />
+<a href="../../id/concepts/namespaces-migration.html">peta namespace</a> ·<br />
+<a href="../../id/concepts/architecture.html">arsitektur</a> ·<br />
+<a href="../../id/concepts/installation.html">instalasi</a> ·<br />
+<a href="../../id/general/running.html">menjalankan aplikasi</a> ·<br />
+<a href="../../id/general/troubleshooting.html">troubleshooting</a></p>
+<h2 id="0-strategi-dua-jalur-boleh-dicampur">0. Strategi: dua jalur, boleh dicampur</h2>
+<table class="table"><thead><tr><th style="">Jalur</th><th style="">Cocok untuk</th><th style="">Cara</th></tr></thead><tbody><tr><td style=""><strong>A. Compat-layer (big-bang ringan)</strong></td><td style="">Aplikasi CI3 besar, ingin cepat jalan lagi di PHP 8</td><td style="">Pasang kernel <code>framework/</code>, jalankan controller/model CI3 apa adanya; loader <code>$CI-&gt;load-&gt;library()</code> tetap berfungsi + alias <code>CI_*</code> otomatis</td></tr><tr><td style=""><strong>B. Paket murni (incremental)</strong></td><td style="">Kode baru / refactor bertahap</td><td style=""><code>composer require kodhe/&lt;paket&gt;</code> lalu pakai kelas PSR-4 langsung (<code>use Kodhe\Framework\...</code>) tanpa loader</td></tr></tbody></table>
+<p>Rekomendasi: mulai dari <strong>A</strong> supaya aplikasi hidup lagi, lalu pindahkan modul<br />
+per modul ke <strong>B</strong>. Keduanya bisa berjalan berdampingan dalam satu aplikasi<br />
+(loader dual-mode — lihat <a href="../../id/concepts/architecture.html">arsitektur</a>).</p>
+<h2 id="1-prasyarat-audit-kode-lama">1. Prasyarat &amp; audit kode lama</h2>
+<p>Sebelum menyentuh composer, audit dulu:</p>
+<pre><code class="language-bash"># pola yang sudah mati di PHP 8
+grep -rn "mysql_\|mcrypt_\|each(\|create_function" application/ | wc -l
+
+# semua pemakaian library/loader CI3 yang perlu dipetakan
+grep -rn "\$this-&gt;load-&gt;library(" application/controllers application/core | sort
+
+# pemanggilan API legacy (email, session DB lama, dsb.)
+grep -rn "reply_to\|set_mailtype\|lastactivity" application/</code></pre>
+<p>Pastikan aplikasi CI3 asli sudah jalan di <strong>PHP 8.1+</strong> dengan error reporting<br />
+strict — perbaiki dulu deprecated warning warisan PHP 7 (variabel tak<br />
+terdefinisi, <code>strlen(null)</code>, dll.) sebelum menambah lapisan migrasi.</p>
+<h2 id="2-instalasi">2. Instalasi</h2>
+<p>Detail di <a href="../../id/concepts/installation.html">instalasi</a>. Ringkasnya:</p>
+<pre><code class="language-bash"># Jalur A — aplikasi full-stack (kernel + semua paket)
+composer require kodhe/framework
+
+# Jalur B — hanya paket yang dipakai
+composer require kodhe/validation kodhe/session kodhe/http</code></pre>
+<p>Struktur folder aplikasi CI3 (<code>application/config</code>, <code>controllers</code>, <code>models</code>,<br />
+<code>views</code>, <code>migrations</code>) <strong>tidak berubah</strong> — kernel membacunya apa adanya.</p>
+<blockquote><p>⚠️ Tetapi perhatikan: Kodhe juga punya <strong>konvensi struktur sendiri</strong> untuk kode<br />
+baru — folder PascalCase tanpa underscore (<code>app/Controllers/</code>, <code>app/Models/</code>)<br />
+dan sistem router ganda (modern + legacy) yang perilakunya berbeda dari CI3.<br />
+Ini adalah isu nyata saat migrasi bertahap; seluruh pemetaannya beserta<br />
+strategi koeksistensi ada di<br />
+<strong><a href="../../id/concepts/folder-structure-and-routing.html">Struktur Folder &amp; Router</a></strong>, dan standar<br />
+penulisan tiap komponen (controller/model/library/view) beserta konversi<br />
+per-file ada di <strong><a href="../../id/concepts/app-components.html">Komponen Aplikasi Standar</a></strong>.</p></blockquote>
+<h2 id="3-bootstrap-aplikasi">3. Bootstrap aplikasi</h2>
+<p>Ganti bootstrap pada <code>index.php</code>. CI3:</p>
+<pre><code class="language-php">// CI3 asli
+require_once '../application/vendor/codeigniter/core/CodeIgniter.php';</code></pre>
+<p>Kodhe (mode kernel):</p>
+<pre><code class="language-php">require_once __DIR__ . '/vendor/autoload.php';
+
+$app = Kodhe\Framework\Foundation\Application::create();
+$app-&gt;bootstrap();   // boot kernel: daftarkan services ke container
+$app-&gt;run();         // tangani request globals → kirim response</code></pre>
+<p>Mode paket murni tidak butuh bootstrap sama sekali — cukup<br />
+<code>require 'vendor/autoload.php'</code> lalu instantiate kelas yang dibutuhkan<br />
+(lihat <a href="../../id/general/running.html">running.md § Mode paket murni</a>).</p>
+<blockquote><p><code>Application</code> mensyaratkan paket <code>kodhe/http</code>; bila belum terpasang Anda akan<br />
+mendapat <code>RuntimeException</code> dengan instruksi <code>composer require kodhe/http</code>.</p></blockquote>
+<h2 id="4-konfigurasi-array-ci3-diterima-apa-adanya">4. Konfigurasi: array CI3 diterima apa adanya</h2>
+<p>Kernel membaca konfigurasi gaya CI3 (<code>config.php</code>, <code>database.php</code>) dan<br />
+menerjemahkannya ke service container (<code>framework/src/Config/Setup.php</code>).<br />
+Anda TIDAK perlu menulis ulang file config. Yang wajib dicek/diubah:</p>
+<table class="table"><thead><tr><th style="">Kunci CI3</th><th style="">Status di Kodhe</th></tr></thead><tbody><tr><td style=""><code>base_url</code>, <code>index_page</code>, <code>uri_protocol</code></td><td style="">✅ sama</td></tr><tr><td style=""><code>sess_driver</code>, <code>sess_cookie_name</code>, <code>sess_expiration</code></td><td style="">✅ sama; <strong><code>sess_save_path</code> wajib terisi</strong> (nama tabel utk driver <code>database</code>, folder utk <code>files</code>)</td></tr><tr><td style=""><code>$db['default']</code> (hostname, username, …)</td><td style="">✅ sama; driver <code>mysqli</code>/<code>pdo</code></td></tr><tr><td style=""><code>encryption_key</code></td><td style="">⚠️ hanya relevan utk paket <code>encrypt</code> lama; <code>encryption</code> modern memakai key sendiri — lihat <a href="../../id/libraries/encrypt.html">encrypt.md</a></td></tr></tbody></table>
+<h2 id="5-peta-namespace-loader">5. Peta namespace &amp; loader</h2>
+<p>Ini inti migrasi. Tabel lengkap nama-loader → FQCN → paket ada di<br />
+<strong><a href="../../id/concepts/namespaces-migration.html">peta migrasi namespace</a></strong>. Pola umumnya:</p>
+<table class="table"><thead><tr><th style="">CI3 asli</th><th style="">Kodhe (kode baru)</th></tr></thead><tbody><tr><td style=""><code>CI_Session</code>, <code>$this-&gt;load-&gt;library('session')</code></td><td style=""><code>Kodhe\Framework\Session\Drivers\*</code></td></tr><tr><td style=""><code>CI_Form_validation</code></td><td style=""><code>Kodhe\Framework\Validation\FormValidation</code> (paket <code>kodhe/validation</code>)</td></tr><tr><td style=""><code>CI_Pagination</code></td><td style=""><code>Kodhe\Framework\Pagination\Pagination</code></td></tr><tr><td style=""><code>CI_Email</code></td><td style=""><code>Kodhe\Framework\Email\Email</code></td></tr><tr><td style=""><code>CI_Upload</code></td><td style=""><code>Kodhe\Framework\Upload\Upload</code></td></tr><tr><td style=""><code>CI_Image_lib</code></td><td style=""><code>Kodhe\Framework\Image\Image</code></td></tr><tr><td style=""><code>$this-&gt;db-&gt;…</code> (query builder)</td><td style=""><code>Kodhe\Framework\Database\*</code></td></tr><tr><td style=""><code>Kodhe\Session\Session</code> (legacy Kodhe)</td><td style="">❌ usang — selalu pakai prefix <code>Kodhe\Framework\</code></td></tr></tbody></table>
+<p>Aturan praktis:</p>
+<ol>
+<li>Kode lama <code>$this-&gt;load-&gt;library('x')</code> tetap jalan via compat-layer — jangan sentuh dulu; biarkan loader me-resolve lewat <code>packageMap</code>.</li>
+<li>Kode baru selalu <code>use Kodhe\Framework\&lt;Paket&gt;\&lt;Class&gt;;</code> — jangan pernah menulis <code>CI_*</code> atau <code>Kodhe\&lt;Paket&gt;</code> tanpa <code>Framework</code>.</li>
+<li>Setelah mengganti FQCN: <code>composer dump-autoload -o</code>.</li>
+</ol>
+<h2 id="6-perubahan-api-yang-perlu-dicari-di-kode">6. Perubahan API yang perlu dicari di kode</h2>
+<p>Sebagian method dinormalisasi ke camelCase dan beberapa config pindah tempat.<br />
+Cek README paket masing-masing (sumber kebenaran API); ringkasannya:</p>
+<table class="table"><thead><tr><th style="">Area</th><th style="">CI3</th><th style="">Kodhe</th></tr></thead><tbody><tr><td style="">Email</td><td style=""><code>$this-&gt;email-&gt;reply_to(…)</code>, <code>set_mailtype(…)</code></td><td style=""><code>replyTo(…)</code>; mailtype jadi opsi konfigurasi</td></tr><tr><td style="">Session DB</td><td style="">kolom <code>lastactivity</code></td><td style="">skema CI3 modern: <code>timestamp</code> (gc fallback masih mendukung kolom lama) — DDL di <a href="../../id/general/troubleshooting.html">troubleshooting §2</a></td></tr><tr><td style="">Migration</td><td style="">butuh superobject <code>$CI</code></td><td style=""><code>new Migration(['migrations_path' =&gt; APPPATH.'migrations'])</code> — lihat <a href="../../id/libraries/migration.html">migration.md</a></td></tr><tr><td style="">Encrypt/Encryption</td><td style="">satu library</td><td style="">dua paket terpisah: <code>kodhe/encrypt</code> (warisan) &amp; <code>kodhe/encryption</code> (modern); dekripsi data lama dengan <code>encrypt</code>, simpan ulang dengan <code>encryption</code></td></tr><tr><td style="">Pagination</td><td style=""><code>$config</code> + <code>initialize()</code></td><td style="">tetap kompatibel; tersedia juga factory via integrasi <code>kodhe/http</code></td></tr></tbody></table>
+<p>Setiap halaman di <a href="../../id/libraries/index.html">libraries/</a> punya seksi **Catatan<br />
+Migrasi** per paket — gunakan sebagai checklist saat grep-per-ganti.</p>
+<h2 id="7-database-session-dan-tabel-pendukung">7. Database, session, dan tabel pendukung</h2>
+<ol>
+<li>Buat/perbaiki tabel <code>ci_sessions</code> sesuai skema baru (lihat <a href="../../id/general/troubleshooting.html">troubleshooting §2</a>), lalu pastikan <code>sess_save_path</code> menunjuk namanya.</li>
+<li>Tabel <code>ci_migrations</code> tetap dipakai paket <code>kodhe/migration</code>; file migration lama (<code>NNN_nama.php</code> berisi class <code>Migration_*</code>) <strong>tidak perlu diubah</strong>.</li>
+<li>Query builder <code>$this-&gt;db</code> pada model CI3 berjalan di atas <code>Kodhe\Framework\Database\*</code> melalui container — tidak ada perubahan sintaks untuk usage standar (<code>get</code>, <code>where</code>, <code>insert_batch</code>, transactions).</li>
+</ol>
+<h2 id="8-checklist-verifikasi-bertahap">8. Checklist verifikasi bertahap</h2>
+<p>Jalankan berurutan; tiap langkah harus hijau sebelum lanjut:</p>
+<ul>
+<li>[ ] <code>composer install</code> tanpa konflik; <code>composer dump-autoload -o</code></li>
+<li>[ ] Halaman statis / route default tampil (kernel boot sukses)</li>
+<li>[ ] Controller CI3 lama merespons; cek log: tidak ada <code>Class "..." not found</code></li>
+<li>[ ] Login/logout: session read-write OK (driver files dulu, lalu database)</li>
+<li>[ ] Upload gambar + image resizing (butuh <code>gd</code>/<code>imagick</code>)</li>
+<li>[ ] Kirim email via SMTP test</li>
+<li>[ ] <code>form_validation</code> pada form tersulit (rules custom callback)</li>
+<li>[ ] Migration <code>latest()</code> / <code>version()</code> pada DB staging</li>
+<li>[ ] Enkripsi: dekripsi data lama → enkripsi ulang → verifikasi (lihat <code>Encrypt::migrate()</code> di <a href="../../id/concepts/security.html">Keamanan</a> §5)</li>
+<li>[ ] CSRF: form POST dengan token valid lolos; token salah menghasilkan 403</li>
+<li>[ ] Suite tes regresi / smoke-test manual end-to-end</li>
+<li>[ ] Audit keamanan akhir: jalankan checklist pra-produksi di <a href="../../id/concepts/security.html">Keamanan</a> §10</li>
+</ul>
+<p>Error yang paling sering muncul pada tahap ini sudah terdokumentasi beserta<br />
+solusinya di <a href="../../id/general/troubleshooting.html">troubleshooting</a>.</p>
+<h2 id="9-konsolidasi-bertahap-ke-mode-modern">9. Konsolidasi bertahap ke mode modern</h2>
+<p>Untuk setiap modul yang disentuh pasca-migrasi awal:</p>
+<ol>
+<li>Ganti akses <code>$CI</code>/<code>$this-&gt;load</code> dengan instansiasi eksplisit: ```php use Kodhe\Framework\Validation\FormValidation; $validation = new FormValidation(); $ok = $validation-&gt;run($post, 'login'); ```</li>
+<li>Bila helper bawaan kernel dipakai, pertimbangkan <code>HelperManager</code> (<code>framework/src/Support/Modern/HelperManager.php</code>) untuk lazy-loading helpers ala modern.</li>
+<li>Bila satu area sudah 100% mode paket, hapus dependensi kernel-nya — aplikasi boleh akhirnya berjalan tanpa <code>framework/</code> sama sekali.</li>
+</ol>
+<h2 id="10-rollback">10. Rollback</h2>
+<p>Karena Jalur A tidak mengubah struktur aplikasi maupun file config, rollback<br />
+semudah mengembalikan <code>index.php</code> bootstrap ke versi CI3 asal dan melepas<br />
+dependensi composer. Data (session, ciphertext lama, tabel migrations) sengaja<br />
+dibuat kompatibel dua arah selama mungkin — kecuali hasil re-enkripsi dengan<br />
+<code>kodhe/encryption</code> (langkah 8), yang hanya terbaca oleh paket modern. Karena itu<br />
+lakukan re-enkripsi hanya setelah aplikasi stabil.</p>
+<footer class="page-footer">
+  <span>Kodhe Framework User Guide &mdash; dibuat dari <code>user_guide/*.md</code> oleh <code>scripts/build_user_guide.py</code></span>
+  <span><a href="../../id/concepts/namespaces-migration.html">&larr; Migrasi Namespace (CI3 → Kodhe Framework)</a> &nbsp;|&nbsp; <a href="../../id/libraries/index.html">Referensi Library (per Paket) &rarr;</a></span>
+</footer>
+</main>
+</div>
+<script src="../../searchindex.js"></script>
+</body>
+</html>

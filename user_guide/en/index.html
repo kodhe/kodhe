@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kodhe Framework User Guide &mdash; Kodhe Framework User Guide</title>
+<style>
+:root {
+  --primary: #e36c18;
+  --dark: #232525;
+  --sidebar-bg: #f7f7f7;
+  --border: #e1e4e5;
+  --text: #404040;
+  --link: #236fb0;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 0; color: var(--text);
+  font: 15px/1.6 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #fff;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+header#top {
+  background: var(--dark); color: #fff; padding: 12px 24px;
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+header#top .brand { font-size: 20px; font-weight: bold; color: #fff; }
+header#top .brand span { color: var(--primary); }
+header#top form { margin-left: auto; }
+header#top input[type=search] {
+  padding: 6px 10px; border-radius: 4px; border: 1px solid #555;
+  background: #333; color: #eee; width: 220px;
+}
+.layout { display: flex; min-height: calc(100vh - 120px); }
+nav.sidebar {
+  width: 300px; flex: 0 0 300px; background: var(--sidebar-bg);
+  border-right: 1px solid var(--border); padding: 18px 0 40px; overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: 13px; text-transform: uppercase; letter-spacing: .05em;
+  color: #888; margin: 18px 20px 6px;
+}
+nav.sidebar ul { list-style: none; margin: 0; padding: 0; }
+nav.sidebar li a {
+  display: block; padding: 4px 20px; color: #555; font-size: 14px;
+  border-left: 3px solid transparent;
+}
+nav.sidebar li a:hover { background: #ececec; text-decoration: none; }
+nav.sidebar li.active > a {
+  color: var(--primary); border-left-color: var(--primary);
+  background: #efefef; font-weight: 600;
+}
+main.content { flex: 1; padding: 28px 44px 60px; max-width: 950px; }
+main.content h1 { font-size: 32px; margin-top: 0; color: var(--dark); border-bottom: 2px solid var(--primary); padding-bottom: 8px; }
+main.content h2 { font-size: 24px; margin-top: 34px; color: var(--dark); }
+main.content h3 { font-size: 19px; margin-top: 26px; }
+main.content pre {
+  background: #f5f5f5; border: 1px solid var(--border); border-radius: 4px;
+  padding: 12px 14px; overflow-x: auto; font-size: 13px; line-height: 1.45;
+}
+main.content code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  background: #f5f5f5; padding: 1px 5px; border-radius: 3px; font-size: 90%;
+}
+main.content pre code { background: none; padding: 0; font-size: inherit; }
+main.content blockquote {
+  margin: 16px 0; padding: 10px 18px; background: #fdf3ea;
+  border-left: 4px solid var(--primary); color: #665; border-radius: 0 4px 4px 0;
+}
+main.content blockquote p { margin: 4px 0; }
+main.content table.table {
+  border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px;
+}
+main.content table th, main.content table td {
+  border: 1px solid var(--border); padding: 7px 11px; vertical-align: top;
+}
+main.content table thead th { background: #f2f2f2; }
+main.content table tr:nth-child(even) td { background: #fafafa; }
+main.content hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.toc-on-page { background: #fbfbfb; border: 1px solid var(--border); border-radius: 4px; padding: 10px 18px; margin: 0 0 22px; font-size: 14px; }
+.toc-on-page strong { color: var(--dark); }
+footer.page-footer {
+  border-top: 1px solid var(--border); margin-top: 40px; padding-top: 14px;
+  font-size: 13px; color: #888; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+.breadcrumbs { font-size: 13px; color: #777; margin-bottom: 14px; }
+.breadcrumbs a { color: #999; }
+@media (max-width: 900px) {
+  .layout { flex-direction: column; }
+  nav.sidebar { width: 100%; flex: none; border-right: none; border-bottom: 1px solid var(--border); }
+  main.content { padding: 20px; }
+}
+</style>
+</head>
+<body>
+<header id="top">
+  <a class="brand" href="../index.html">Kodhe<span>&nbsp;User Guide</span></a>
+  <span style="font-size:12px;color:#aaa;">v1.0</span>
+  <span style="margin-left:14px;font-size:13px;"><span style="font-size:12px;color:#888;">Language:</span> <a style="color:#ccc;" href="../id/index.html">ID</a> &middot; <a style="color:#e36c18;font-weight:bold;" href="../en/index.html">EN</a></span>
+  <form action="../search.html" method="get">
+    <input type="search" name="q" placeholder="Search the documentation..." aria-label="cari" />
+  </form>
+</header>
+<div class="layout">
+<nav class="sidebar">
+<h3>Getting Started</h3>
+<ul>
+<li class="active"><a href="../en/index.html" style="padding-left:32px">Home / Table of Contents</a></li>
+<li><a href="../en/concepts/installation.html" style="padding-left:44px">Installation</a></li>
+<li><a href="../en/general/new-project.html" style="padding-left:44px">New Project</a></li>
+<li><a href="../en/general/running.html" style="padding-left:44px">Running Your Application</a></li>
+<li><a href="../en/general/crud-generator.html" style="padding-left:44px">CRUD Generator</a></li>
+</ul>
+<h3>Core Concepts</h3>
+<ul>
+<li><a href="../en/concepts/architecture.html" style="padding-left:44px">Architecture</a></li>
+<li><a href="../en/concepts/app-components.html" style="padding-left:44px">Application Components</a></li>
+<li><a href="../en/concepts/folder-structure-and-routing.html" style="padding-left:44px">Folder Structure &amp; Routing</a></li>
+<li><a href="../en/concepts/services-modules-routing.html" style="padding-left:44px">Services, Modules &amp; Routing</a></li>
+<li><a href="../en/concepts/cli-console.html" style="padding-left:44px">CLI Console</a></li>
+<li><a href="../en/concepts/security.html" style="padding-left:44px">Security</a></li>
+<li><a href="../en/concepts/namespaces-migration.html" style="padding-left:44px">Namespace Migration</a></li>
+<li><a href="../en/concepts/migrating-from-ci3.html" style="padding-left:44px">Migrating from CodeIgniter 3</a></li>
+</ul>
+<h3>Library Reference</h3>
+<ul>
+<li><a href="../en/libraries/index.html" style="padding-left:44px">Library Index</a></li>
+<li><a href="../en/libraries/loader-kernel.html" style="padding-left:44px">Loader (Kernel)</a></li>
+<li><a href="../en/libraries/http.html" style="padding-left:44px">HTTP</a></li>
+<li><a href="../en/libraries/view.html" style="padding-left:44px">View</a></li>
+<li><a href="../en/libraries/database.html" style="padding-left:44px">Database</a></li>
+<li><a href="../en/libraries/migration.html" style="padding-left:44px">Migration</a></li>
+<li><a href="../en/libraries/session.html" style="padding-left:44px">Session</a></li>
+<li><a href="../en/libraries/auth.html" style="padding-left:44px">Auth</a></li>
+<li><a href="../en/libraries/socialite.html" style="padding-left:44px">Socialite</a></li>
+<li><a href="../en/libraries/validation.html" style="padding-left:44px">Form Validation</a></li>
+<li><a href="../en/libraries/pagination.html" style="padding-left:44px">Pagination</a></li>
+<li><a href="../en/libraries/email.html" style="padding-left:44px">Email</a></li>
+<li><a href="../en/libraries/encrypt.html" style="padding-left:44px">Encrypt / Encryption</a></li>
+<li><a href="../en/libraries/cache.html" style="padding-left:44px">Cache</a></li>
+<li><a href="../en/libraries/driver.html" style="padding-left:44px">Driver System</a></li>
+<li><a href="../en/libraries/rpc-trackback.html" style="padding-left:44px">XML-RPC &amp; Trackback</a></li>
+<li><a href="../en/libraries/testing.html" style="padding-left:44px">Testing</a></li>
+</ul>
+<h3>Utilities</h3>
+<ul>
+<li><a href="../en/libraries/utilities.html" style="padding-left:44px">Utilities Overview</a></li>
+<li><a href="../en/libraries/agent.html" style="padding-left:44px">Agent</a></li>
+<li><a href="../en/libraries/calendar.html" style="padding-left:44px">Calendar</a></li>
+<li><a href="../en/libraries/cart.html" style="padding-left:44px">Cart</a></li>
+<li><a href="../en/libraries/image.html" style="padding-left:44px">Image Manipulation</a></li>
+<li><a href="../en/libraries/javascript.html" style="padding-left:44px">Javascript</a></li>
+<li><a href="../en/libraries/parser.html" style="padding-left:44px">Parser</a></li>
+<li><a href="../en/libraries/profiler.html" style="padding-left:44px">Profiler</a></li>
+<li><a href="../en/libraries/table.html" style="padding-left:44px">Table</a></li>
+<li><a href="../en/libraries/typography.html" style="padding-left:44px">Typography</a></li>
+<li><a href="../en/libraries/upload.html" style="padding-left:44px">File Upload</a></li>
+<li><a href="../en/libraries/ftp.html" style="padding-left:44px">FTP</a></li>
+<li><a href="../en/libraries/zip.html" style="padding-left:44px">Zip</a></li>
+</ul>
+<h3>Miscellaneous</h3>
+<ul>
+<li><a href="../en/general/troubleshooting.html" style="padding-left:44px">Troubleshooting</a></li>
+<li><a href="../en/search.html" style="padding-left:32px">Search</a></li>
+</ul>
+</nav>
+<main class="content">
+<div class="breadcrumbs"><a href="../index.html">Home</a> &raquo; <a href="../en/index.html">en</a> &raquo; Kodhe Framework User Guide</div>
+<div class="toc-on-page"><strong>Contents of this page</strong><ul><li><a href="#structure-by-language">Structure by Language</a></li><li><a href="#table-of-contents">Table of Contents</a></li><li><a href="#documentation-source-hierarchy">Documentation Source Hierarchy</a></li></ul></div><h1 id="kodhe-framework-user-guide">Kodhe Framework User Guide</h1>
+<p>Documentation for <strong>application development</strong> on top of the Kodhe Framework,<br />
+organized following the <a href="https://www.codeigniter.com/user_guide/">CodeIgniter 3 User Guide</a><br />
+structure — <em>general topics</em>, per-package <em>library reference</em>, and linked <code>index</code><br />
+pages in every sub-folder. This folder (<code>en/</code>) is the full English version;<br />
+the Indonesian version lives in <a href="../id/index.html"><code>../id/index.md</code></a>.</p>
+<h2 id="structure-by-language">Structure by Language</h2>
+<p>This user guide consists of <strong>two language folders</strong>, each containing a full guide<br />
+in its own language:</p>
+<table class="table"><thead><tr><th style="">Folder</th><th style="">Language</th><th style="">Contents</th></tr></thead><tbody><tr><td style=""><a href="../en/index.html"><code>en/</code></a></td><td style="">🇬🇧 English</td><td style=""><code>concepts/</code>, <code>general/</code>, <code>libraries/</code> — fully translated ✅</td></tr><tr><td style=""><a href="../id/index.html"><code>../id/index.md</code></a></td><td style="">🇮🇩 Bahasa Indonesia</td><td style=""><code>concepts/</code>, <code>general/</code>, <code>libraries/</code></td></tr></tbody></table>
+<p>The path structure of both folders is identical (e.g. <code>id/libraries/session.md</code> ↔<br />
+<code>en/libraries/session.md</code>), so cross-language links are always available in the HTML<br />
+site built by <code>scripts/build_user_guide.py</code> (<strong>ID · EN</strong> switcher in the header).</p>
+<blockquote><p>Main difference vs CI3: every library is a <strong>separate Composer package</strong> with the<br />
+namespace <code>Kodhe\Framework\&lt;Paket&gt;\*</code>. Install only the packages you need;<br />
+there is no more mandatory <code>$this-&gt;load-&gt;library()</code> for every feature.</p></blockquote>
+<h2 id="table-of-contents">Table of Contents</h2>
+<h3 id="core-concepts-concepts">Core Concepts (<code>concepts/</code>)</h3>
+<table class="table"><thead><tr><th style="">Document</th><th style="">Contents</th></tr></thead><tbody><tr><td style=""><a href="../en/concepts/architecture.html">architecture</a></td><td style="">Modular package model, dual-mode loader, service container</td></tr><tr><td style=""><a href="../en/concepts/installation.html">installation</a></td><td style="">Per-package Composer vs root install, PSR-4 autoload, PHP requirements</td></tr><tr><td style=""><a href="../en/concepts/app-components.html">app-components</a></td><td style=""><strong>Standard Kodhe application components</strong>: controllers (<code>App\Controllers</code>), models (<code>Kodhe\Framework\Database\Model</code>), libraries &amp; multi-engine views/templates — plus how to migrate each component from CI3</td></tr><tr><td style=""><a href="../en/concepts/migrating-from-ci3.html">migrating-from-ci3</a></td><td style=""><strong>Step-by-step guide to moving a CI3 application</strong> (strategy, bootstrap, config, verification checklist, rollback)</td></tr><tr><td style=""><a href="../en/concepts/folder-structure-and-routing.html">folder-structure-and-routing</a></td><td style="">⚠️ Kodhe folder-layout differences (<code>Controllers/</code>, no <code>_</code>) vs CI3, dual router (modern + legacy), coexistence strategy</td></tr><tr><td style=""><a href="../en/concepts/services-modules-routing.html">services-modules-routing</a></td><td style="">Service container &amp; providers, module system, modern routing, facades</td></tr><tr><td style=""><a href="../en/concepts/cli-console.html">cli-console</a></td><td style="">Modern CLI Console (<code>Console::getInstance()</code>, base <code>Command</code>, <code>make:*</code>) + migrating CI3 <code>is_cli()</code> cron jobs</td></tr><tr><td style=""><a href="../en/concepts/security.html">security</a></td><td style="">🔐 XSS, CSRF (config + how it works in the kernel &amp; modern router), password hashing, encryption (<code>migrate()</code> for CI3 ciphertext), secure cookies/sessions, rate limiting (<code>RateLimiter</code>/<code>ThrottleRequests</code>), validation, CAPTCHA, pre-production checklist</td></tr><tr><td style=""><a href="../en/concepts/namespaces-migration.html">namespaces-migration</a></td><td style="">Full <code>CI_*</code> / <code>Kodhe\Library\*</code> → <code>Kodhe\Framework\*</code> name map</td></tr></tbody></table>
+<h3 id="general-topics-general">General Topics (<code>general/</code>)</h3>
+<table class="table"><thead><tr><th style="">Document</th><th style="">Contents</th></tr></thead><tbody><tr><td style=""><a href="../en/general/new-project.html">new-project</a></td><td style="">Scaffold a project with <code>php console new</code> + run the dev server (<code>serve</code>)</td></tr><tr><td style=""><a href="../en/general/crud-generator.html">crud-generator</a></td><td style="">🚀 <code>make:crud</code> — one command generates a complete CRUD set (model, controller, migration, views) + field types, route map, workflow</td></tr><tr><td style=""><a href="../en/general/running.html">running</a></td><td style="">Framework bootstrap, configuration, running on the dev server</td></tr><tr><td style=""><a href="../en/general/troubleshooting.html">troubleshooting</a></td><td style="">Common error messages &amp; their causes (class not found, table schema, etc.)</td></tr></tbody></table>
+<h3 id="library-reference-libraries">Library Reference (<code>libraries/</code>)</h3>
+<p>One page per package, format: purpose → installation → Quick Start → main API →<br />
+migration notes from CI3 → link to the package README (source of technical truth).</p>
+<table class="table"><thead><tr><th style="">Category</th><th style="">Package</th><th style="">Page</th></tr></thead><tbody><tr><td style="">Core Components</td><td style="">loader (kernel)</td><td style=""><a href="../en/libraries/loader-kernel.html">Loader (Kernel)</a></td></tr><tr><td style="">Web Services</td><td style="">http (request/response/middleware)</td><td style=""><a href="../en/libraries/http.html">HTTP</a></td></tr><tr><td style="">Web Services</td><td style="">view (template engine)</td><td style=""><a href="../en/libraries/view.html">View</a></td></tr><tr><td style="">Database</td><td style="">queries/builders</td><td style=""><a href="../en/libraries/database.html">Database</a></td></tr><tr><td style="">Database</td><td style="">migrations</td><td style=""><a href="../en/libraries/migration.html">Migration</a></td></tr><tr><td style="">General Topics</td><td style="">session</td><td style=""><a href="../en/libraries/session.html">Session</a></td></tr><tr><td style="">General Topics</td><td style="">auth</td><td style=""><a href="../en/libraries/auth.html">Auth</a></td></tr><tr><td style="">General Topics</td><td style="">socialite</td><td style=""><a href="../en/libraries/socialite.html">Socialite</a></td></tr><tr><td style="">General Topics</td><td style="">email</td><td style=""><a href="../en/libraries/email.html">Email</a></td></tr><tr><td style="">General Topics</td><td style="">encrypt/encryption</td><td style=""><a href="../en/libraries/encrypt.html">Encrypt / Encryption</a></td></tr><tr><td style="">General Topics</td><td style="">cache</td><td style=""><a href="../en/libraries/cache.html">Cache</a></td></tr><tr><td style="">General Topics</td><td style="">driver (driver system)</td><td style=""><a href="../en/libraries/driver.html">Driver System</a></td></tr><tr><td style="">Help &amp; Validation</td><td style="">form_validation</td><td style=""><a href="../en/libraries/validation.html">Form Validation</a></td></tr><tr><td style="">Help &amp; Validation</td><td style="">pagination</td><td style=""><a href="../en/libraries/pagination.html">Pagination</a></td></tr><tr><td style="">Third Party / RPC</td><td style="">xmlrpc, xmlrpcs, trackback</td><td style=""><a href="../en/libraries/rpc-trackback.html">XML-RPC &amp; Trackback</a></td></tr><tr><td style="">Testing</td><td style="">unit test (via kernel test)</td><td style=""><a href="../en/libraries/testing.html">Testing</a></td></tr></tbody></table>
+<h3 id="utilities-libraries">Utilities (<code>libraries/</code>)</h3>
+<p>Lightweight utility packages usable standalone or through the loader.</p>
+<table class="table"><thead><tr><th style="">Package</th><th style="">Page</th></tr></thead><tbody><tr><td style="">All utilities overview</td><td style=""><a href="../en/libraries/utilities.html">Utilities</a></td></tr><tr><td style="">agent</td><td style=""><a href="../en/libraries/agent.html">Agent</a></td></tr><tr><td style="">calendar</td><td style=""><a href="../en/libraries/calendar.html">Calendar</a></td></tr><tr><td style="">cart</td><td style=""><a href="../en/libraries/cart.html">Cart</a></td></tr><tr><td style="">image</td><td style=""><a href="../en/libraries/image.html">Image Manipulation</a></td></tr><tr><td style="">javascript</td><td style=""><a href="../en/libraries/javascript.html">Javascript</a></td></tr><tr><td style="">parser</td><td style=""><a href="../en/libraries/parser.html">Parser</a></td></tr><tr><td style="">profiler</td><td style=""><a href="../en/libraries/profiler.html">Profiler</a></td></tr><tr><td style="">table</td><td style=""><a href="../en/libraries/table.html">Table</a></td></tr><tr><td style="">typography</td><td style=""><a href="../en/libraries/typography.html">Typography</a></td></tr><tr><td style="">upload</td><td style=""><a href="../en/libraries/upload.html">File Upload</a></td></tr><tr><td style="">ftp</td><td style=""><a href="../en/libraries/ftp.html">FTP</a></td></tr><tr><td style="">zip</td><td style=""><a href="../en/libraries/zip.html">Zip</a></td></tr></tbody></table>
+<p><a href="../en/libraries/index.html">Full index by category →</a></p>
+<h2 id="documentation-source-hierarchy">Documentation Source Hierarchy</h2>
+<ol>
+<li><code>user_guide/</code> (this folder) — application learning/development narrative.</li>
+<li><code>&lt;package&gt;/README.md</code> — canonical per-package API reference (always the most current).</li>
+<li><code>doc/</code> — historical archive, deprecated, do not use as a reference.</li>
+</ol>
+<footer class="page-footer">
+  <span>Kodhe Framework User Guide &mdash; built from <code>user_guide/*.md</code> by <code>scripts/build_user_guide.py</code></span>
+  <span><a href="../en/concepts/installation.html">Installation &rarr;</a></span>
+</footer>
+</main>
+</div>
+<script src="../searchindex.js"></script>
+</body>
+</html>

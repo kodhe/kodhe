@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Driver System &mdash; Kodhe Framework User Guide</title>
+<style>
+:root {
+  --primary: #e36c18;
+  --dark: #232525;
+  --sidebar-bg: #f7f7f7;
+  --border: #e1e4e5;
+  --text: #404040;
+  --link: #236fb0;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 0; color: var(--text);
+  font: 15px/1.6 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #fff;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+header#top {
+  background: var(--dark); color: #fff; padding: 12px 24px;
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+header#top .brand { font-size: 20px; font-weight: bold; color: #fff; }
+header#top .brand span { color: var(--primary); }
+header#top form { margin-left: auto; }
+header#top input[type=search] {
+  padding: 6px 10px; border-radius: 4px; border: 1px solid #555;
+  background: #333; color: #eee; width: 220px;
+}
+.layout { display: flex; min-height: calc(100vh - 120px); }
+nav.sidebar {
+  width: 300px; flex: 0 0 300px; background: var(--sidebar-bg);
+  border-right: 1px solid var(--border); padding: 18px 0 40px; overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: 13px; text-transform: uppercase; letter-spacing: .05em;
+  color: #888; margin: 18px 20px 6px;
+}
+nav.sidebar ul { list-style: none; margin: 0; padding: 0; }
+nav.sidebar li a {
+  display: block; padding: 4px 20px; color: #555; font-size: 14px;
+  border-left: 3px solid transparent;
+}
+nav.sidebar li a:hover { background: #ececec; text-decoration: none; }
+nav.sidebar li.active > a {
+  color: var(--primary); border-left-color: var(--primary);
+  background: #efefef; font-weight: 600;
+}
+main.content { flex: 1; padding: 28px 44px 60px; max-width: 950px; }
+main.content h1 { font-size: 32px; margin-top: 0; color: var(--dark); border-bottom: 2px solid var(--primary); padding-bottom: 8px; }
+main.content h2 { font-size: 24px; margin-top: 34px; color: var(--dark); }
+main.content h3 { font-size: 19px; margin-top: 26px; }
+main.content pre {
+  background: #f5f5f5; border: 1px solid var(--border); border-radius: 4px;
+  padding: 12px 14px; overflow-x: auto; font-size: 13px; line-height: 1.45;
+}
+main.content code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  background: #f5f5f5; padding: 1px 5px; border-radius: 3px; font-size: 90%;
+}
+main.content pre code { background: none; padding: 0; font-size: inherit; }
+main.content blockquote {
+  margin: 16px 0; padding: 10px 18px; background: #fdf3ea;
+  border-left: 4px solid var(--primary); color: #665; border-radius: 0 4px 4px 0;
+}
+main.content blockquote p { margin: 4px 0; }
+main.content table.table {
+  border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px;
+}
+main.content table th, main.content table td {
+  border: 1px solid var(--border); padding: 7px 11px; vertical-align: top;
+}
+main.content table thead th { background: #f2f2f2; }
+main.content table tr:nth-child(even) td { background: #fafafa; }
+main.content hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.toc-on-page { background: #fbfbfb; border: 1px solid var(--border); border-radius: 4px; padding: 10px 18px; margin: 0 0 22px; font-size: 14px; }
+.toc-on-page strong { color: var(--dark); }
+footer.page-footer {
+  border-top: 1px solid var(--border); margin-top: 40px; padding-top: 14px;
+  font-size: 13px; color: #888; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+.breadcrumbs { font-size: 13px; color: #777; margin-bottom: 14px; }
+.breadcrumbs a { color: #999; }
+@media (max-width: 900px) {
+  .layout { flex-direction: column; }
+  nav.sidebar { width: 100%; flex: none; border-right: none; border-bottom: 1px solid var(--border); }
+  main.content { padding: 20px; }
+}
+</style>
+</head>
+<body>
+<header id="top">
+  <a class="brand" href="../../id/index.html">Kodhe<span>&nbsp;User Guide</span></a>
+  <span style="font-size:12px;color:#aaa;">v1.0</span>
+  <span style="margin-left:14px;font-size:13px;"><span style="font-size:12px;color:#888;">Bahasa:</span> <a style="color:#e36c18;font-weight:bold;" href="../../id/libraries/driver.html">ID</a> &middot; <a style="color:#ccc;" href="../../en/libraries/driver.html">EN</a></span>
+  <form action="../../search.html" method="get">
+    <input type="search" name="q" placeholder="Cari dokumentasi..." aria-label="cari" />
+  </form>
+</header>
+<div class="layout">
+<nav class="sidebar">
+<h3>Memulai</h3>
+<ul>
+<li><a href="../../id/index.html" style="padding-left:32px">Beranda / Daftar Isi</a></li>
+<li><a href="../../id/concepts/installation.html" style="padding-left:44px">Instalasi</a></li>
+<li><a href="../../id/general/new-project.html" style="padding-left:44px">Proyek Baru</a></li>
+<li><a href="../../id/general/running.html" style="padding-left:44px">Menjalankan Aplikasi</a></li>
+<li><a href="../../id/general/crud-generator.html" style="padding-left:44px">Generator CRUD</a></li>
+</ul>
+<h3>Konsep Inti</h3>
+<ul>
+<li><a href="../../id/concepts/architecture.html" style="padding-left:44px">Arsitektur</a></li>
+<li><a href="../../id/concepts/app-components.html" style="padding-left:44px">Komponen Aplikasi</a></li>
+<li><a href="../../id/concepts/folder-structure-and-routing.html" style="padding-left:44px">Struktur Folder &amp; Routing</a></li>
+<li><a href="../../id/concepts/services-modules-routing.html" style="padding-left:44px">Service, Modul &amp; Routing</a></li>
+<li><a href="../../id/concepts/cli-console.html" style="padding-left:44px">Console CLI</a></li>
+<li><a href="../../id/concepts/security.html" style="padding-left:44px">Keamanan</a></li>
+<li><a href="../../id/concepts/namespaces-migration.html" style="padding-left:44px">Migrasi Namespace</a></li>
+<li><a href="../../id/concepts/migrating-from-ci3.html" style="padding-left:44px">Migrasi dari CodeIgniter 3</a></li>
+</ul>
+<h3>Referensi Library</h3>
+<ul>
+<li><a href="../../id/libraries/index.html" style="padding-left:44px">Indeks Library</a></li>
+<li><a href="../../id/libraries/loader-kernel.html" style="padding-left:44px">Loader (Kernel)</a></li>
+<li><a href="../../id/libraries/http.html" style="padding-left:44px">HTTP</a></li>
+<li><a href="../../id/libraries/view.html" style="padding-left:44px">View</a></li>
+<li><a href="../../id/libraries/database.html" style="padding-left:44px">Database</a></li>
+<li><a href="../../id/libraries/migration.html" style="padding-left:44px">Migration</a></li>
+<li><a href="../../id/libraries/session.html" style="padding-left:44px">Session</a></li>
+<li><a href="../../id/libraries/auth.html" style="padding-left:44px">Auth</a></li>
+<li><a href="../../id/libraries/socialite.html" style="padding-left:44px">Socialite</a></li>
+<li><a href="../../id/libraries/validation.html" style="padding-left:44px">Form Validation</a></li>
+<li><a href="../../id/libraries/pagination.html" style="padding-left:44px">Pagination</a></li>
+<li><a href="../../id/libraries/email.html" style="padding-left:44px">Email</a></li>
+<li><a href="../../id/libraries/encrypt.html" style="padding-left:44px">Encrypt / Encryption</a></li>
+<li><a href="../../id/libraries/cache.html" style="padding-left:44px">Cache</a></li>
+<li class="active"><a href="../../id/libraries/driver.html" style="padding-left:44px">Driver System</a></li>
+<li><a href="../../id/libraries/rpc-trackback.html" style="padding-left:44px">XML-RPC &amp; Trackback</a></li>
+<li><a href="../../id/libraries/testing.html" style="padding-left:44px">Testing</a></li>
+</ul>
+<h3>Utilities</h3>
+<ul>
+<li><a href="../../id/libraries/utilities.html" style="padding-left:44px">Ringkasan Utilities</a></li>
+<li><a href="../../id/libraries/agent.html" style="padding-left:44px">Agent</a></li>
+<li><a href="../../id/libraries/calendar.html" style="padding-left:44px">Calendar</a></li>
+<li><a href="../../id/libraries/cart.html" style="padding-left:44px">Cart</a></li>
+<li><a href="../../id/libraries/image.html" style="padding-left:44px">Image Manipulation</a></li>
+<li><a href="../../id/libraries/javascript.html" style="padding-left:44px">Javascript</a></li>
+<li><a href="../../id/libraries/parser.html" style="padding-left:44px">Parser</a></li>
+<li><a href="../../id/libraries/profiler.html" style="padding-left:44px">Profiler</a></li>
+<li><a href="../../id/libraries/table.html" style="padding-left:44px">Table</a></li>
+<li><a href="../../id/libraries/typography.html" style="padding-left:44px">Typography</a></li>
+<li><a href="../../id/libraries/upload.html" style="padding-left:44px">File Upload</a></li>
+<li><a href="../../id/libraries/ftp.html" style="padding-left:44px">FTP</a></li>
+<li><a href="../../id/libraries/zip.html" style="padding-left:44px">Zip</a></li>
+</ul>
+<h3>Lain-lain</h3>
+<ul>
+<li><a href="../../id/general/troubleshooting.html" style="padding-left:44px">Troubleshooting</a></li>
+<li><a href="../../id/search.html" style="padding-left:32px">Pencarian</a></li>
+</ul>
+</nav>
+<main class="content">
+<div class="breadcrumbs"><a href="../../id/index.html">Beranda</a> &raquo; <a href="../../id/index.html">id</a> &raquo; <a href="../../id/libraries/index.html">libraries</a> &raquo; Driver System</div>
+<div class="toc-on-page"><strong>Daftar isi halaman ini</strong><ul><li><a href="#instalasi">Instalasi</a></li><li><a href="#konsep">Konsep</a></li><li><a href="#quick-start">Quick Start</a></li></ul></div><h1 id="driver-system">Driver System</h1>
+<p>Paket: <code>kodhe/driver</code> — sistem driver modular kompatibel PSR-4 untuk<br />
+CodeIgniter 3, fondasi pattern <code>CI_Cache</code>/<code>CI_Session</code> style "driver + library<br />
+induk".</p>
+<h2 id="instalasi">Instalasi</h2>
+<pre><code class="language-bash">composer require kodhe/driver</code></pre>
+<h2 id="konsep">Konsep</h2>
+<table class="table"><thead><tr><th style="">Kelas</th><th style="">Peran</th></tr></thead><tbody><tr><td style=""><code>Contracts\DriverInterface</code></td><td style="">Kontrak tiap driver</td></tr><tr><td style=""><code>Contracts\DriverLibraryInterface</code></td><td style="">Kontrak library induk</td></tr><tr><td style=""><code>AbstractDriver</code></td><td style="">Base class driver (config, dsb.)</td></tr><tr><td style=""><code>DriverLibrary</code></td><td style="">Base class library induk (memilih &amp; memakai driver)</td></tr><tr><td style=""><code>NullDriver</code></td><td style="">Null-object fallback saat driver gagal dimuat</td></tr><tr><td style=""><code>Resolvers\DriverFileResolver</code></td><td style="">Resolve &amp; load file driver</td></tr><tr><td style=""><code>Registry\DriverInstanceRegistry</code></td><td style="">Cache instance driver (registry pattern)</td></tr></tbody></table>
+<h2 id="quick-start">Quick Start</h2>
+<pre><code class="language-php">use Kodhe\Driver\AbstractDriver;
+use Kodhe\Driver\DriverLibrary;
+
+class StorageFileDriver extends AbstractDriver { /* … */ }
+
+class Storage extends DriverLibrary
+{
+    protected $driverDirectory = 'drivers';   // relative path folder driver
+}
+
+$storage = new Storage(['driver' =&gt; 'file']);</code></pre>
+<p>Pola ini persis cara <code>$this-&gt;load-&gt;driver('cache')</code> bekerja di CI3 — gunakan<br />
+saat menulis library baru yang butuh backend berganti-ganti (queue, storage,<br />
+payment gateway).</p>
+<p>Detail API lengkap: <a href="../../../../driver/index.html">README paket</a></p>
+<footer class="page-footer">
+  <span>Kodhe Framework User Guide &mdash; dibuat dari <code>user_guide/*.md</code> oleh <code>scripts/build_user_guide.py</code></span>
+  <span><a href="../../id/libraries/cache.html">&larr; Cache</a> &nbsp;|&nbsp; <a href="../../id/libraries/rpc-trackback.html">XML-RPC &amp; Trackback &rarr;</a></span>
+</footer>
+</main>
+</div>
+<script src="../../searchindex.js"></script>
+</body>
+</html>

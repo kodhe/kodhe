@@ -1,5 +1,5 @@
 {
-  "name": "kodhe/example-app",
+  "name": "kodhe/kodhe",
   "description": "Example project using the Kodhe Framework",
   "type": "project",
   "license": "MIT",
@@ -9,39 +9,11 @@
     "eftec/bladeone": "^4.19",
     "kodhe/framework": "^1.0",
     "kodhe/database": "^1.0",
-    "kodhe/auth": "^1.0"
-  },
-  "repositories": [
-    {
-      "type": "path",
-      "url": "../",
-      "options": {
-        "symlink": true
-      }
-    },
-    {
-      "type": "path",
-      "url": "../database",
-      "options": {
-        "symlink": true
-      }
-    },
-    {
-      "type": "path",
-      "url": "../auth",
-      "options": {
-        "symlink": true
-      }
-    }
-  ],
-  "autoload": {
-    "psr-4": {
-      "App\\": "application/"
-    }
-  },
-  "config": {
-    "preferred-install": "dist",
-    "sort-packages": true
+    "kodhe/auth": "^1.0",
+    "kodhe/http": "^1.1",
+    "kodhe/agent": "^2.0",
+    "kodhe/view": "^1.1",
+    "kodhe/migration": "^1.1"
   },
   "prefer-stable": true,
   "minimum-stability": "dev"

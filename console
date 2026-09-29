@@ -16,7 +16,7 @@
 declare(strict_types=1);
 
 // Root project = folder tempat file ini berada (bin/..)
-$projectRoot = dirname(__DIR__) . DIRECTORY_SEPARATOR;
+$projectRoot = __DIR__ . DIRECTORY_SEPARATOR;
 
 // Beritahu command (mis. `migrate`) di mana root project berada, supaya
 // tidak perlu menebak dari CWD saat perintah dijalankan.

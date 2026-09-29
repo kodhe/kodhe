@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CLI Console (Barisan Perintah) &mdash; Kodhe Framework User Guide</title>
+<style>
+:root {
+  --primary: #e36c18;
+  --dark: #232525;
+  --sidebar-bg: #f7f7f7;
+  --border: #e1e4e5;
+  --text: #404040;
+  --link: #236fb0;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 0; color: var(--text);
+  font: 15px/1.6 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #fff;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+header#top {
+  background: var(--dark); color: #fff; padding: 12px 24px;
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+header#top .brand { font-size: 20px; font-weight: bold; color: #fff; }
+header#top .brand span { color: var(--primary); }
+header#top form { margin-left: auto; }
+header#top input[type=search] {
+  padding: 6px 10px; border-radius: 4px; border: 1px solid #555;
+  background: #333; color: #eee; width: 220px;
+}
+.layout { display: flex; min-height: calc(100vh - 120px); }
+nav.sidebar {
+  width: 300px; flex: 0 0 300px; background: var(--sidebar-bg);
+  border-right: 1px solid var(--border); padding: 18px 0 40px; overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: 13px; text-transform: uppercase; letter-spacing: .05em;
+  color: #888; margin: 18px 20px 6px;
+}
+nav.sidebar ul { list-style: none; margin: 0; padding: 0; }
+nav.sidebar li a {
+  display: block; padding: 4px 20px; color: #555; font-size: 14px;
+  border-left: 3px solid transparent;
+}
+nav.sidebar li a:hover { background: #ececec; text-decoration: none; }
+nav.sidebar li.active > a {
+  color: var(--primary); border-left-color: var(--primary);
+  background: #efefef; font-weight: 600;
+}
+main.content { flex: 1; padding: 28px 44px 60px; max-width: 950px; }
+main.content h1 { font-size: 32px; margin-top: 0; color: var(--dark); border-bottom: 2px solid var(--primary); padding-bottom: 8px; }
+main.content h2 { font-size: 24px; margin-top: 34px; color: var(--dark); }
+main.content h3 { font-size: 19px; margin-top: 26px; }
+main.content pre {
+  background: #f5f5f5; border: 1px solid var(--border); border-radius: 4px;
+  padding: 12px 14px; overflow-x: auto; font-size: 13px; line-height: 1.45;
+}
+main.content code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  background: #f5f5f5; padding: 1px 5px; border-radius: 3px; font-size: 90%;
+}
+main.content pre code { background: none; padding: 0; font-size: inherit; }
+main.content blockquote {
+  margin: 16px 0; padding: 10px 18px; background: #fdf3ea;
+  border-left: 4px solid var(--primary); color: #665; border-radius: 0 4px 4px 0;
+}
+main.content blockquote p { margin: 4px 0; }
+main.content table.table {
+  border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px;
+}
+main.content table th, main.content table td {
+  border: 1px solid var(--border); padding: 7px 11px; vertical-align: top;
+}
+main.content table thead th { background: #f2f2f2; }
+main.content table tr:nth-child(even) td { background: #fafafa; }
+main.content hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.toc-on-page { background: #fbfbfb; border: 1px solid var(--border); border-radius: 4px; padding: 10px 18px; margin: 0 0 22px; font-size: 14px; }
+.toc-on-page strong { color: var(--dark); }
+footer.page-footer {
+  border-top: 1px solid var(--border); margin-top: 40px; padding-top: 14px;
+  font-size: 13px; color: #888; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+.breadcrumbs { font-size: 13px; color: #777; margin-bottom: 14px; }
+.breadcrumbs a { color: #999; }
+@media (max-width: 900px) {
+  .layout { flex-direction: column; }
+  nav.sidebar { width: 100%; flex: none; border-right: none; border-bottom: 1px solid var(--border); }
+  main.content { padding: 20px; }
+}
+</style>
+</head>
+<body>
+<header id="top">
+  <a class="brand" href="../../id/index.html">Kodhe<span>&nbsp;User Guide</span></a>
+  <span style="font-size:12px;color:#aaa;">v1.0</span>
+  <span style="margin-left:14px;font-size:13px;"><span style="font-size:12px;color:#888;">Bahasa:</span> <a style="color:#e36c18;font-weight:bold;" href="../../id/concepts/cli-console.html">ID</a> &middot; <a style="color:#ccc;" href="../../en/concepts/cli-console.html">EN</a></span>
+  <form action="../../search.html" method="get">
+    <input type="search" name="q" placeholder="Cari dokumentasi..." aria-label="cari" />
+  </form>
+</header>
+<div class="layout">
+<nav class="sidebar">
+<h3>Memulai</h3>
+<ul>
+<li><a href="../../id/index.html" style="padding-left:32px">Beranda / Daftar Isi</a></li>
+<li><a href="../../id/concepts/installation.html" style="padding-left:44px">Instalasi</a></li>
+<li><a href="../../id/general/new-project.html" style="padding-left:44px">Proyek Baru</a></li>
+<li><a href="../../id/general/running.html" style="padding-left:44px">Menjalankan Aplikasi</a></li>
+<li><a href="../../id/general/crud-generator.html" style="padding-left:44px">Generator CRUD</a></li>
+</ul>
+<h3>Konsep Inti</h3>
+<ul>
+<li><a href="../../id/concepts/architecture.html" style="padding-left:44px">Arsitektur</a></li>
+<li><a href="../../id/concepts/app-components.html" style="padding-left:44px">Komponen Aplikasi</a></li>
+<li><a href="../../id/concepts/folder-structure-and-routing.html" style="padding-left:44px">Struktur Folder &amp; Routing</a></li>
+<li><a href="../../id/concepts/services-modules-routing.html" style="padding-left:44px">Service, Modul &amp; Routing</a></li>
+<li class="active"><a href="../../id/concepts/cli-console.html" style="padding-left:44px">Console CLI</a></li>
+<li><a href="../../id/concepts/security.html" style="padding-left:44px">Keamanan</a></li>
+<li><a href="../../id/concepts/namespaces-migration.html" style="padding-left:44px">Migrasi Namespace</a></li>
+<li><a href="../../id/concepts/migrating-from-ci3.html" style="padding-left:44px">Migrasi dari CodeIgniter 3</a></li>
+</ul>
+<h3>Referensi Library</h3>
+<ul>
+<li><a href="../../id/libraries/index.html" style="padding-left:44px">Indeks Library</a></li>
+<li><a href="../../id/libraries/loader-kernel.html" style="padding-left:44px">Loader (Kernel)</a></li>
+<li><a href="../../id/libraries/http.html" style="padding-left:44px">HTTP</a></li>
+<li><a href="../../id/libraries/view.html" style="padding-left:44px">View</a></li>
+<li><a href="../../id/libraries/database.html" style="padding-left:44px">Database</a></li>
+<li><a href="../../id/libraries/migration.html" style="padding-left:44px">Migration</a></li>
+<li><a href="../../id/libraries/session.html" style="padding-left:44px">Session</a></li>
+<li><a href="../../id/libraries/auth.html" style="padding-left:44px">Auth</a></li>
+<li><a href="../../id/libraries/socialite.html" style="padding-left:44px">Socialite</a></li>
+<li><a href="../../id/libraries/validation.html" style="padding-left:44px">Form Validation</a></li>
+<li><a href="../../id/libraries/pagination.html" style="padding-left:44px">Pagination</a></li>
+<li><a href="../../id/libraries/email.html" style="padding-left:44px">Email</a></li>
+<li><a href="../../id/libraries/encrypt.html" style="padding-left:44px">Encrypt / Encryption</a></li>
+<li><a href="../../id/libraries/cache.html" style="padding-left:44px">Cache</a></li>
+<li><a href="../../id/libraries/driver.html" style="padding-left:44px">Driver System</a></li>
+<li><a href="../../id/libraries/rpc-trackback.html" style="padding-left:44px">XML-RPC &amp; Trackback</a></li>
+<li><a href="../../id/libraries/testing.html" style="padding-left:44px">Testing</a></li>
+</ul>
+<h3>Utilities</h3>
+<ul>
+<li><a href="../../id/libraries/utilities.html" style="padding-left:44px">Ringkasan Utilities</a></li>
+<li><a href="../../id/libraries/agent.html" style="padding-left:44px">Agent</a></li>
+<li><a href="../../id/libraries/calendar.html" style="padding-left:44px">Calendar</a></li>
+<li><a href="../../id/libraries/cart.html" style="padding-left:44px">Cart</a></li>
+<li><a href="../../id/libraries/image.html" style="padding-left:44px">Image Manipulation</a></li>
+<li><a href="../../id/libraries/javascript.html" style="padding-left:44px">Javascript</a></li>
+<li><a href="../../id/libraries/parser.html" style="padding-left:44px">Parser</a></li>
+<li><a href="../../id/libraries/profiler.html" style="padding-left:44px">Profiler</a></li>
+<li><a href="../../id/libraries/table.html" style="padding-left:44px">Table</a></li>
+<li><a href="../../id/libraries/typography.html" style="padding-left:44px">Typography</a></li>
+<li><a href="../../id/libraries/upload.html" style="padding-left:44px">File Upload</a></li>
+<li><a href="../../id/libraries/ftp.html" style="padding-left:44px">FTP</a></li>
+<li><a href="../../id/libraries/zip.html" style="padding-left:44px">Zip</a></li>
+</ul>
+<h3>Lain-lain</h3>
+<ul>
+<li><a href="../../id/general/troubleshooting.html" style="padding-left:44px">Troubleshooting</a></li>
+<li><a href="../../id/search.html" style="padding-left:32px">Pencarian</a></li>
+</ul>
+</nav>
+<main class="content">
+<div class="breadcrumbs"><a href="../../id/index.html">Beranda</a> &raquo; <a href="../../id/index.html">id</a> &raquo; <a href="../../id/concepts/index.html">concepts</a> &raquo; CLI Console (Barisan Perintah)</div>
+<div class="toc-on-page"><strong>Daftar isi halaman ini</strong><ul><li><a href="#1-arsitektur-singkat">1. Arsitektur Singkat</a></li><li><a href="#2-menjalankan-console">2. Menjalankan Console</a></li><li><a href="#3-membuat-command-sendiri">3. Membuat Command Sendiri</a></li><li><a href="#4-konvensi-lokasi-namespace">4. Konvensi Lokasi &amp; Namespace</a></li><li><a href="#5-code-generation-make">5. Code Generation (`make:*`)</a></li><li><a href="#5b-generator-crud-makecrud">5b. Generator CRUD (`make:crud`)</a></li><li><a href="#5a-membuat-proyek-baru-new-dev-server-serve">5a. Membuat Proyek Baru (`new`) &amp; Dev Server (`serve`)</a></li><li><a href="#6-migrasi-cli-dari-ci3">6. Migrasi CLI dari CI3</a></li><li><a href="#tautan">Tautan</a></li></ul></div><h1 id="cli-console-barisan-perintah">CLI Console (Barisan Perintah)</h1>
+<p>Kodhe Framework punya komponen Console bawaan (<code>framework/src/Console/</code>,<br />
+namespace <code>Kodhe\Framework\Console\</code>) untuk menjalankan tugas development dan<br />
+maintenance dari command line: code generation, migrasi, clear cache, jobs,<br />
+dan command bisnis custom Anda sendiri.</p>
+<blockquote><p>Ini adalah <strong>console kernel modern</strong> (gaya Symfony/Laravel), berbeda dari<br />
+<code>$this-&gt;cli</code> CI3 yang terikat pada URI segment. Aplikasi CI3 lama yang<br />
+memakai <code>CI_Controller</code> untuk CLI tetap jalan via kernel kompatibel —<br />
+lihat §6 untuk cara memigrasikannya.</p></blockquote>
+<h2 id="1-arsitektur-singkat">1. Arsitektur Singkat</h2>
+<table class="table"><thead><tr><th style="">Kelas</th><th style="">Peran</th></tr></thead><tbody><tr><td style=""><code>Console</code></td><td style="">Manager aplikasi CLI — <strong>singleton</strong> (<code>Console::getInstance()</code>), registry command, eksekusi <code>run()</code></td></tr><tr><td style=""><code>Command</code></td><td style="">Base class abstrak untuk semua command; subclass wajib mengimplementasi <code>handle(): int</code></td></tr><tr><td style=""><code>Input</code></td><td style="">Parser token argv → argumen posisional/nama + opsi (<code>--foo=bar</code>, <code>-f</code>)</td></tr><tr><td style=""><code>Output</code></td><td style="">Writer berwarna: <code>writeln/info/success/warning/error/debug/table</code></td></tr><tr><td style=""><code>Commands\HelpCommand</code></td><td style=""><code>help [command]</code> — bantuan umum atau per command</td></tr><tr><td style=""><code>Commands\ListCommand</code></td><td style=""><code>list</code> — daftar semua command terdaftar</td></tr><tr><td style=""><code>Commands\VersionCommand</code></td><td style=""><code>version</code> — versi aplikasi console</td></tr><tr><td style=""><code>Commands\MakeCommand</code></td><td style=""><code>make:*</code> — generator boilerplate (lihat §5)</td></tr></tbody></table>
+<p>Empat command di atas otomatis terdaftar saat <code>Console</code> dibuat<br />
+(<code>registerDefaultCommands()</code>). Command custom ditambahkan via<br />
+<code>addCommand()</code> / <code>addCommands()</code>.</p>
+<h2 id="2-menjalankan-console">2. Menjalankan Console</h2>
+<p>Buat bootstrap sekali jalan di proyek Anda (mis. <code>bin/console</code>):</p>
+<pre><code class="language-php">#!/usr/bin/env php
+&lt;?php
+require __DIR__ . '/../vendor/autoload.php';
+
+use Kodhe\Framework\Console\Console;
+
+$console = Console::getInstance();
+$console-&gt;setName('Aplikasi Saya');
+$console-&gt;setVersion('1.0.0');
+
+// Registrasi command custom proyek (opsional)
+foreach (glob(__DIR__ . '/../app/Console/Commands/*.php') as $file) {
+    $class = 'App\\Console\\Commands\\' . basename($file, '.php');
+    if (class_exists($class)) {
+        $console-&gt;addCommand(new $class());
+    }
+}
+
+exit($console-&gt;run());   // parse argv, jalankan command, kembalikan exit code</code></pre>
+<pre><code class="language-bash">php bin/console list
+php bin/console make:model User
+php bin/console help migrate</code></pre>
+<p><code>run(?Input $input = null, ?Output $output = null)</code> memakai argv asli bila<br />
+tidak diberi argumen — sehingga juga bisa dipanggil dari kode dengan<br />
+<code>$console-&gt;runCommand('make:model', ['User'], $output)</code> untuk pengujian.</p>
+<h2 id="3-membuat-command-sendiri">3. Membuat Command Sendiri</h2>
+<p>Extend <code>Command</code>, deklarasikan properti, implementasi <code>handle()</code>:</p>
+<pre><code class="language-php">namespace App\Console\Commands;
+
+use Kodhe\Framework\Console\Command;
+
+class SyncDataCommand extends Command
+{
+    protected string $name = 'sync:data';
+    protected string $description = 'Sinkronisasi data ke sistem eksternal';
+    protected array $usage = ['sync:data [--force] [--limit=100]'];
+    protected array $arguments = ['source' =&gt; 'Nama sumber data'];
+    protected array $options = [
+        'force' =&gt; 'Paksa sinkron meski sudah berjalan hari ini',
+        'limit' =&gt; 'Batas jumlah baris per siklus',
+    ];
+    protected array $aliases = ['sd'];
+
+    public function handle(): int
+    {
+        $source = $this-&gt;argument('source');          // argumen by nama/posisi
+        $force  = $this-&gt;hasOption('force');          // flag boolean
+        $limit  = (int) $this-&gt;option('limit', 100);  // opsi + default
+
+        $this-&gt;info("Sinkron sumber: {$source}");
+        // ... bisnis logic (pakai Model / Service container seperti biasa) ...
+        $this-&gt;success('Selesai.');
+        return 0;   // 0 = sukses; bukan-0 dipakai sebagai exit code
+    }
+}</code></pre>
+<p>API helper yang tersedia di dalam <code>handle()</code> (semua dari base <code>Command</code>):</p>
+<ul>
+<li>Input: <code>argument()</code>, <code>option()</code>, <code>hasArgument()</code>, <code>hasOption()</code></li>
+<li>Output: <code>write()</code>, <code>writeln()</code>, <code>info()</code>, <code>success()</code>, <code>warning()</code>, <code>error()</code>, <code>debug()</code>, <code>table($headers, $rows)</code></li>
+<li>Interaktif: <code>ask($pertanyaan, $default)</code>, <code>confirm($q, $default)</code>, <code>choice($q, array $opsi, $default)</code></li>
+</ul>
+<p>Parse <code>Input</code> mendukung argumen posisional (<code>$this-&gt;argument(0)</code>), opsi panjang<br />
+<code>--nama=value</code> / <code>--flag</code>, dan opsi pendek gabungan <code>-abc</code>.</p>
+<h2 id="4-konvensi-lokasi-namespace">4. Konvensi Lokasi &amp; Namespace</h2>
+<table class="table"><thead><tr><th style="">Item</th><th style="">Lokasi standar</th><th style="">Namespace</th></tr></thead><tbody><tr><td style="">Command custom</td><td style=""><code>app/Console/Commands/</code></td><td style=""><code>App\Console\Commands</code></td></tr><tr><td style="">Generator scaffold</td><td style="">—</td><td style="">dibuat otomatis oleh <code>make:command</code></td></tr></tbody></table>
+<p>Sama seperti komponen lain: folder PascalCase, tanpa underscore<br />
+(lihat <a href="../../id/concepts/folder-structure-and-routing.html">struktur-folder-routing</a>).</p>
+<h2 id="5-code-generation-make">5. Code Generation (<code>make:*</code>)</h2>
+<p>Dari <code>MakeCommand</code> (alias: <code>generate</code>, <code>g</code>):</p>
+<pre><code class="language-bash">php bin/console make:command sync_data     # -&gt; app/Console/Commands      (App\Console\Commands)
+php bin/console make:controller Article    # -&gt; app/Controllers           (App\Controllers)
+php bin/console make:model Article         # -&gt; app/Models                (App\Models)
+php bin/console make:migration create_articles_table
+php bin/console make:middleware ThrottleApi
+php bin/console make:crud Article title:string body:text published:bool   # lihat §5b</code></pre>
+<p>Opsi global generator: <code>--force</code> (timpa file yang ada), <code>--path=</code> (lokasi<br />
+output custom). Detail tiap artefak hasil generate ada di<br />
+<a href="../../id/concepts/app-components.html">app-components</a>.</p>
+<h2 id="5b-generator-crud-makecrud">5b. Generator CRUD (<code>make:crud</code>)</h2>
+<p>Satu perintah menghasilkan <strong>satu set lengkap CRUD</strong> (ala framework modern,<br />
+tetap bergaya CI3/native): Model + Controller resource penuh + migration<br />
+(<code>Loader::dbforge()</code> stack modern) + 5 view CI3-style<br />
+(<code>index/create/edit/show/_form</code>) di <code>app/Views/&lt;resource&gt;/</code>.</p>
+<pre><code class="language-bash">php console make:crud Article title:string slug:string body:text published:bool
+# -&gt; app/Models/Article.php
+#    app/Controllers/ArticleController.php
+#    database/migrations/&lt;ts&gt;_create_articles_table.php
+#    app/Views/articles/{index,create,edit,show,_form}.php</code></pre>
+<p>Panduan user guide lengkap (tipe field, peta route, alur kerja, catatan<br />
+validasi/CSRF): <a href="../../id/general/crud-generator.html">generator-crud</a>.</p>
+<h2 id="5a-membuat-proyek-baru-new-dev-server-serve">5a. Membuat Proyek Baru (<code>new</code>) &amp; Dev Server (<code>serve</code>)</h2>
+<p>Selain generator kode, Console menyediakan dua perintah bootstrap proyek:</p>
+<pre><code class="language-bash">php console new my-app            # scaffold kerangka proyek Kodhe lengkap
+php console serve                 # dev server di http://localhost:8080</code></pre>
+<ul>
+<li><code>new</code> (alias <code>create-project</code>, <code>new:project</code>) membuat struktur folder standar, <code>composer.json</code> PSR-4 <code>App\</code>, config, routes (legacy + modern), <code>.env</code>, dan kode starter. Opsi: <code>--force</code> (direktori tidak kosong), <code>--min</code> (tanpa demo).</li>
+<li><code>serve</code> menjalankan PHP built-in server dengan <code>public/index.php</code> sebagai router; opsi <code>--host=</code> dan <code>--port=</code>.</li>
+</ul>
+<p>Panduan lengkap (struktur hasil generate, isi config, alur cepat):<br />
+<a href="../../id/general/new-project.html">membuat-proyek-baru</a>.</p>
+<h2 id="6-migrasi-cli-dari-ci3">6. Migrasi CLI dari CI3</h2>
+<p>CI3 biasanya membuat "controller khusus CLI" (<code>class Cli extends CI_Controller</code><br />
+dengan cek <code>is_cli()</code>). Peta konversinya:</p>
+<table class="table"><thead><tr><th style="">Pola CI3</th><th style="">Padanan Kodhe Console</th></tr></thead><tbody><tr><td style=""><code>if (!is_cli()) show_404();</code></td><td style="">tidak perlu — <code>Console::run()</code> hanya dieksekusi dari CLI</td></tr><tr><td style="">Method controller sebagai "command"</td><td style="">satu kelas <code>Command</code> per tugas, nama eksplisit (<code>sync:data</code>)</td></tr><tr><td style=""><code>$argv[2]</code> manual</td><td style=""><code>$this-&gt;argument(...)</code> / <code>$this-&gt;option(...)</code></td></tr><tr><td style=""><code>echo</code> / <code>PHP_EOL</code></td><td style=""><code>$this-&gt;writeln()/success()/error()/table()</code></td></tr><tr><td style="">Exit via <code>show_error()</code></td><td style=""><code>return 1;</code> dari <code>handle()</code></td></tr><tr><td style="">Cron memanggil <code>index.php cli/sync</code></td><td style="">cron memanggil <code>php bin/console sync:data</code></td></tr></tbody></table>
+<p>Langkah migrasi:</p>
+<ol>
+<li>Jalur lama tetap jalan: selama kernel kompatibel aktif, URL <code>cli/*</code> model CI3 dapat dieksekusi lewat <code>php index.php cli/sync</code> seperti biasa — cron tidak langsung harus diubah.</li>
+<li>Buat command baru dengan <code>make:command &lt;nama&gt;</code>, pindahkan isi method controller lama ke <code>handle()</code>; akses service/model pakai pola modern (<code>new App\Models\...</code> atau container), bukan <code>$this-&gt;load</code> superobject.</li>
+<li>Update crontab/systemd timer satu per satu ke <code>php bin/console &lt;command&gt;</code>.</li>
+<li>Setelah semua job pindah, hapus controller CLI legacy.</li>
+</ol>
+<p>Keuntungan setelah migrasi: exit code yang benar untuk monitoring, output<br />
+berwarna + tabel untuk log, perintah interaktif (<code>confirm()</code>) untuk operasi<br />
+berbahaya, dan command ter-registrasi rapi (<code>list</code>/<code>help</code> otomatis).</p>
+<h2 id="tautan">Tautan</h2>
+<ul>
+<li>Sumber teknis: <a href="../../../../framework/src/Console/index.html"><code>framework/src/Console/README.md</code></a></li>
+<li><a href="../../id/concepts/app-components.html">app-components</a> — artefak yang dihasilkan <code>make:*</code></li>
+<li><a href="../../id/concepts/migrating-from-ci3.html">migrating-from-ci3</a> — strategi migrasi menyeluruh</li>
+</ul>
+<footer class="page-footer">
+  <span>Kodhe Framework User Guide &mdash; dibuat dari <code>user_guide/*.md</code> oleh <code>scripts/build_user_guide.py</code></span>
+  <span><a href="../../id/concepts/services-modules-routing.html">&larr; Service, Modul, Routing Modern &amp; Facade</a> &nbsp;|&nbsp; <a href="../../id/concepts/security.html">Keamanan (Security) &rarr;</a></span>
+</footer>
+</main>
+</div>
+<script src="../../searchindex.js"></script>
+</body>
+</html>

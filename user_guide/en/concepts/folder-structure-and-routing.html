@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Folder Structure &amp; Router (Differences from CI3) &mdash; Kodhe Framework User Guide</title>
+<style>
+:root {
+  --primary: #e36c18;
+  --dark: #232525;
+  --sidebar-bg: #f7f7f7;
+  --border: #e1e4e5;
+  --text: #404040;
+  --link: #236fb0;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 0; color: var(--text);
+  font: 15px/1.6 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #fff;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+header#top {
+  background: var(--dark); color: #fff; padding: 12px 24px;
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+header#top .brand { font-size: 20px; font-weight: bold; color: #fff; }
+header#top .brand span { color: var(--primary); }
+header#top form { margin-left: auto; }
+header#top input[type=search] {
+  padding: 6px 10px; border-radius: 4px; border: 1px solid #555;
+  background: #333; color: #eee; width: 220px;
+}
+.layout { display: flex; min-height: calc(100vh - 120px); }
+nav.sidebar {
+  width: 300px; flex: 0 0 300px; background: var(--sidebar-bg);
+  border-right: 1px solid var(--border); padding: 18px 0 40px; overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: 13px; text-transform: uppercase; letter-spacing: .05em;
+  color: #888; margin: 18px 20px 6px;
+}
+nav.sidebar ul { list-style: none; margin: 0; padding: 0; }
+nav.sidebar li a {
+  display: block; padding: 4px 20px; color: #555; font-size: 14px;
+  border-left: 3px solid transparent;
+}
+nav.sidebar li a:hover { background: #ececec; text-decoration: none; }
+nav.sidebar li.active > a {
+  color: var(--primary); border-left-color: var(--primary);
+  background: #efefef; font-weight: 600;
+}
+main.content { flex: 1; padding: 28px 44px 60px; max-width: 950px; }
+main.content h1 { font-size: 32px; margin-top: 0; color: var(--dark); border-bottom: 2px solid var(--primary); padding-bottom: 8px; }
+main.content h2 { font-size: 24px; margin-top: 34px; color: var(--dark); }
+main.content h3 { font-size: 19px; margin-top: 26px; }
+main.content pre {
+  background: #f5f5f5; border: 1px solid var(--border); border-radius: 4px;
+  padding: 12px 14px; overflow-x: auto; font-size: 13px; line-height: 1.45;
+}
+main.content code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  background: #f5f5f5; padding: 1px 5px; border-radius: 3px; font-size: 90%;
+}
+main.content pre code { background: none; padding: 0; font-size: inherit; }
+main.content blockquote {
+  margin: 16px 0; padding: 10px 18px; background: #fdf3ea;
+  border-left: 4px solid var(--primary); color: #665; border-radius: 0 4px 4px 0;
+}
+main.content blockquote p { margin: 4px 0; }
+main.content table.table {
+  border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px;
+}
+main.content table th, main.content table td {
+  border: 1px solid var(--border); padding: 7px 11px; vertical-align: top;
+}
+main.content table thead th { background: #f2f2f2; }
+main.content table tr:nth-child(even) td { background: #fafafa; }
+main.content hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.toc-on-page { background: #fbfbfb; border: 1px solid var(--border); border-radius: 4px; padding: 10px 18px; margin: 0 0 22px; font-size: 14px; }
+.toc-on-page strong { color: var(--dark); }
+footer.page-footer {
+  border-top: 1px solid var(--border); margin-top: 40px; padding-top: 14px;
+  font-size: 13px; color: #888; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+.breadcrumbs { font-size: 13px; color: #777; margin-bottom: 14px; }
+.breadcrumbs a { color: #999; }
+@media (max-width: 900px) {
+  .layout { flex-direction: column; }
+  nav.sidebar { width: 100%; flex: none; border-right: none; border-bottom: 1px solid var(--border); }
+  main.content { padding: 20px; }
+}
+</style>
+</head>
+<body>
+<header id="top">
+  <a class="brand" href="../../en/index.html">Kodhe<span>&nbsp;User Guide</span></a>
+  <span style="font-size:12px;color:#aaa;">v1.0</span>
+  <span style="margin-left:14px;font-size:13px;"><span style="font-size:12px;color:#888;">Language:</span> <a style="color:#ccc;" href="../../id/concepts/folder-structure-and-routing.html">ID</a> &middot; <a style="color:#e36c18;font-weight:bold;" href="../../en/concepts/folder-structure-and-routing.html">EN</a></span>
+  <form action="../../search.html" method="get">
+    <input type="search" name="q" placeholder="Search the documentation..." aria-label="cari" />
+  </form>
+</header>
+<div class="layout">
+<nav class="sidebar">
+<h3>Getting Started</h3>
+<ul>
+<li><a href="../../en/index.html" style="padding-left:32px">Home / Table of Contents</a></li>
+<li><a href="../../en/concepts/installation.html" style="padding-left:44px">Installation</a></li>
+<li><a href="../../en/general/new-project.html" style="padding-left:44px">New Project</a></li>
+<li><a href="../../en/general/running.html" style="padding-left:44px">Running Your Application</a></li>
+<li><a href="../../en/general/crud-generator.html" style="padding-left:44px">CRUD Generator</a></li>
+</ul>
+<h3>Core Concepts</h3>
+<ul>
+<li><a href="../../en/concepts/architecture.html" style="padding-left:44px">Architecture</a></li>
+<li><a href="../../en/concepts/app-components.html" style="padding-left:44px">Application Components</a></li>
+<li class="active"><a href="../../en/concepts/folder-structure-and-routing.html" style="padding-left:44px">Folder Structure &amp; Routing</a></li>
+<li><a href="../../en/concepts/services-modules-routing.html" style="padding-left:44px">Services, Modules &amp; Routing</a></li>
+<li><a href="../../en/concepts/cli-console.html" style="padding-left:44px">CLI Console</a></li>
+<li><a href="../../en/concepts/security.html" style="padding-left:44px">Security</a></li>
+<li><a href="../../en/concepts/namespaces-migration.html" style="padding-left:44px">Namespace Migration</a></li>
+<li><a href="../../en/concepts/migrating-from-ci3.html" style="padding-left:44px">Migrating from CodeIgniter 3</a></li>
+</ul>
+<h3>Library Reference</h3>
+<ul>
+<li><a href="../../en/libraries/index.html" style="padding-left:44px">Library Index</a></li>
+<li><a href="../../en/libraries/loader-kernel.html" style="padding-left:44px">Loader (Kernel)</a></li>
+<li><a href="../../en/libraries/http.html" style="padding-left:44px">HTTP</a></li>
+<li><a href="../../en/libraries/view.html" style="padding-left:44px">View</a></li>
+<li><a href="../../en/libraries/database.html" style="padding-left:44px">Database</a></li>
+<li><a href="../../en/libraries/migration.html" style="padding-left:44px">Migration</a></li>
+<li><a href="../../en/libraries/session.html" style="padding-left:44px">Session</a></li>
+<li><a href="../../en/libraries/auth.html" style="padding-left:44px">Auth</a></li>
+<li><a href="../../en/libraries/socialite.html" style="padding-left:44px">Socialite</a></li>
+<li><a href="../../en/libraries/validation.html" style="padding-left:44px">Form Validation</a></li>
+<li><a href="../../en/libraries/pagination.html" style="padding-left:44px">Pagination</a></li>
+<li><a href="../../en/libraries/email.html" style="padding-left:44px">Email</a></li>
+<li><a href="../../en/libraries/encrypt.html" style="padding-left:44px">Encrypt / Encryption</a></li>
+<li><a href="../../en/libraries/cache.html" style="padding-left:44px">Cache</a></li>
+<li><a href="../../en/libraries/driver.html" style="padding-left:44px">Driver System</a></li>
+<li><a href="../../en/libraries/rpc-trackback.html" style="padding-left:44px">XML-RPC &amp; Trackback</a></li>
+<li><a href="../../en/libraries/testing.html" style="padding-left:44px">Testing</a></li>
+</ul>
+<h3>Utilities</h3>
+<ul>
+<li><a href="../../en/libraries/utilities.html" style="padding-left:44px">Utilities Overview</a></li>
+<li><a href="../../en/libraries/agent.html" style="padding-left:44px">Agent</a></li>
+<li><a href="../../en/libraries/calendar.html" style="padding-left:44px">Calendar</a></li>
+<li><a href="../../en/libraries/cart.html" style="padding-left:44px">Cart</a></li>
+<li><a href="../../en/libraries/image.html" style="padding-left:44px">Image Manipulation</a></li>
+<li><a href="../../en/libraries/javascript.html" style="padding-left:44px">Javascript</a></li>
+<li><a href="../../en/libraries/parser.html" style="padding-left:44px">Parser</a></li>
+<li><a href="../../en/libraries/profiler.html" style="padding-left:44px">Profiler</a></li>
+<li><a href="../../en/libraries/table.html" style="padding-left:44px">Table</a></li>
+<li><a href="../../en/libraries/typography.html" style="padding-left:44px">Typography</a></li>
+<li><a href="../../en/libraries/upload.html" style="padding-left:44px">File Upload</a></li>
+<li><a href="../../en/libraries/ftp.html" style="padding-left:44px">FTP</a></li>
+<li><a href="../../en/libraries/zip.html" style="padding-left:44px">Zip</a></li>
+</ul>
+<h3>Miscellaneous</h3>
+<ul>
+<li><a href="../../en/general/troubleshooting.html" style="padding-left:44px">Troubleshooting</a></li>
+<li><a href="../../en/search.html" style="padding-left:32px">Search</a></li>
+</ul>
+</nav>
+<main class="content">
+<div class="breadcrumbs"><a href="../../en/index.html">Home</a> &raquo; <a href="../../en/index.html">en</a> &raquo; <a href="../../en/concepts/index.html">concepts</a> &raquo; Folder Structure &amp; Router (Differences from CI3)</div>
+<div class="toc-on-page"><strong>Contents of this page</strong><ul><li><a href="#1-folder-structure-comparison">1. Folder structure comparison</a></li><li><a href="#2-the-flexible-autoloader-softens-part-of-the-problem">2. The flexible autoloader softens part of the problem</a></li><li><a href="#3-the-kodhe-router-two-engines-in-one-class">3. The Kodhe router: two engines in one class</a></li><li><a href="#4-coexistence-strategy-during-migration">4. Coexistence strategy during migration</a></li><li><a href="#5-risk-summary-known-issues">5. Risk summary (known issues)</a></li></ul></div><h1 id="folder-structure-router-differences-from-ci3">Folder Structure &amp; Router (Differences from CI3)</h1>
+<blockquote><p>⚠️ <strong>Migration issue to be aware of.</strong> Kodhe Framework has its own folder naming<br />
+conventions and routing system that <strong>differ from CodeIgniter 3</strong>. This page honestly<br />
+maps out the differences together with a coexistence/adapter strategy. For the<br />
+application move procedure, see <a href="../../en/concepts/migrating-from-ci3.html">Migrating from CodeIgniter 3</a>.</p></blockquote>
+<h2 id="1-folder-structure-comparison">1. Folder structure comparison</h2>
+<table class="table"><thead><tr><th style="">Area</th><th style="">CodeIgniter 3</th><th style="">Kodhe (modern convention)</th></tr></thead><tbody><tr><td style="">Application root</td><td style=""><code>application/</code> (APPPATH)</td><td style=""><code>app/</code> — <code>MakeCommand</code> generates controllers into <code>app/Controllers</code>, models into <code>app/Models</code>, commands into <code>app/Console/Commands</code> (<code>framework/src/Console/Commands/MakeCommand.php</code>)</td></tr><tr><td style="">Folder letter case</td><td style="">all <strong>lowercase</strong>: <code>controllers/</code>, <code>models/</code>, <code>core/</code></td><td style=""><strong>PascalCase with a leading capital</strong>: <code>Controllers/</code>, <code>Models/</code>, <code>Console/</code></td></tr><tr><td style="">Underscores in names</td><td style="">many: <code>libraries/form_validation.php</code>, <code>core/Security.php</code> etc.</td><td style=""><strong>no <code>_</code></strong> — PSR-4 classes &amp; directories are PascalCase (<code>FormValidation</code>, <code>ImageLib</code>). Underscore-style names are only used inside the legacy kernel (<code>framework/src/Support/Legacy/...</code>)</td></tr><tr><td style="">Routing</td><td style="">one file: <code>application/config/routes.php</code> (the <code>$route</code> array)</td><td style="">two paths: CI3-style <code>routes.php</code> (legacy) <strong>plus</strong> modern routes <code>APPPATH.'routes/web.php'</code>, <code>routes/api.php</code>, <code>routes/console.php</code>, and per-module <code>routes/web.php</code> / <code>routes/api.php</code></td></tr><tr><td style="">Views</td><td style=""><code>application/views/</code></td><td style=""><code>Kodhe\Framework\View\Parser</code> reads whatever path you give it — no mandatory folder; the modern convention puts them under <code>app/Views</code></td></tr><tr><td style="">Controller namespace</td><td style="">global (<code>class Welcome extends CI_Controller</code>)</td><td style=""><code>App\Controllers\...</code> (PSR-4, needs a manual autoload mapping in composer.json because the kernel does not register the <code>App\</code> prefix automatically)</td></tr></tbody></table>
+<p>Important consequence: **on a case-sensitive filesystem (Linux), <code>controllers/</code> ≠<br />
+<code>Controllers/</code>**. Old CI3 applications are still read by the kernel as-is (the loader and<br />
+<code>LegacyRouter</code> use <code>APPPATH.'controllers/'</code> with <code>ucfirst($class)</code>), but new<br />
+code/modules should follow the PascalCase convention so they match the modern router and<br />
+the flexible <code>Autoloader</code>.</p>
+<h2 id="2-the-flexible-autoloader-softens-part-of-the-problem">2. The flexible autoloader softens part of the problem</h2>
+<p><code>Kodhe\Framework\Support\Autoloader</code> (kernel) is deliberately tolerant of the CI3 style.<br />
+For every registered namespace prefix it tries the following patterns<br />
+(<code>tryLoadClass()</code>):</p>
+<ol>
+<li>The original PSR-4 path (PascalCase folder);</li>
+<li>All parts lowercase (CI3 style);</li>
+<li>Lowercase folders only;</li>
+<li>The CI3 underscore style (<code>Product_Reviews</code> → <code>product_reviews.php</code>);</li>
+<li>Controller variants with a <code>Controller</code> suffix (<code>HomeController</code> → <code>Home.php</code>);</li>
+<li>A <strong>case-insensitive</strong> search as a last resort (per-segment scandir).</li>
+</ol>
+<p>So <code>App\Controllers\ProductController</code> can still load even if the old product folder is<br />
+named <code>controllers/product.php</code>. The limitation: this tolerance belongs to the kernel<br />
+autoloader — if you run purely per-package without <code>kodhe/framework</code>, Composer's strict<br />
+PSR-4 applies, so <strong>folder &amp; class names must exactly</strong> match the namespace.</p>
+<h2 id="3-the-kodhe-router-two-engines-in-one-class">3. The Kodhe router: two engines in one class</h2>
+<p><code>Kodhe\Framework\Http\Routing\Router</code> (<code>http/src/Routing/Router.php</code>) extends<br />
+<code>LegacyRouter</code> (a pure CI3 engine) and adds a modern layer. Its configuration:</p>
+<pre><code class="language-php">'enable_modern_routing' =&gt; true,   // Route::get()/post() etc. (RouteCollection)
+'enable_legacy_routing' =&gt; true,   // CI3-style $route array from config/routes.php
+'prefer_modern'         =&gt; true,   // modern is matched first, falls back to legacy
+'cache_routes'          =&gt; ENVIRONMENT === 'production',
+'auto_detect_namespace' =&gt; true,   // URI containing '\\' → direct controller FQCN
+'controller_suffix'     =&gt; '',
+'default_404_controller'=&gt; 'FileNotFound',</code></pre>
+<p>Request resolution flow:</p>
+<ol>
+<li><strong>Modern routes</strong> (<code>matchRequest()</code>): the URI is matched against the <code>RouteCollection</code> loaded from <code>routes/web.php|api.php|console.php</code> in APPPATH and in every module folder (<code>Modules::folders()</code>). Route caching is active in production — do not forget <code>clearCache()</code> after changing route files.</li>
+<li><strong>Explicit namespace in the URI</strong>: segments containing <code>\</code> are resolved through <code>parseNamespaceSegments()</code> — action separators <code>::</code>, <code>@</code>, or <code>/</code>; e.g. <code>App\Controllers\Home@index</code>.</li>
+<li><strong>Legacy fallback</strong> (<code>locate()</code> → <code>LegacyRouter</code>): <code>$route['uri']</code> from <code>config/routes.php</code>, then controller auto-detection with the <code>ucfirst()</code> rules:<ul>
+<li>module-aware: <code>/{module}/{controller}/{method}</code> via <code>Modules::locations</code>;</li>
+<li><code>controllers/{Segment}.php</code>, subfolders, folder-same-name patterns, down to lowercase filename attempts;</li>
+<li>the default controller is searched under the names <code>Home</code>, <code>Index</code>, <code>Main</code>, <code>Welcome</code> (<code>DEFAULT_CONTROLLER_NAMES</code>) — <strong>different from CI3</strong>, which only knows a single <code>default_controller</code> from config;</li>
+<li><code>translate_uri_dashes</code> replaces <code>-</code>→<code>_</code> in the first 3 segments.</li>
+</ul></li>
+</ol>
+<p>The behavioural differences that surprise CI3 migrants most often:</p>
+<table class="table"><thead><tr><th style="">Aspect</th><th style="">CI3</th><th style="">Kodhe Router</th></tr></thead><tbody><tr><td style="">Route sources</td><td style="">only <code>config/routes.php</code></td><td style=""><code>config/routes.php</code> + <code>routes/*.php</code> (modern) + per-module routes; modern wins first</td></tr><tr><td style="">Target syntax</td><td style="">string <code>'class/method'</code></td><td style="">closure, <code>'Class@method'</code>, <code>[Class::class, 'method']</code>, or an FQCN with namespace</td></tr><tr><td style="">Default controller</td><td style="">1 name from config</td><td style="">candidate list <code>Home/Index/Main/Welcome</code></td></tr><tr><td style="">Modules</td><td style="">none</td><td style="">first URI segment = module name (<code>Modules</code>)</td></tr><tr><td style="">Caching</td><td style="">none</td><td style="">route collection cache in production</td></tr></tbody></table>
+<h2 id="4-coexistence-strategy-during-migration">4. Coexistence strategy during migration</h2>
+<ol>
+<li><strong>Do not rename the old CI3 folders</strong> — the kernel still points at <code>APPPATH.'controllers/'</code>. Let the old structure live on as-is.</li>
+<li><strong>New structures follow the Kodhe convention</strong>: create <code>app/Controllers</code>, <code>app/Models</code> (PascalCase, no <code>_</code>), and register their own autoload: ```json { "autoload": { "psr-4": { "App\\": "app/" } } } ``` then run <code>composer dump-autoload -o</code>.</li>
+<li><strong>Bridge old URLs → new classes through modern routes</strong>, not renames: ```php // app/routes/web.php (APPPATH.'routes/web.php') use Kodhe\Framework\Http\Routing\Route; use App\Controllers\Product; Route::get('product', [Product::class, 'index']); Route::get('product/(:num)', [Product::class, 'show']); ``` With <code>prefer_modern = true</code>, these routes win over legacy auto-detection, so old CI3 URLs stay alive while the code moves to <code>App\Controllers</code>.</li>
+<li><strong>Method/class names without underscores</strong>: write <code>ProductReviews</code>, not <code>Product_reviews</code>. The kernel's auto-tolerance covers this shortcoming in compat mode, but not in pure package mode (strict PSR-4).</li>
+<li><strong>Be aware of name collisions</strong>: because <code>LegacyRouter</code> applies <code>ucfirst()</code> to URI segments, <code>GET /product</code> looks for <code>Product.php</code>; if the old file is named lowercase <code>product.php</code>, Linux case-sensitivity can make the lookup fail — the solution is an explicit modern route (point 3) or renaming the file to match the class.</li>
+</ol>
+<h2 id="5-risk-summary-known-issues">5. Risk summary (known issues)</h2>
+<ul>
+<li>Capitalisation inconsistency between <code>controllers/</code> (legacy runtime) and <code>Controllers/</code> (the <code>make:controller</code> scaffold &amp; modern MakeCommand) — two different locations can end up in one application; decide which one is authoritative per project.</li>
+<li>The <code>App\</code> namespace prefix is <strong>not registered automatically</strong> by the kernel; without a psr-4 entry in composer.json, controllers produced by <code>make:controller</code> will not be autoloaded in pure package mode.</li>
+<li>The production route cache makes changes to <code>routes/*.php</code> invisible until the cache is cleared (<code>Router::clearCache()</code>); the cache file is a pure JSON document located at <code>{cache_path}/routes.cache.json</code> (default <code>STORAGEPATH.'cache/'</code>, see <code>RouteCollection::__construct()</code>). The old legacy <code>routes.cache.php</code> file is read once and then migrated automatically.</li>
+<li><code>isValidMethod()</code> on the Router currently always returns <code>true</code> — validation that the method exists happens later (at execution time), so a mistyped method only surfaces as an error at a later stage than in CI3.</li>
+</ul>
+<p>Related reading: <a href="../../en/concepts/architecture.html">architecture</a> ·<br />
+<a href="../../en/concepts/namespaces-migration.html">namespace map</a> ·<br />
+<a href="../../en/concepts/migrating-from-ci3.html">migrating from CI3</a> ·<br />
+<a href="../../en/general/troubleshooting.html">troubleshooting</a></p>
+<footer class="page-footer">
+  <span>Kodhe Framework User Guide &mdash; built from <code>user_guide/*.md</code> by <code>scripts/build_user_guide.py</code></span>
+  <span><a href="../../en/concepts/app-components.html">&larr; Kodhe Standard Application Components (Controllers, Models, Libraries, Views/Templates)</a> &nbsp;|&nbsp; <a href="../../en/concepts/services-modules-routing.html">Services, Modules, Modern Routing &amp; Facades &rarr;</a></span>
+</footer>
+</main>
+</div>
+<script src="../../searchindex.js"></script>
+</body>
+</html>
