@@ -1,7 +1,7 @@
 <?php namespace App\Middlewares;
 
 use Kodhe\Framework\Middleware\Middleware;
-use Kodhe\Framework\Auth\Facade as Auth;
+use Kodhe\Framework\Auth\Support\Facade as Auth;
 
 class VerifiedMiddleware extends Middleware
 {

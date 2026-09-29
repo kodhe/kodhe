@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use Kodhe\Framework\Auth\Facade as Auth;
+use Kodhe\Framework\Auth\Support\Facade as Auth;
 
 /**
  * Example authentication controller for the kodhe/auth package.

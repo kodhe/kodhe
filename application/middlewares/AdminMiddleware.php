@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Middlewares;
 
 use Kodhe\Framework\Middleware\Middleware;
-use Kodhe\Framework\Auth\Facade as Auth;
+use Kodhe\Framework\Auth\Support\Facade as Auth;
 
 /**
  * Gate for administrative areas.
