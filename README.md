@@ -22,8 +22,12 @@ application/
     │       ├── web.php             ← halaman HTML (Route::module('blog', …))
     │       ├── api.php             ← endpoint JSON (Route::apiVersion('v1', …))
     │       └── console.php         ← perintah CLI pemanggil service modul
-    └── shop/                       ← modul minimal (hanya setup.php kosong-ish)
 ```
+
+> Catatan: panduan modul (`user_guide/*/libraries/module.md`) juga mencontohkan
+> modul kedua `shop/` untuk menunjukkan isolasi prefix service. Di template ini
+> hanya `blog/` yang disertakan; buat sendiri dengan menyalin pola `blog/`
+> (lihat bagian "Menambah modul baru" di bawah).
 
 Dokumentasi lengkap: [`user_guide/id/libraries/module.md`](../user_guide/id/libraries/module.md)
 (EN: `user_guide/en/libraries/module.md`).
@@ -70,3 +74,12 @@ Salin pola `modules/blog/`: buat folder per fitur, isi `controllers/`,
 `views/`, dan `routes/web.php|api.php|console.php`. Tambahkan `setup.php`
 + `Services/` hanya bila modul butuh lapisan service. Modul tanpa
 `setup.php` tetap boot normal.
+
+## Catatan konvensi penamaan folder
+
+Panduan memakai ejaan lowercase (`modules/blog/routes/…`) sedangkan template
+ini mengikuti konvensi folder aplikasi CI yang sudah ada di proyek ini —
+PascalCase (`application/Routes/`, `application/Modules/Blog/Routes/`). Loader
+modul harus memakai satu ejaan secara konsisten; saat memindahkan modul ke
+proyek lain, samakan dengan implementasi `Kodhe\Framework\Support\Modules`
+yang dipakai (case-sensitive pada filesystem Linux).
