@@ -7,9 +7,9 @@
     "php": ">=8.1",
     "ext-mbstring": "*",
     "eftec/bladeone": "^4.19",
-    "kodhe/framework": "^1.0 || ^2.0 || dev-main",
-    "kodhe/database": "^1.0 || ^2.0 || dev-main",
-    "kodhe/auth": "^1.0 || ^2.0 || dev-main"
+    "kodhe/framework": "^1.0",
+    "kodhe/database": "^1.0",
+    "kodhe/auth": "^1.0"
   },
   "repositories": [
     {
